@@ -1,0 +1,10 @@
+// Registra un nuovo utente
+POST http://localhost:5000/api/singup
+content-type: application/json
+
+{
+    "email": "admin@admin.com",
+    "firstName": "Ciao",
+    "lastName": "Ciccio",
+    "password": "password" 
+}
