@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 import Cookies from 'universal-cookie';
 import PersonIcon from '@material-ui/icons/Person';
 import axios from "axios"
+import Drawer from '@material-ui/core/Drawer';
+import UserCard from "./drawer/UserCard"
+import createHistory from 'history/createBrowserHistory';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,17 +33,28 @@ const useStyles = makeStyles(theme => ({
       alignItems:"center",
       justifyContent:"center"
     },
+    list: {
+      width: 250,
+    },
+    fullList: {
+      width: 'auto',
+    },
 
   }));
 
+
+  
 function Navbar() {
     const classes = useStyles();
+
+    const [drawer, setDrawer] = useState();
 
     const [loggedIn, setLogIn] = useState(false);
     const [username, setUsername] = useState("Profilo")
 
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken')
+    console.log(token)
     useEffect(()=>{
       if(token !== undefined){
         setLogIn(true)
@@ -57,12 +71,24 @@ function Navbar() {
       }
     });
 
+    //Your initialization
+
+  // Create history object.
+    const history = createHistory();
+
+    // Listen to history changes.
+    // You can unlisten by calling the constant (`unlisten()`).
+    const unlisten = history.listen((location, action) => {
+      setDrawer(false);
+    });
+
 
 
   return (
     <AppBar position="static" className={classes.navbar}>
         <Toolbar>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu"
+          onClick={()=> setDrawer(true)}>
             <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
@@ -73,7 +99,7 @@ function Navbar() {
 
 
         {loggedIn?
-        <Link to="/user" className={classes.link}>
+        <Link to="/home" className={classes.link}>
           <div className={classes.row}>
             <PersonIcon color="#fff" />
             <div style={{marginLeft: 5}}>{username}</div>
@@ -83,6 +109,16 @@ function Navbar() {
 
 
         </Toolbar>
+
+        <Drawer 
+          open={drawer} 
+          onClose={() => setDrawer(false)}
+          keepMounted={true}
+          >
+          <div style={{margin:20}}>
+            <UserCard />
+          </div>
+        </Drawer>
     </AppBar>
   );
 }

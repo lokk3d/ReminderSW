@@ -165,7 +165,8 @@ function ClientMeetings(props) {
                     
                         <AddMeeting
                             currentClient={{id:id ,fiscalCode:fiscalCode }}
-                            onChange={(e) => setNewMeeting({...newMeeting,e})}
+                            onChange={(e) => setNewMeeting({...newMeeting,e})
+                        }
                         />
 
                 </DialogContent>

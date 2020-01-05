@@ -10,6 +10,11 @@ let checkToken = (req, res, next) => {
   }
 
   if (token) {
+    if(token === process.env.ADMIN_AUTH){
+      req.decoded = "admin"
+      next();
+    }
+    
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
       if (err) {
         return res.status(403).json({

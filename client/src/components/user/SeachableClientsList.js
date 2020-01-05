@@ -92,7 +92,10 @@ function ClientList(props){
     },[startText, clientList])
 
     const details = (id) =>{
-        console.log("Chiamata la modifica di: " + id)
+        //console.log("Chiamata la modifica di: " + id)
+        if(typeof props.onSelectedClient !== "undefined"){
+            props.onSelectedClient(id)
+        }
         window.location ="/client/" + id
     }
 
@@ -117,22 +120,26 @@ function ClientList(props){
     }
 
     return (
-        <WrapperBox header="Lista clienti" minWidth={props.minWidth}>
-             <TextField
-                style={{width:"80%",display:"block", marginLeft:"auto", marginRight:"auto", marginTop:20 }}
-                label="Cerca cliente"
-                value={startText}
-                onChange={e => setStartText(e.target.value)}
-                InputProps={{
-                startAdornment: (
-                    <InputAdornment position="start">
-                    <SearchIcon />
-                    </InputAdornment>
-                ),
-                }}
-            />
-
-
+        <div style={{
+            boxShadow: "2px 2px 5px #d4d4d4"
+        }}>
+            
+            <h3 style={{paddingLeft:20, paddingTop: 10}}>I miei clienti</h3>
+            <div style={{marginTop:20, width:"90%", display:"block", marginLeft:"auto", marginRight:"auto"}}>
+                <TextField
+                    fullWidth={true}
+                    label="Cerca cliente"
+                    value={startText}
+                    onChange={e => setStartText(e.target.value)}
+                    InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                        <SearchIcon />
+                        </InputAdornment>
+                    ),
+                    }}
+                />
+            </div>
             <List>
                 { 
                 (clientList.length !== 0)?
@@ -157,7 +164,6 @@ function ClientList(props){
 
             <Button variant="contained" color="primary" style={{width:'100%', marginTop:20}}
             onClick={()=>setOpen(true)}>Aggiungi cliente</Button>
-
 
             <Dialog
                 open={open}
@@ -184,7 +190,6 @@ function ClientList(props){
                 </DialogActions>
             </Dialog>
 
-
             <Snackbar
                 anchorOrigin={{
                 vertical: 'bottom',
@@ -209,8 +214,7 @@ function ClientList(props){
                 ]}
             />
 
-
-        </WrapperBox>
+        </div>
     )
 }
 

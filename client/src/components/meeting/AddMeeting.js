@@ -13,6 +13,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 
 const useStyles = makeStyles(theme => ({
@@ -33,76 +37,115 @@ const useStyles = makeStyles(theme => ({
 function AddMeeting(props) {
     const classes = useStyles();
 
-    const [selectedDate, setSelectedDate] = useState(new Date())
-   /*
-    Se alla addMeeting viene passato il parametro currentClient {fiscalCode, _id}
-    la select contiene solo il nome del cliente
-    altrimenti viene passato il prop clientList con fiscalCode e _id dei clienti
+    /*
+     Se alla addMeeting viene passato il parametro currentClient {fiscalCode, _id}
+     la select contiene solo il nome del cliente
+     altrimenti viene passato il prop clientList con fiscalCode e _id dei clienti
+ 
+     */
 
-    */
-
-    //const [clientId, setClientId] = useState("")
-    const [meeting, setMeeting] = useState({clientId:"", date: new Date(), description:"", reminder:{}})
+    //const [client, setclient] = useState("")
+    const [meeting, setMeeting] = useState({ client: "", meetingDate: new Date(), description: "", reminder:[] })
     const [menuItems, setMenuItems] = useState()
 
     const [render, setRender] = useState(0)
+    const [reminders, setReminders] = useState([0, 1, 2])
+    const [remindersList, setRemindersList] = useState();
 
-    useEffect(()=>{
-        if (props.currentClient !== undefined) {
+    useEffect(() => {
+        if (typeof props.currentClient !== "undefined") {
             console.log("Client found: ")
             console.log(props.currentClient);
-            setMenuItems(()=> {
-                return(
+            setMenuItems(() => {
+                return (
                     <MenuItem value={props.currentClient.id}>
                         {props.currentClient.fiscalCode}
                     </MenuItem>
                 )
-            })    
+            })
         }
-        if(props.clientList !== undefined){
+        if (typeof props.clientList !== "undefined") {
 
-            let items = props.clientList.map((item) =>{
+            let items = props.clientList.map((item) => {
                 return (
                     <MenuItem value={item.id}>
                         {item.fiscalCode}
                     </MenuItem>
                 )
             })
-            setMenuItems(items)    
+            setMenuItems(items)
         }
-    },[render])
-    
-    useEffect(()=>{
+    }, [render])
+
+    useEffect(() => {
         if (props.currentClient !== undefined) {
-            setMeeting({...meeting, clientId:props.currentClient.id})
+            setMeeting({ ...meeting, client: props.currentClient.id })
         }
-    },[menuItems])
+    }, [menuItems])
+
     
-    useEffect(()=> {
-        if(props.onChange !== undefined){
-            props.onChange(meeting)
+    useEffect(() => {
+        if (props.onChange !== undefined) {
+            //props.onChange(meeting)
         }
-    },[meeting])
- 
+        console.log(meeting)
+    }, [meeting])
+
+    useEffect(() => {
+        console.log(reminders)
+        setRemindersList(
+            reminders.map((item) => {
+                console.log(item)
+                return (
+                    <ListItem>
+                        {
+                            //indice puramente di debug, da rimuovere in seguito
+                        }
+                        <p>{item}</p>
+
+                        <Reminder key={item}
+                            onChange={(e) => updateReminder(item, e)}
+                            onRemove={() => removeReminder(item)}
+                        />
+                    </ListItem>
+                )
+            })
+        )
+    }, [reminders])
+
+    const updateReminder = (item,value) => {
+        let newArr = meeting.reminder
+        newArr[item] = value;
+        setMeeting({...meeting, reminder: [newArr]})
+    }
+
+    const removeReminder = (value) => {
+        console.log("Chiamata la removeReminder di " + value)
+        var index = reminders.indexOf(value);
+        console.log(index)
+        if (index > -1) {
+            setReminders(reminders.filter(item => item !== value));
+        }
+    }
 
     return (
         <div>
             <div className={classes.row} style={{ margin: 10 }}>
-                    <InputLabel>Cliente: </InputLabel>
-                    <Select
-                        style={{ minWidth: 150, marginLeft:10 }}
-                        value={meeting.clientId}
-                        onChange={(e) => setMeeting({...meeting, clientId:e.target.value})}
-                    >
+                <InputLabel>Cliente: </InputLabel>
+                <Select
+                    style={{ minWidth: 150, marginLeft: 10 }}
+                    value={meeting.client}
+                    onChange={(e) => setMeeting({ ...meeting, client: e.target.value })}
+                >
                     {menuItems}
-                    </Select>
+                </Select>
             </div>
             <div className={classes.row} style={{ margin: 10 }}>
                 <div>Incontro effettuato il:</div>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker value={meeting.date}
+                    <DatePicker value={meeting.meetingDate}
                         style={{ marginLeft: 20 }}
-                        onChange={(e) => setMeeting({...meeting, clientId:e})}
+                        onChange={(e) => setMeeting({ ...meeting, meetingDate: e })}
                     />
                 </MuiPickersUtilsProvider>
             </div>
@@ -112,10 +155,16 @@ function AddMeeting(props) {
                 <textarea style={{ width: '100%' }}
                     rows="3"
                     value={meeting.description}
-                    onChange={(e) => setMeeting({...meeting, description:e.target.value})} />
+                    onChange={(e) => setMeeting({ ...meeting, description: e.target.value })} />
             </div>
 
-            <Reminder onChange={(e) => setMeeting({...meeting, reminder:e})}/>
+            <List>
+                {remindersList}
+            </List>
+
+            <Button onClick={()=>{
+                setReminders([...reminders, reminders.length])
+            }}>Aggiungi reminder</Button>
         </div>
     )
 

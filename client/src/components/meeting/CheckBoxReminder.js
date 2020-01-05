@@ -38,6 +38,10 @@ function CheckBoxReminder(props){
         sms: false
     })
 
+    if(typeof props.status !== "undefined"){
+        setContact(props.status)
+    }
+
     const handleContacts = name => event => {
         setContact({ ...contact, [name]: event.target.checked });
     };
@@ -93,6 +97,7 @@ function CheckBoxReminder(props){
                         onChange={handleContacts('facebook')}
                         color="primary"
                         value={true}
+                        disabled={true}
                     />
                 }
                 />
@@ -109,6 +114,7 @@ function CheckBoxReminder(props){
                         onChange={handleContacts('instagram')}
                         color="primary"
                         value={true}
+                        disabled={true}
                     />
                 }
                 />
@@ -125,6 +131,7 @@ function CheckBoxReminder(props){
                         onChange={handleContacts('sms')}
                         color="primary"
                         value={true}
+                        disabled={true}
                     />
                 }
                 />

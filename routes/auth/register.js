@@ -25,13 +25,13 @@ router.route("/").post([
 
     var salt = bcrypt.genSaltSync(10);
     var password = bcrypt.hashSync(noHashedPassword, salt);
-    let templates = []
     const sessions = {
-        email:{username:"*", password:"*"}
+        email:{},
+        whatsapp:{}
     }
 
    
-    const newUser = new User({email, password, firstName, lastName, templates, sessions});
+    const newUser = new User({email, password, firstName, lastName, sessions});
 
     newUser.save()
         .then(()=> {

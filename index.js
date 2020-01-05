@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 let middleware = require('./routes/auth/middleware');
 const path = require("path");
 
+const cronSender = require("./cron/sender");
+
 require("dotenv").config(); 
 
 const app = express();
@@ -30,6 +32,7 @@ connection.once("open", ()=>{
     console.log("Connessione al DB effettuata...");
 })
 
+//cronSender.cron();
 
 //******************** ROUTERS *************************
 const registerRouter = require("./routes/auth/register");
@@ -47,6 +50,22 @@ app.use("/api/client", middleware.checkToken, clientRouter);
 const meetingRouter = require("./routes/meeting");
 app.use("/api/meeting", middleware.checkToken, meetingRouter);
 
+
+//SESSIONI
+const sessionRouter = require("./routes/sessions");
+app.use("/api/user/session", middleware.checkToken, sessionRouter);
+
+
+//******************** SENDERS *************************
+
+const emailSenderRouter = require("./routes/sender/email");
+app.use("/api/sender/email", emailSenderRouter);
+
+const fbSenderRouter = require("./routes/sender/facebook");
+app.use("/api/sender/facebook", fbSenderRouter);
+
+const whatsappSenderRouter = require("./routes/sender/whatsapp");
+app.use("/api/sender/whatsapp", whatsappSenderRouter);
 
 
 

@@ -1,0 +1,56 @@
+import React, {useState, useEffect} from "react";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+import Cookies from 'universal-cookie';
+import axios from "axios"
+
+const useStyles = makeStyles(theme => ({
+    row:{
+        display:'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column'
+    }
+
+  }));
+
+function UserCard(props){
+    const classes = useStyles();
+
+    const cookies = new Cookies();
+    const token = cookies.get('dateReminder-AuthToken');
+
+    const [username, setUsername] = useState("");
+    const [render, setRender] = useState(0);
+
+    useEffect(()=> {
+        axios.get("/api/user/getName",
+        { headers: { authorization: "Bearer " + token } })
+        .then((response) => {
+            setUsername(response.data.firstName + " " + response.data.lastName)
+        })
+        .catch((err) => {
+
+        })
+    }, [render])
+
+
+    return(
+        <div className={classes.row}
+        style={{padding:10}}>
+            <AccountCircleIcon fontSize={"large"}/>
+            <h3>
+                {username}
+            </h3>
+                <Button color={"primary"}
+                onClick={()=>{
+                    window.location = "/user"
+                }}
+                >Edit profile</Button>
+        </div>
+    )
+}
+
+export default UserCard

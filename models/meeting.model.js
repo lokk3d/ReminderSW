@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+/**/
+
+
 const meetingSchema = new Schema({
     professional:{
         type:String,
@@ -20,23 +23,21 @@ const meetingSchema = new Schema({
     meetingDate:{
         type: Date
     },
-    reminder:{
-        type:Boolean,
-        required:true
-    },
-    reminderText:{
-        type: String
-    },
-    reminderDate:{
-        type: Date
-    },
-    sendTo:{
-        whatsapp: Boolean,
-        email: Boolean,
-        facebook: Boolean,
-        instagram: Boolean,
-        sms: Boolean
-    }
+    reminder:[
+        {
+            date: Date,
+            executed: Boolean,
+            text: String,
+            sendTo:{
+                whatsapp: Boolean,
+                email: Boolean,
+                facebook: Boolean,
+                instagram: Boolean,
+                sms: Boolean
+            }
+        }
+    ]
+    
     //Add here more info in the schema
 }, {
     timestamps: true,

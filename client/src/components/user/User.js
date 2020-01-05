@@ -68,11 +68,10 @@ function User(props) {
             <Grid container spacing={1}>
                 <Grid item sm={4}>
                     <PersonalData minWidth={400}/>
-                    <SessionBox minWidth={400} />
                 </Grid>
 
                 <Grid item  sm={4} >
-                    <SearchableClientList minWidth={400} />
+                    <SessionBox minWidth={400} />
                 </Grid>
 
                 <Grid item  sm={4}>

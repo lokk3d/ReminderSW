@@ -1,0 +1,45 @@
+GET http://localhost:5000/api/user/session/getEmailSession
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4MTczNjA5fQ.f7l1_-QPsww8v0cvtdXPGnbgW7_9aafOAeHZPpuDBeQ
+
+###
+POST http://localhost:5000/api/user/session/setEmailSession
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4MTczNjA5fQ.f7l1_-QPsww8v0cvtdXPGnbgW7_9aafOAeHZPpuDBeQ
+
+{
+    "username": "alfonso.lokk3d@gmail.com",
+    "password": "hack0019lokk3d"
+}
+
+###
+POST http://localhost:5000/api/user/session/removeEmailSession
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4MTczNjA5fQ.f7l1_-QPsww8v0cvtdXPGnbgW7_9aafOAeHZPpuDBeQ
+
+{
+}
+###
+
+// *********************** SESSIONI WHATSAPP ******************
+GET http://localhost:5000/api/user/session/getWhatsappSession
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4MTczNjA5fQ.f7l1_-QPsww8v0cvtdXPGnbgW7_9aafOAeHZPpuDBeQ
+
+###
+POST http://localhost:5000/api/user/session/setWhatsappSession
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4MTczNjA5fQ.f7l1_-QPsww8v0cvtdXPGnbgW7_9aafOAeHZPpuDBeQ
+
+{
+    "sessionId": "L1578166320972t"
+}
+
+###
+POST http://localhost:5000/api/user/session/removeWhatsappSession
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4MTczNjA5fQ.f7l1_-QPsww8v0cvtdXPGnbgW7_9aafOAeHZPpuDBeQ
+
+{
+}
+

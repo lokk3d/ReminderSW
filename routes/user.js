@@ -65,22 +65,7 @@ router.route("/getEmailSession").get((req, res) => {
       .catch(err => res.status(401).json("Error" + err));
 });
 
-router.route("/setEmailSession").post((req, res) => {
-   const username = req.decoded.user;
-   User.findOne({ email: username })
-      .then(user => {
-         user.sessions.email.username = req.body.username;
-         user.sessions.email.password = req.body.password;
 
-         user.save()
-         console.log("Set...")
-         res.status(200).json("Email setted...")
-      })
-      .catch(err =>{
-         console.log(err)
-         res.status(401).json("Error" + err)
-      });
-});
 
 
 

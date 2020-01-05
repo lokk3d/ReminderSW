@@ -11,6 +11,7 @@ import PageNotFound from "./components/PageNotFound"
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import ClientHome from './components/client/ClientHome';
+import UserHome from './components/user/UserHome';
 
 const theme = createMuiTheme({
   palette: {
@@ -28,7 +29,8 @@ const theme = createMuiTheme({
 
 function App() {
 
-  
+  //TODO: Cambiare url con i link in maniera corretta
+  //TODO: Eseguire i ridirect di /user in /home (ove necessario obv)
   
   return (
     <div >
@@ -42,6 +44,7 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/singup" component={Register} />
             <Route path="/client/:id" component={ClientHome} />
+            <Route path="/home" component={UserHome} />
 
             <Route path="/" component={PageNotFound} />
           </Switch>

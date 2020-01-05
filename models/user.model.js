@@ -44,6 +44,12 @@ const userSchema = new Schema({
                 type:String, 
                 trim: true
             }
+        },
+        whatsapp: {
+            sessionId: {
+                type: String,
+                trim: true
+            }
         }
     }
 
