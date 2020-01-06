@@ -2,6 +2,9 @@ const router = require("express").Router();
 let User = require("../../models/user.model");
 var bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
+var fs = require('fs');
+const mongoose = require("mongoose")
+var path = require('path');
 
 
 router.route("/").post([
@@ -35,8 +38,12 @@ router.route("/").post([
 
     newUser.save()
         .then(()=> {
+            var jsonPath = path.join(__dirname,"..","..", 'files', 'logs', email+".log");
+            fs.appendFile(jsonPath, 'Log di sistema per ' + firstName + " " + lastName, function (err) {
+                if (err) throw err;
+                console.log('Saved!');
+              });
             res.status(200).json("New user added added")
-            console.log("New user added...")    
         })
         .catch(err=> {
             if(err.code == 11000){

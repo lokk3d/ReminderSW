@@ -8,8 +8,8 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4MTczNjA5fQ.f7l1_-QPsww8v0cvtdXPGnbgW7_9aafOAeHZPpuDBeQ
 
 {
-    "username": "alfonso.lokk3d@gmail.com",
-    "password": "hack0019lokk3d"
+    "username": "",
+    "password": ""
 }
 
 ###
@@ -32,7 +32,7 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4MTczNjA5fQ.f7l1_-QPsww8v0cvtdXPGnbgW7_9aafOAeHZPpuDBeQ
 
 {
-    "sessionId": "L1578166320972t"
+    "sessionId": ""
 }
 
 ###

@@ -2,10 +2,10 @@ POST http://localhost:5000/api/sender/email/send
 content-type: application/json
 
 {
-    "email": "alfonso.lokk3d@gmail.com",
-    "password": "hack0019lokk3d",
-    "toEmail": "alfonsohack0019@gmail.com",
-    "subject": "Reminder da Alfonso Graziano",
+    "email": "",
+    "password": "",
+    "toEmail": "",
+    "subject": "Reminder da",
     "text": "Ziata prena!"
 }
 
@@ -19,9 +19,9 @@ POST http://localhost:5000/api/sender/facebook/send
 content-type: application/json
 
 {
-    "email": "fonzo99@libero.it",
-    "password": "hack0019",
-    "contactId": 100004825772203,
+    "email": "",
+    "password": "",
+    "contactId": 123,
     "msg": "Holaaa (messaggio di prova)"
 }
 
@@ -32,7 +32,7 @@ POST http://localhost:5000/api/sender/whatsapp/send
 content-type: application/json
 
 {
-    "instance": "L1578166320972t",
-    "chatId": "393395980199",
+    "instance": "",
+    "chatId": "",
     "msg": "Ciaoooo"
 }

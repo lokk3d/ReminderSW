@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let User = require("../models/user.model");
+var fs = require('fs');
 
 require("dotenv").config();
 

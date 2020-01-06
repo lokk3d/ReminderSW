@@ -15,7 +15,7 @@ const cronSender = () => {
     # * * * * * *
     */
 
-    const fiveSecs = '* */5 * * * *';
+    const fiveSecs = '* 5 * * * *';
 
     cron.schedule(fiveSecs, () => {
         //console.log('Eseguo il cron...');
