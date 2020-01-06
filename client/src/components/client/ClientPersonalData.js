@@ -23,11 +23,17 @@ const useStyles = makeStyles(theme => ({
         alignItems: "center",
         justifyContent :"center",
         flexDirection: "column"
-      }
+      },
+    marginText: {
+        marginRight:10
+    },
+    buttonDiv:{
+        marginTop:20
+    }
   }));
 
 
-function ClientHome(props){
+function ClientPersonalData(props){
     const classes = useStyles();
 
     const id = props.id
@@ -57,10 +63,11 @@ function ClientHome(props){
         {id:id,firstName: info.firstName, lastName: info.lastName, fiscalCode: info.fiscalCode},
         { headers: { authorization: "Bearer " + token } })
         .then((response) => {
+            alert("Utente aggiornato");
             setRender(prev => prev+1)
         })
         .catch((err) => {
-
+            alert("Utente non aggiornato");
         })
     }
 
@@ -94,7 +101,7 @@ function ClientHome(props){
             <div><b>Anagrafica</b></div>
 
             <div className={classes.row}>
-                <div style={{marginRight:10}}>Nome:</div>
+                <div className={classes.marginText}>Nome:</div>
                 <CustomEditText
                 type="text"
                 value={info.firstName}
@@ -104,7 +111,7 @@ function ClientHome(props){
             </div>
 
             <div className={classes.row}>
-                <div style={{marginRight:10}}>Cognome:</div>
+                <div className={classes.marginText}>Cognome:</div>
                 <CustomEditText
                 type="text"
                 value={info.lastName}
@@ -113,14 +120,14 @@ function ClientHome(props){
             </div>
 
             <div className={classes.row}>
-                <div style={{marginRight:10}}>CF:</div>
+                <div className={classes.marginText}>CF:</div>
                 <CustomEditText
                 type="text"
                 value={info.fiscalCode}
                 onSave={e =>  {setInfo({...info, fiscalCode:e})}}
                 />
             </div>
-            <div style={{marginTop:20}}>
+            <div className={classes.buttonDiv}>
                 <Button onClick={save} variant="contained" color="primary" style={{marginRight:20}}>Salva</Button>
                 <Button onClick={deleteClient} variant="outlined" color="secondary">Elimina Cliente</Button>
             </div>
@@ -153,4 +160,4 @@ function ClientHome(props){
     )
 }
 
-export default ClientHome
+export default ClientPersonalData

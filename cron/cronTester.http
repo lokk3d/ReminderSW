@@ -1,0 +1,6 @@
+###
+GET http://localhost:5000/api/cron/
+content-type: application/json
+
+{
+}

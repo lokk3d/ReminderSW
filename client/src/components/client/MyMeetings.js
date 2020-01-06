@@ -9,6 +9,7 @@ import CustomAddMeeting from "../meeting/CustomAddMeeting";
 import axios from "axios";
 import Cookies from 'universal-cookie';
 import ShowMeeting from "../meeting/ShowMeeting";
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 function MyMeetings(props) {
 
@@ -16,7 +17,7 @@ function MyMeetings(props) {
     const [clientData, setClientData] = useState();
     const [newMeeting, setNewMeeting] = useState()
 
-    const [meetings, setMeetings] = useState()
+    const [meetings, setMeetings] = useState([])
     const [meetingList, setMeetingList] = useState()
 
     const cookies = new Cookies();
@@ -55,7 +56,9 @@ function MyMeetings(props) {
 
 
     useEffect(()=>{
+        
         if(typeof meetings !== "undefined"){
+
             setMeetingList(meetings.map(item=>{
                 console.log(item)
                 return (
@@ -90,9 +93,18 @@ function MyMeetings(props) {
         <div style={{
             boxShadow: "2px 2px 5px #d4d4d4"
         }}>
-            <List>
-                {meetingList}
-            </List>
+            {
+                (meetings.length === 0) ?
+                <div style={{display: "flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
+                    <AddCircleOutlineIcon style={{margin:10}}/>
+                    <p>Aggiungi il tuo primo meeting</p>
+                </div>
+                :
+                <List>
+                    {meetingList}
+                </List>
+            }
+            
             <Button
                 variant="contained"
                 color="primary"

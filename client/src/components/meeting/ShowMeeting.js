@@ -98,13 +98,18 @@ function ShowMeeting(props) {
     useEffect(()=>{
         setReminderList(reminders.map(item=>{
             const contacts = item.contacts
+
+            let myitem = "false"
+            if(typeof item.executed !== "undefined"){
+                myitem = item.executed.toString() 
+            }
             return(
                 <div>
                     <ListItem style={{margin:0, padding:0}}>
                         <div className={classes.col}>
                             <div >{"Invia il: " + formatDate(item.date) + " alle " + formatTime(item.date)}</div>
-                            <div>{item.text}</div>
-                            <div>{"Executed:"}<b>{item.executed}</b></div>
+                            <div style={{padding:10}}>{item.text}</div>
+                            <div>{"Inviato:"}<b>{myitem}</b></div>
                             <div style={{paddingTop:10}}>
                                 { contacts.whatsapp? <WhatsAppIcon /> : <div/> }
                                 { contacts.email? <EmailIcon /> : <div/> }

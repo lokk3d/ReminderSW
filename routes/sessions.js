@@ -21,7 +21,8 @@ router.route("/getEmailSession").get((req, res) => {
                     res.status(200).json(
                         {
                             defined: true,
-                            username: user.sessions.email.username
+                            username: user.sessions.email.username,
+                            password: user.sessions.email.password
                         })
                 }
             }

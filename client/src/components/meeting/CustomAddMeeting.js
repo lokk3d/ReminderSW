@@ -148,6 +148,7 @@ function CustomAddMeeting(props) {
         }
     }, [menuItems])
 
+    //TODO: Fixa l'animazione di rimozione! (non ricaricare la pagina)
 
     return (
         <div>

@@ -32,7 +32,7 @@ connection.once("open", ()=>{
     console.log("Connessione al DB effettuata...");
 })
 
-//cronSender.cron();
+cronSender.cron();
 
 //******************** ROUTERS *************************
 const registerRouter = require("./routes/auth/register");
@@ -40,6 +40,9 @@ app.use("/api/singup", registerRouter);
 
 const loginRouter = require("./routes/auth/login");
 app.use("/api/login", loginRouter);
+
+const adminRouter = require("./routes/auth/admin");
+app.use("/api/admin",middleware.checkToken, adminRouter);
 
 const userRouter = require("./routes/user");
 app.use("/api/user", middleware.checkToken, userRouter);
@@ -49,6 +52,9 @@ app.use("/api/client", middleware.checkToken, clientRouter);
 
 const meetingRouter = require("./routes/meeting");
 app.use("/api/meeting", middleware.checkToken, meetingRouter);
+
+const cronRouter = require("./cron/mycron");
+app.use("/api/cron", cronRouter);
 
 
 //SESSIONI

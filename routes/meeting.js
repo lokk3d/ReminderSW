@@ -87,15 +87,13 @@ router.route("/add").post((req, res) => {
 
 
 router.route("/getTodayReminders").get((req, res) => {
-   const username = req.decoded.user;
    const today = moment().startOf('day')
 
    const filter = {
       'reminder.date': {
          $gte: today.toDate(),
          $lte: moment(today).endOf('day').toDate()
-      },
-      'reminder.executed': false
+      }
    }
 
    Meeting.find(filter)
@@ -129,6 +127,25 @@ router.route("/delete").post((req, res) => {
             console.log(err);
             res.status(401).json("Error" + err)
          });
+      })
+      .catch(err => {
+         res.status(400).json(err)
+      })
+
+});
+
+
+
+router.route("/update").post((req, res) => {
+   const username = req.decoded.user;
+   const myMeeting = req.body.meeting;
+   const meetingId = myMeeting._id;
+   
+   Meeting.findOne({_id: meetingId})
+      .then(meeting => {
+        meeting.reminder = myMeeting.reminder;
+        meeting.save();
+        res.status(200).json("Meeting aggiornato....")
       })
       .catch(err => {
          res.status(400).json(err)
