@@ -48,8 +48,7 @@ function ClientContacts(props) {
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken')
 
-    const [contacts, setContacts] = useState(
-        { facebook: "*", whatsapp: "*", instagram: "*", sms: "*", email: "*" });
+    const [contacts, setContacts] = useState({});
         
     const [render, setRender] = useState(0);
 
@@ -59,7 +58,7 @@ function ClientContacts(props) {
             { id, id },
             { headers: { authorization: "Bearer " + token } })
             .then((res) => {
-                console.log(res.data)
+                //console.log(res.data)
                 setContacts(res.data)     
 
             })
@@ -101,7 +100,7 @@ function ClientContacts(props) {
                     <FacebookIcon style={{ marginRight: 10 }} />
                     <CustomEditText
                         type="text"
-                        value={contacts.facebook}
+                        value={contacts.facebook || ""}
                         onSave={e => setContacts({ ...contacts, facebook: e })}
                     />
                 </div>
@@ -110,7 +109,7 @@ function ClientContacts(props) {
                     <InstagramIcon style={{ marginRight: 10 }} />
                     <CustomEditText
                         type="text"
-                        value={contacts.instagram}
+                        value={contacts.instagram  || ""}
                         onSave={e => setContacts({ ...contacts, instagram: e })}
                     />
                 </div>
@@ -119,7 +118,7 @@ function ClientContacts(props) {
                     <WhatsAppIcon style={{ marginRight: 10 }} />
                     <CustomEditText
                         type="text"
-                        value={contacts.whatsapp}
+                        value={contacts.whatsapp  || ""}
                         onSave={e => setContacts({ ...contacts, whatsapp: e })}
                     />
                 </div>
@@ -128,7 +127,7 @@ function ClientContacts(props) {
                     <SmsIcon style={{ marginRight: 10 }} />
                     <CustomEditText
                         type="text"
-                        value={contacts.sms}
+                        value={contacts.sms  || ""}
                         onSave={e => setContacts({ ...contacts, sms: e })}
                     />
                 </div>
@@ -137,7 +136,7 @@ function ClientContacts(props) {
                     <EmailIcon style={{ marginRight: 10 }} />
                     <CustomEditText
                         type="text"
-                        value={contacts.email}
+                        value={contacts.email  || ""}
                         onSave={e => setContacts({ ...contacts, email: e })}
                     />
                 </div>

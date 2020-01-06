@@ -110,7 +110,7 @@ function ClientList(props){
             .then((response) => {
                 setNotifText("Cliente aggiunto")
                 setNotif(true)
-                window.location ="/user"
+                window.location ="/home"
             })
             .catch((err) => {
                 setNotifText("Errore nell'aggiunta del cliente...")

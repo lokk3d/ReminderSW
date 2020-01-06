@@ -40,6 +40,7 @@ function Reminder(props){
 
     useEffect(()=>{
         if(props.onChange !== undefined ){
+            console.log("Reminder updated...");
             props.onChange(reminder)
         }
         
@@ -56,7 +57,7 @@ function Reminder(props){
     <Paper style={{ padding: 10, marginTop: 20 }}>
        <div>
             <div className={classes.row}>
-                <div>Invia il reminder il:</div>
+                <div>Invia reminder il:</div>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <DateTimePicker 
                 value={reminder.date} onChange={
@@ -75,12 +76,14 @@ function Reminder(props){
             <div style={{marginBottom:5}}>Testo da inviare:</div>
             <textarea style={{ width: '100%' }}
                 rows="3" 
-                value={reminder.description}
-                onChange={(e) => setReminder({...reminder, description:e.target.value})}/>
+                value={reminder.text}
+                onChange={(e) => setReminder({...reminder, text:e.target.value})}/>
 
         
             <CheckboxReminder 
-            onChange={(e) => setReminder({...reminder, contacts:e})}/>
+            onChange={(e) => {
+                setReminder({...reminder, contacts:e})
+                }}/>
         </div>
     </Paper>
     )

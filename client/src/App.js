@@ -46,7 +46,7 @@ function App() {
             <Route path="/client/:id" component={ClientHome} />
             <Route path="/home" component={UserHome} />
 
-            <Route path="/" component={PageNotFound} />
+            <Route component={PageNotFound} />
           </Switch>
 
           <Footer />

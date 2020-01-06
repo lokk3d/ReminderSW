@@ -47,7 +47,6 @@ function CheckBoxReminder(props){
     };
 
     useEffect(()=> {
-        console.log("Contacts triggered");
         props.onChange(contact)
     }, [contact])
 

@@ -60,12 +60,10 @@ router.route("/add").post((req, res) => {
    const meetingDate = req.body.meetingDate;
    const description = req.body.description
    const reminder = req.body.reminder
+   console.log(reminder)
 
    const newMeeting = new Meeting(
-      {
-         _id, professional, client, meetingDate, description,
-         reminder
-      });
+      { _id, professional, client, meetingDate, description, reminder });
 
    newMeeting.save()
       .then(() => {
@@ -103,6 +101,34 @@ router.route("/getTodayReminders").get((req, res) => {
    Meeting.find(filter)
       .then(meetings => {
          res.status(200).json(meetings)
+      })
+      .catch(err => {
+         res.status(400).json(err)
+      })
+
+});
+
+//TODO: aggiungere il check dell'id
+router.route("/delete").post((req, res) => {
+   const username = req.decoded.user;
+   
+   console.log(req.body.id);
+   console.log(req.body.client);
+
+   Meeting.findOneAndDelete({_id: req.body.id})
+      .then(meetings => {
+         Client.findOne({ _id: req.body.client })
+         .then(client => {
+            var index = client.meetings.indexOf(req.body.id);
+            if (index !== -1) client.meetings.splice(index, 1);
+
+            client.save()
+            res.status(200).json("Meeting deleted")
+         })
+         .catch(err => {
+            console.log(err);
+            res.status(401).json("Error" + err)
+         });
       })
       .catch(err => {
          res.status(400).json(err)

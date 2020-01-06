@@ -19,7 +19,8 @@ function UserHome(props){
         </Grid>
 
         <Grid item  sm={4} >
-           
+        <div style={{margin:20, width:"100%"}}>
+            </div>
         </Grid>
 
         <Grid item  sm={4}>

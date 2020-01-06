@@ -12,6 +12,7 @@ import AddMeeting from "../meeting/AddMeeting"
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
+import CustomAddMeeting from "../meeting/CustomAddMeeting";
 
 const useStyles = makeStyles(theme => ({
     row: {
@@ -106,32 +107,7 @@ function ClientMeetings(props) {
         console.log(e)
         setDialogOpen(false)
 
-        const reminder = e.e.reminder
-
-        const reqData = {
-            professional: id,
-            client: e.e.clientId,
-            meetingDate: e.e.date,
-            description: e.e.description,
-            reminder: reminder.state,
-            reminderText: reminder.description,
-            reminderDate: reminder.date,
-            sendTo: reminder.contacts
-        }
-
-        if(typeof reqData.sendTo === {}){
-            reqData.sendTo = {
-                whatsapp: false,
-                instagram: false,
-                facebook: false,
-                sms: false,
-                email: false
-            }
-        }
-
-        //Testa un po'
-        console.log(reqData)
-
+        /*
         axios.post('/api/meeting/add',reqData,
         { headers: { authorization: "Bearer " + token } })
           .then((res) => {
@@ -141,6 +117,7 @@ function ClientMeetings(props) {
           .catch((err) => {
             console.log(err)
           })
+          */
     }
 
     return (
@@ -154,6 +131,8 @@ function ClientMeetings(props) {
                 color="primary"
                 style={{ width: "100%" }}
             >Salva</Button>
+
+            <CustomAddMeeting />
 
 
             <Dialog

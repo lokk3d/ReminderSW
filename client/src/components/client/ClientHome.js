@@ -6,8 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import ClientReminders from "./ClientReminders";
-
-
+import MyMeetings from "./MyMeetings";
+import WrapperBox from "../WrapperBox"
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
@@ -24,16 +24,17 @@ function ClientHome(props) {
 
     return (
         <Grid container spacing={3}>
-            
+        
             <Grid item xs={12} sm={4}>
                 <ClientPersonalData id={id} />
                 <ClientContacts id={id} />
             </Grid>
             <Grid item xs={12} sm={4}>
-                <ClientMeetings id={id}/>
+                <WrapperBox header="Meetings" minWidth={400}>
+                    <MyMeetings id={id}/>
+                </WrapperBox>
             </Grid>
             <Grid item xs={12} sm={4}>
-                <ClientReminders id={id}/>
             </Grid>
           
            

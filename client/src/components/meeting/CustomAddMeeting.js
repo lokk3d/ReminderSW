@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Reminder from "./Reminder"
 import axios from "axios";
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     DatePicker,
@@ -10,10 +9,9 @@ import {
 } from '@material-ui/pickers';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import Cookies from 'universal-cookie';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -34,26 +32,44 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function AddMeeting(props) {
+function CustomAddMeeting(props) {
     const classes = useStyles();
 
-    const [meeting, setMeeting] = useState({ client: "", meetingDate: new Date(), description: "", reminder:[] })
-    const [menuItems, setMenuItems] = useState()
+    const cookies = new Cookies();
+    const token = cookies.get('dateReminder-AuthToken')
 
-    const [render, setRender] = useState(0)
+    const [meeting, setMeeting] = useState({ client: "", meetingDate: new Date(), reminder: [] })
+    const [remindersValue, setRemindersValue] = useState([])
+
     const [reminders, setReminders] = useState([0])
     const [remindersList, setRemindersList] = useState();
 
+    const [menuItems, setMenuItems] = useState()
+
+    const [render, setRender] = useState(0)
+
+
+    const saveMeeting = (obj) => {
+        axios.post('/api/meeting/add',
+        {obj},
+        { headers: { authorization: "Bearer " + token } })
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+    }
 
     useEffect(() => {
 
-        if(typeof props.meeting !== "undefined"){
+        if (typeof props.meeting !== "undefined") {
             setMeeting(props.meeting)
         }
 
         if (typeof props.currentClient !== "undefined") {
-            console.log("Client found: ")
-            console.log(props.currentClient);
+            //console.log("Client found: ")
+            //console.log(props.currentClient);
             setMenuItems(() => {
                 return (
                     <MenuItem value={props.currentClient.id}>
@@ -75,29 +91,25 @@ function AddMeeting(props) {
         }
     }, [render])
 
-    useEffect(() => {
-        if (props.currentClient !== undefined) {
-            setMeeting({ ...meeting, client: props.currentClient.id })
-        }
-    }, [menuItems])
 
-    
     useEffect(() => {
         if (props.onChange !== undefined) {
-            //props.onChange(meeting)
+            console.log("Total reminder event triggered...")
+            let obj = meeting;
+            obj.reminder = remindersValue 
+            console.log(obj)
+            props.onChange(obj)
         }
-        console.log(meeting)
-    }, [meeting])
+    }, [meeting,remindersValue])
+
 
     useEffect(() => {
-        console.log(reminders)
         setRemindersList(
             reminders.map((item) => {
-                console.log(item)
                 return (
-                    <ListItem key={item}>
-                    
-                        <Reminder 
+                    <ListItem key={item} style={{paddingTop:0}}>
+
+                        <Reminder
                             onChange={(e) => updateReminder(item, e)}
                             onRemove={() => removeReminder(item)}
                         />
@@ -107,10 +119,17 @@ function AddMeeting(props) {
         )
     }, [reminders])
 
-    const updateReminder = (item,value) => {
-        let newArr = meeting.reminder
+    const updateReminder = (item, value) => {
+        console.log("AddMeeting reminder triggered")
+        let newArr = [...remindersValue]
+        console.log("AddMeeting reminder triggered #1")
+
         newArr[item] = value;
-        setMeeting({...meeting, reminder: [newArr]})
+        console.log("AddMeeting reminder triggered #2")
+        console.log(newArr)
+        setRemindersValue(newArr)
+        console.log("AddMeeting reminder triggered #3")
+
     }
 
     const removeReminder = (value) => {
@@ -121,6 +140,14 @@ function AddMeeting(props) {
             setReminders(reminders.filter(item => item !== value));
         }
     }
+
+
+    useEffect(() => {
+        if (props.currentClient !== undefined) {
+            setMeeting({ ...meeting, client: props.currentClient.id })
+        }
+    }, [menuItems])
+
 
     return (
         <div>
@@ -144,11 +171,11 @@ function AddMeeting(props) {
                 </MuiPickersUtilsProvider>
             </div>
 
-            <div className={classes.row} style={{ margin: 10 }}>
+            <div className={classes.row} style={{ margin: 10, marginBottom:0 }}>
                 <div>Descrizione incontro:</div>
                 <textarea style={{ width: '100%' }}
                     rows="3"
-                    value={meeting.description}
+                    value={meeting.description || ""}
                     onChange={(e) => setMeeting({ ...meeting, description: e.target.value })} />
             </div>
 
@@ -156,12 +183,15 @@ function AddMeeting(props) {
                 {remindersList}
             </List>
 
-            <Button onClick={()=>{
+            <Button
+            style={{width:"100%"}}
+            onClick={() => {
                 setReminders([...reminders, reminders.length])
             }}>Aggiungi reminder</Button>
+
         </div>
     )
 
 }
 
-export default AddMeeting
+export default CustomAddMeeting

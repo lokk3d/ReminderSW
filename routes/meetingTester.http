@@ -67,3 +67,12 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4MTY5NzA4fQ.pI2sJM--5FN640kucOKK6yzHXweQidB42jxTkTbuBFY
 
 
+###
+GET  http://localhost:5000/api/meeting/
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4MTY5NzA4fQ.pI2sJM--5FN640kucOKK6yzHXweQidB42jxTkTbuBFY
+
+###
+GET  http://localhost:5000/api/user/
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4MTY5NzA4fQ.pI2sJM--5FN640kucOKK6yzHXweQidB42jxTkTbuBFY

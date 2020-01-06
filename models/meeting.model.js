@@ -28,7 +28,7 @@ const meetingSchema = new Schema({
             date: Date,
             executed: Boolean,
             text: String,
-            sendTo:{
+            contacts:{
                 whatsapp: Boolean,
                 email: Boolean,
                 facebook: Boolean,
