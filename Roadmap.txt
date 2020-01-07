@@ -1,0 +1,27 @@
+Roadmap di sviluppo...
+
+Leggenda => S:Sicurezza/ O:Ottimizzazione / F:Funzionalità / L:Logica di business
+
+Software:
+    S - Aggiungere la validazione su tutte le api 
+    O - Refactoring del cron
+    F - Messa in funzione del CRON e scelta delle tempistiche 
+    F - Attivare le sessioni [Facebook, Whatsapp, Instagram]
+    O - Formattazione e controllo sul numero di contatto per whatsapp
+    L - Creare una home accattivante
+    L - Distinguere la navbar quando si è loggati e quando no
+    L - Se (da loggato) clicco sul titolo dell'app non mi deve riportare sulla home normale
+    L - Popolare la home da utente loggato... con cosa? 
+    L - Aggiungere più funzionalità sul profilo
+    L - Aggiungere dei template personalizzabili per il testo dei reminder
+    L - Aggiungere segnaposto per i messaggi
+    F - -> Es: ${nome} formatta direttamente la stringa usando il nome del cliente  
+
+Marketing:
+    Interview: realizzare interviste a potenziali utilizzatori
+    Lean Canvas: creare una lean canvas e una startup canvas
+    Etc....
+
+
+Software attuale: V0.0.1 MVP (beta)
+Copyright Alfonso Graziano 2019 - www.alfonsograziano.it

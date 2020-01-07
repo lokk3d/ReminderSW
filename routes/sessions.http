@@ -24,8 +24,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AY
 // *********************** SESSIONI WHATSAPP ******************
 GET http://localhost:5000/api/user/session/getWhatsappSession
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4MTczNjA5fQ.f7l1_-QPsww8v0cvtdXPGnbgW7_9aafOAeHZPpuDBeQ
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlckB1c2VyLmNvbSIsImlhdCI6MTU3ODQyNjA3MH0.LTr9BKcIYYNPVcpQBg1umAf6iWByNwvSiP5OvI4edVY
 ###
 POST http://localhost:5000/api/user/session/setWhatsappSession
 content-type: application/json

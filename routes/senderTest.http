@@ -32,7 +32,7 @@ POST http://localhost:5000/api/sender/whatsapp/send
 content-type: application/json
 
 {
-    "instance": "",
-    "chatId": "",
+    "instance": "L1578426354836B",
+    "chatId": "+393395980199",
     "msg": "Ciaoooo"
 }

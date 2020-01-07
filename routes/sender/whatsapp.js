@@ -20,23 +20,25 @@ router.route("/send").post([
     let query = 'https://api.mercury.chat/sdk/whatsapp/sendMessage?api_token='+
     process.env.WHATSAPP_TOKEN +'&instance='+ req.body.instance 
 
-    try{
-        const response = Axios.post(query,
-            {
-                "chatId": req.body.chatId+"@c.us",
-                "body": req.body.msg
-            });
-          
-          res.status(200).json({status: true, message:"Messagge sent..."});
+    console.log("Request query: "+query)
+    console.log("Message: "+ req.body.msg)
 
-    }catch(error){
-        res.status(400).json({status: false, message:"Error!", error:error});
+    Axios.post(query,
+        {
+            "chatId": req.body.chatId+"@c.us",
+            "body": req.body.msg
+        })
 
-    }
-   
-   
-    
+        .then(respose=>{
+            console.log(respose.data)
+            res.status(200).json({status: true, message:"Messagge sent..."});
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(400).json({status: false, message:"Error!"});
 
+        })
+        
 });
 
 

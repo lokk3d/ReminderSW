@@ -5,7 +5,7 @@ let jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 
 require("dotenv").config();
-const MINUTES_THRESHOLD = 10
+const MINUTES_THRESHOLD = 1000
 
 router.route("/").get([
 
@@ -64,6 +64,9 @@ const getMinutesDifference = (date1, date2) => {
 }
 
 const execReminder = (reminder, meeting) => {
+    //TODO: fai un refactoring generale
+    //TODO: rimuovi il codice duplicato
+    //TODO: scrivi un'unica api per prendere tutte le sessioni
     const contacts = reminder.contacts
 
     generateUserToken(meeting.professional, (token) => {
@@ -95,7 +98,24 @@ const execReminder = (reminder, meeting) => {
 
 
             if (contacts.whatsapp === true) {
-                //send whatsapp
+                sendWhatsapp(token, reminder, meeting,(res) => {
+                    if(res == true){
+                        let index = meeting.reminder.indexOf(reminder);
+                            console.log(index)
+                            meeting.reminder[index].executed =  true
+                            console.log(meeting)
+
+                            axios.post('http://localhost:5000/api/meeting/update',
+                            {meeting: meeting},
+                            { headers: { authorization: "Bearer " + token } })
+                              .then((res) => {
+                                console.log(res.data)
+                              })
+                              .catch((err) => {
+                                console.log(err)
+                              })
+                    }
+                })
             }
 
         }
@@ -177,6 +197,59 @@ async function sendEmail(token, reminder, meeting, callback) {
         })
         .catch((err) => {
             logError("Errore, sessione email non definita o impossibile da recuperare");
+
+        })
+}
+
+
+async function sendWhatsapp(token, reminder, meeting, callback){
+    axios.get('http://localhost:5000/api/user/session/getWhatsappSession',
+        { headers: { authorization: "Bearer " + token } })
+        .then((session) => {
+            if (session.data.defined) {
+                console.log("Whatsapp found: " + session.data.sessionId)
+
+                const client = meeting.client
+                axios.post('http://localhost:5000/api/client/contacts',
+                    { id: client },
+                    { headers: { authorization: "Bearer " + token } })
+                    .then((contacts) => {
+                        if (typeof contacts.data.whatsapp === "undefined") {
+                            logError("Numero di contatto (Whatsapp) per il cliente " + meeting.client + " non definito");
+                        } else {
+                            console.log("Contatto (Whatsapp): " + contacts.data.whatsapp)
+
+                            const obj = {                                 
+                                instance: session.data.sessionId,
+                                chatId: contacts.data.whatsapp,
+                                msg: reminder.text
+                            }
+
+                            console.log(obj)
+                            
+                           axios.post('http://localhost:5000/api/sender/whatsapp/send',
+                           obj,
+                           { headers: { authorization: "Bearer " + token } })
+                             .then((res) => {
+                               //console.log(res)
+                               logSuccess("Messaggio Whatsapp inviato correttamente! ")
+                               callback(true)
+
+                             })
+                             .catch((err) => {
+                                 logError("Errore nell'invio del messaggio Whatsapp ")
+                               console.log(err)
+                             })                             
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+
+            }
+        })
+        .catch((err) => {
+            logError("Errore, sessione whatsapp non definita o impossibile da recuperare");
 
         })
 }
