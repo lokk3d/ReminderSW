@@ -10,6 +10,8 @@ import SessionBox from './SessionBox';
 import SearchableClientList from './SeachableClientsList';
 import PersonalData from './PersonalData';
 import ReminderList from './ReminderList';
+import Template from '../template/Template';
+import WrappedTemplate from '../template/WrappedTemplate';
 
 require("dotenv").config();
 
@@ -75,6 +77,7 @@ function User(props) {
                 </Grid>
 
                 <Grid item  sm={4}>
+                    <WrappedTemplate />
                     <ReminderList  minWidth={400}></ReminderList>
                 </Grid>
                

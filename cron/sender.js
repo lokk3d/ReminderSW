@@ -36,10 +36,10 @@ const cronSender = () => {
                 }
             })
             .then(res => {
-                console.log(res.data)
+                //console.log(res.data)
             })
             .catch(err => {
-                console.log(err.data)
+                //console.log(err.data)
             })
 
 

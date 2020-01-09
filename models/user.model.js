@@ -51,7 +51,8 @@ const userSchema = new Schema({
                 trim: true
             }
         }
-    }
+    },
+    templates: [{type: String, trim: true}]
 
     
     //Add here more info in the schema

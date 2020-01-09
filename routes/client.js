@@ -119,16 +119,6 @@ router.route("/saveContacts").post((req, res) => {
 
 });
 
-router.route("/addMeeting").post((req, res) => {
-
-});
-
-
-
-router.route("/getMeeting").get((req, res) => {
-
-});
-
 
 
 router.route("/update").post((req, res) => {
@@ -148,6 +138,7 @@ router.route("/update").post((req, res) => {
          res.status(401).json("Error" + err)
       });
 });
+
 
 
 
