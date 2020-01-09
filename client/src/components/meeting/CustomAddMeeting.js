@@ -45,6 +45,10 @@ function CustomAddMeeting(props) {
     const [remindersList, setRemindersList] = useState();
 
     const [menuItems, setMenuItems] = useState()
+    const [templates, setTemplates] = useState([]);
+
+    const [templateSelector, setTemplateSelector] = useState();
+    const [select, setSelect] = useState(true);
 
     const [render, setRender] = useState(0)
 
@@ -89,8 +93,33 @@ function CustomAddMeeting(props) {
             })
             setMenuItems(items)
         }
+
+        axios.get('/api/user/templates',
+        { headers: { authorization: "Bearer " + token } })
+          .then((res) => {
+            setTemplates(res.data)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
     }, [render])
 
+    useEffect(()=>{
+        console.log("Templates:");
+        console.log(templates)
+        if (typeof templates !== "undefined") {
+
+            let items = templates.map((item) => {
+                return (
+                    <MenuItem value={item} >
+                        {item}
+                    </MenuItem>
+                )
+            })
+            setTemplateSelector(items)
+        }
+
+    },[templates])
 
     useEffect(() => {
         if (props.onChange !== undefined) {
@@ -102,6 +131,8 @@ function CustomAddMeeting(props) {
         }
     }, [meeting,remindersValue])
 
+
+    useEffect(()=>{},[templateSelector])
 
     useEffect(() => {
         setRemindersList(
@@ -141,6 +172,14 @@ function CustomAddMeeting(props) {
         }
     }
 
+    const changeTemplate = (e)=>{
+        if(e === "Descrizione personalizzata"){
+            setSelect(false)
+            setMeeting({ ...meeting, description: "" }) 
+        }else{
+            setMeeting({ ...meeting, description: e }) 
+        }
+    }
 
     useEffect(() => {
         if (props.currentClient !== undefined) {
@@ -174,10 +213,25 @@ function CustomAddMeeting(props) {
 
             <div className={classes.row} style={{ margin: 10, marginBottom:0 }}>
                 <div>Descrizione incontro:</div>
-                <textarea style={{ width: '100%' }}
-                    rows="3"
-                    value={meeting.description || ""}
-                    onChange={(e) => setMeeting({ ...meeting, description: e.target.value })} />
+                {
+                    (select)?
+                        <Select
+                        style={{ minWidth: 150, marginLeft: 10 }}
+                        value={meeting.description}
+                        onChange={(e) => changeTemplate(e.target.value)}
+                        >
+                            {templateSelector}
+                            <MenuItem value="Descrizione personalizzata">**Descrizione personalizzata**</ MenuItem>
+
+                        </Select>
+                    :
+                        <textarea style={{ width: '100%' }}
+                        rows="3"
+                        value={meeting.description || ""}
+                        onChange={(e) => setMeeting({ ...meeting, description: e.target.value })} />
+
+                }
+                
             </div>
 
             <List>

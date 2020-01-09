@@ -14,7 +14,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
-
+import Cookies from 'universal-cookie';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
@@ -36,6 +36,9 @@ const useStyles = makeStyles(theme => ({
 
 function AddMeeting(props) {
     const classes = useStyles();
+
+    const cookies = new Cookies();
+    const token = cookies.get('dateReminder-AuthToken')
 
     const [meeting, setMeeting] = useState({ client: "", meetingDate: new Date(), description: "", reminder:[] })
     const [menuItems, setMenuItems] = useState()
@@ -73,7 +76,12 @@ function AddMeeting(props) {
             })
             setMenuItems(items)
         }
+
+
+      
     }, [render])
+
+
 
     useEffect(() => {
         if (props.currentClient !== undefined) {
