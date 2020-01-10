@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
+import { useHistory } from 'react-router-dom';
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -72,6 +73,7 @@ const useStyles = makeStyles(theme => ({
 
 function ShowMeeting(props) {
     const classes = useStyles();
+    let history = useHistory();
 
     const id = props.item._id;
     const item = props.item;
@@ -87,8 +89,7 @@ function ShowMeeting(props) {
         {id: id, client: props.clientId},
         { headers: { authorization: "Bearer " + token } })
           .then((res) => {
-            console.log(res)
-            window.location= "/client/"+props.clientId
+            history.push("/client/"+props.clientId);
           })
           .catch((err) => {
             console.log(err)

@@ -1,14 +1,16 @@
 Roadmap di sviluppo...
 
-Leggenda => S:Sicurezza/ O:Ottimizzazione / F:Funzionalità / L:Logica di business
+Leggenda => S:Sicurezza/ O:Ottimizzazione-Refactoring  / F:Funzionalità / L:Logica di business
 
 Software:
     S - Aggiungere la validazione su tutte le api 
+    O - Gestire correttamente i link all'interno dell'applicazione [non con window.location = xxx]
+    O - Usare i context per ottimizzare al meglio [userContext, clientContext]
     O - Refactoring del cron
     F - Messa in funzione del CRON e scelta delle tempistiche 
     F - Attivare le sessioni [Facebook, Whatsapp, Instagram]
     O - Formattazione e controllo sul numero di contatto per whatsapp
-    L - Aggiungere template per i messaggi e per le descrizioni dei meeting (per operazioni frequenti) 
+    L - Aggiungere template per i reminder 
     L - Creare una home accattivante
     L - Distinguere la navbar quando si è loggati e quando no
     L - Se (da loggato) clicco sul titolo dell'app non mi deve riportare sulla home normale
@@ -22,6 +24,9 @@ Marketing:
     Interview: realizzare interviste a potenziali utilizzatori
     Lean Canvas: creare una lean canvas e una startup canvas
     Etc....
+    Hostare una versione beta su aws con solo email e whatsapp funzionanti
+    Trovare 20 beta testers [che riceveranno il prodotto ultimato gratuitamente]
+    Trovare 10 early users 
 
 
 Software attuale: V0.0.1 MVP (beta)

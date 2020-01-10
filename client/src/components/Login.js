@@ -13,7 +13,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Cookies from 'universal-cookie';
-
+import { useHistory } from 'react-router-dom';
 import axios from "axios"
 
 const useStyles = makeStyles(theme => ({
@@ -39,6 +39,7 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn() {
     const classes = useStyles();
     const cookies = new Cookies();
+    let history = useHistory();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -52,7 +53,7 @@ export default function SignIn() {
                 setError(false)
                 console.log(response.data.authToken)
                 cookies.set('dateReminder-AuthToken', response.data.authToken, { path: '/' });
-                window.location.href =  "/user";
+                redirectToHome();
             })
             .catch( (err) => {
                 console.log(err)
@@ -67,6 +68,10 @@ export default function SignIn() {
         }
         setError(false)
     };
+
+    const redirectToHome = ()=> {
+        history.push("/home");
+    }
 
 
     return (

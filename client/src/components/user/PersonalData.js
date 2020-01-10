@@ -6,6 +6,7 @@ import Cookies from 'universal-cookie';
 import axios from "axios"
 import { makeStyles,useTheme } from '@material-ui/core/styles';
 import CustomEditText from "../CustomEditText"
+import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles(theme => ({
@@ -24,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 function PersonalData(props) {
     const classes = useStyles();
+    let history = useHistory();
 
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken')
@@ -51,7 +53,7 @@ function PersonalData(props) {
 
     const logout = () => {
         cookies.remove("dateReminder-AuthToken")
-        window.location = "/";
+        history.push("/");
     }
 
     const save = () => {
@@ -60,7 +62,6 @@ function PersonalData(props) {
             {firstName: personalData.firstName, lastName: personalData.lastName, fiscalCode: personalData.fiscalCode},
             { headers: { authorization: "Bearer " + token } })
             .then((response) => {
-                //window.location="/user"
                 alert("Dati personali salvati...")
                 setRender(prev => prev+1)
             })

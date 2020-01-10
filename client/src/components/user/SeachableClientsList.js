@@ -16,10 +16,12 @@ import Cookies from 'universal-cookie';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { useHistory } from 'react-router-dom';
 
 require("dotenv").config()
 
 function ClientList(props){
+    let history = useHistory();
 
     const [clientsID, setClientsID] = useState()
     const [clientList, setClientList] = useState([])
@@ -96,7 +98,8 @@ function ClientList(props){
         if(typeof props.onSelectedClient !== "undefined"){
             props.onSelectedClient(id)
         }
-        window.location ="/client/" + id
+        history.push("/client/" + id);
+
     }
 
     const save = () => {
@@ -110,7 +113,8 @@ function ClientList(props){
             .then((response) => {
                 setNotifText("Cliente aggiunto")
                 setNotif(true)
-                window.location ="/home"
+                history.push("/home");
+
             })
             .catch((err) => {
                 setNotifText("Errore nell'aggiunta del cliente...")

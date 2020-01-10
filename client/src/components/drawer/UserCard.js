@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { useHistory } from 'react-router-dom';
 
 import Cookies from 'universal-cookie';
 import axios from "axios"
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 
 function UserCard(props){
     const classes = useStyles();
-
+    let history = useHistory();
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken');
 
@@ -46,7 +47,8 @@ function UserCard(props){
             </h3>
                 <Button color={"primary"}
                 onClick={()=>{
-                    window.location = "/user"
+                    history.push("/user");
+
                 }}
                 >Edit profile</Button>
         </div>

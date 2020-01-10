@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { Button } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 import Cookies from 'universal-cookie';
 import WrapperBox from "../WrapperBox"
@@ -35,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 
 function ClientPersonalData(props){
     const classes = useStyles();
-
+    let history = useHistory();
     const id = props.id
 
     const cookies = new Cookies();
@@ -86,7 +87,8 @@ function ClientPersonalData(props){
         { headers: { authorization: "Bearer " + token } })
           .then((res) => {
             console.log(res)
-            window.location="/user"
+            history.push("/home");
+            
           })
           .catch((err) => {
             console.log(err)

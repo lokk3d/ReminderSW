@@ -13,6 +13,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import axios from "axios";
+import { useHistory } from 'react-router-dom';
+
 require("dotenv").config();
 
 const useStyles = makeStyles(theme => ({
@@ -40,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignUp() {
     const classes = useStyles();
-
+    let history = useHistory();
 
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -66,7 +68,7 @@ export default function SignUp() {
                 .then( (res) =>{
                     console.log("Utente registrato...")
                     setError(false)
-                    window.location.href =  "/login";
+                    history.push("/login");
 
                 })
                 .catch( (err) => {

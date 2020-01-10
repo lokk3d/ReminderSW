@@ -11,6 +11,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useHistory } from 'react-router-dom';
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
@@ -43,6 +44,7 @@ const useStyles = makeStyles({
 
 function Home() {
   const classes = useStyles();
+  let history = useHistory();
 
   return (
     <div >
@@ -79,7 +81,7 @@ function Home() {
 
         <Button variant="contained" color="primary" 
         style={{padding: 10, width:300, marginTop:20}}
-        onClick={()=>{window.location ="/singup"}}>crea un account</Button>
+        onClick={()=>{    history.push("/singup")        }}>crea un account</Button>
 
         <ExpansionPanel style={{marginTop:50, maxWidth: 500, marginBottom: 50}}>
           <ExpansionPanelSummary

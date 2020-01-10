@@ -4,6 +4,7 @@ import { makeStyles,useTheme } from '@material-ui/core/styles';
 import axios from "axios";
 import Cookies from 'universal-cookie';
 import Grid from '@material-ui/core/Grid';
+import { useHistory } from 'react-router-dom';
 
 import WrapperBox from '../WrapperBox';
 import SessionBox from './SessionBox';
@@ -57,12 +58,14 @@ const useStyles = makeStyles(theme => ({
 function User(props) {
     const classes = useStyles();
     const theme = useTheme();
+    let history = useHistory();
 
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken')
     
     if (token === undefined) {
-        window.location = "/";
+        history.push("/");
+
     }
     
     return (

@@ -12,10 +12,12 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import axios from "axios"
 import Cookies from 'universal-cookie';
+import { useHistory } from 'react-router-dom';
 
 require("dotenv").config()
 
 function ClientList(props){
+    let history = useHistory();
 
     const [clientsID, setClientsID] = useState()
     const [clientList, setClientList] = useState([])
@@ -70,8 +72,7 @@ function ClientList(props){
     
 
     const details = (id) =>{
-        console.log("Chiamata la modifica di: " + id)
-        window.location ="/client/" + id
+        history.push("/client/" + id);
     }
 
     const save = () => {
@@ -85,7 +86,7 @@ function ClientList(props){
             .then((response) => {
                 setNotifText("Cliente aggiunto")
                 setNotif(true)
-                window.location ="/user"
+                history.push("/user");
             })
             .catch((err) => {
                 setNotifText("Errore nell'aggiunta del cliente...")
