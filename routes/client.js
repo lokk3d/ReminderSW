@@ -8,8 +8,13 @@ require("dotenv").config();
 
 
 
-router.route("/getbyid").post((req, res) => {
-   const username = req.decoded.user;
+router.route("/getbyid").post([
+   check("id").not().isEmpty()
+],(req, res) => {
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+   }
 
    Client.findOne({ _id: req.body.id })
       .then(client => {
@@ -18,8 +23,14 @@ router.route("/getbyid").post((req, res) => {
       .catch(err => res.status(404).json("Error" + err));
 });
 
-router.route("/allinfo").post((req, res) => {
-   const username = req.decoded.user;
+router.route("/allinfo").post([
+   check("id").not().isEmpty()
+],
+   (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+         return res.status(422).json({ errors: errors.array() });
+      }
 
    Client.findOne({ _id: req.body.id })
       .then(client => {
@@ -71,7 +82,15 @@ router.route("/add").post([
 
    });
 
-router.route("/contacts").post((req, res) => {
+router.route("/contacts").post([
+   check("id").not().isEmpty()
+
+],(req, res) =>{
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+   }
+
    Client.findOne({ _id: req.body.id })
       .then(client => {
          console.log(client.contacts);
@@ -81,7 +100,15 @@ router.route("/contacts").post((req, res) => {
 
 });
 
-router.route("/deleteClient").post((req, res) => {
+router.route("/deleteClient").post([
+   check("id").not().isEmpty()
+
+],(req, res) => {
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+   }
+
    const username = req.decoded.user;
 
    Client.findOneAndDelete({ _id: req.body.id })
@@ -108,7 +135,16 @@ router.route("/deleteClient").post((req, res) => {
 
 
 
-router.route("/saveContacts").post((req, res) => {
+router.route("/saveContacts").post([
+   check("id").not().isEmpty(),
+   check("contacts").not().isEmpty()
+
+],(req, res) => {
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+   }
+
    Client.findOne({ _id: req.body.id })
       .then(client => {
          client.contacts = req.body.contacts;
@@ -121,9 +157,18 @@ router.route("/saveContacts").post((req, res) => {
 
 
 
-router.route("/update").post((req, res) => {
-   const username = req.decoded.user;
-   console.log(req.body)
+router.route("/update").post([
+   check("firstName").isLength({ min: 2 }),
+   check("lastName").isLength({ min: 2 }),
+   check("fiscalCode").isLength({ min: 2 }),
+   check("id").not().isEmpty(),
+
+],(req, res) => {
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+   }
+   
    Client.findOne({ _id: req.body.id })
       .then(client => {
          client.firstName = req.body.firstName

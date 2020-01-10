@@ -36,3 +36,19 @@ content-type: application/json
     "chatId": "+393395980199",
     "msg": "Ciaoooo"
 }
+
+###
+GET http://localhost:5000/api/sender/instagram/test
+content-type: application/json
+
+###
+POST http://localhost:5000/api/sender/instagram/send
+content-type: application/json
+
+{
+    "user":"user@user.com",
+    "username": "alfonsohack0019@gmail.com",
+    "password":"passworditest",
+    "clientUsername": "_concy.zerino_",
+    "message": "Messaggio prova invio da Reminder BOT -3"
+}

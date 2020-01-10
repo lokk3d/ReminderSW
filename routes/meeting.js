@@ -3,6 +3,7 @@ let Meeting = require("../models/meeting.model");
 let Client = require("../models/client.model");
 const mongoose = require("mongoose")
 const moment = require('moment')
+const { check, validationResult } = require('express-validator');
 
 require("dotenv").config();
 
@@ -23,8 +24,14 @@ router.route("/").get((req, res) => {
 /*
 Retrive the meeting by its ID
 */
-router.route("/getbyid").post((req, res) => {
-   const username = req.decoded.user;
+router.route("/getbyid").post([
+   check("id").not().isEmpty(),
+
+],(req, res) => {
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+       return res.status(422).json({ errors: errors.array() });
+   }
 
    Meeting.findOne({ _id: req.body.id })
       .then(meeting => {
@@ -36,7 +43,14 @@ router.route("/getbyid").post((req, res) => {
 /*
 Retrive all the meetings of one client matched with the professional
 */
-router.route("/getMeetingsByClient").post((req, res) => {
+router.route("/getMeetingsByClient").post([
+   check("client").not().isEmpty(),
+
+],(req, res) => {
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+       return res.status(422).json({ errors: errors.array() });
+   }
    const username = req.decoded.user;
 
    Meeting.find({ professional: username, client: req.body.client })
@@ -51,7 +65,17 @@ router.route("/getMeetingsByClient").post((req, res) => {
 /*
 Add meeting
 */
-router.route("/add").post((req, res) => {
+router.route("/add").post([
+   check("client").not().isEmpty(),
+   check("meetingDate").not().isEmpty(),
+   check("description").not().isEmpty(),
+   check("reminder").not().isEmpty(),
+
+],(req, res) => {
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+       return res.status(422).json({ errors: errors.array() });
+   }
    const username = req.decoded.user;
 
    var _id = new mongoose.mongo.ObjectId();
@@ -60,7 +84,6 @@ router.route("/add").post((req, res) => {
    const meetingDate = req.body.meetingDate;
    const description = req.body.description
    const reminder = req.body.reminder
-   console.log(reminder)
 
    const newMeeting = new Meeting(
       { _id, professional, client, meetingDate, description, reminder });
@@ -107,7 +130,14 @@ router.route("/getTodayReminders").get((req, res) => {
 });
 
 //TODO: aggiungere il check dell'id
-router.route("/delete").post((req, res) => {
+router.route("/delete").post([
+   check("client").not().isEmpty(),
+   check("id").not().isEmpty(),
+],(req, res) => {
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+       return res.status(422).json({ errors: errors.array() });
+   }
    const username = req.decoded.user;
    
    console.log(req.body.id);

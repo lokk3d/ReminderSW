@@ -59,6 +59,7 @@ function ClientList(props){
     }, [render])
 
     useEffect(()=>{
+        setClientList([])
         if(clientsID !== undefined){
             clientsID.forEach(item =>{
                 axios.post(process.env.REACT_APP_HOST + "/api/client/getbyid",
@@ -112,8 +113,10 @@ function ClientList(props){
             { headers: { authorization: "Bearer " + token } })
             .then((response) => {
                 setNotifText("Cliente aggiunto")
+                
                 setNotif(true)
-                history.push("/home");
+                setOpen(false)
+                setRender(prev => prev+1)
 
             })
             .catch((err) => {

@@ -4,7 +4,8 @@ Leggenda => S:Sicurezza/ O:Ottimizzazione-Refactoring  / F:Funzionalità / L:Log
 
 Software:
     S - Aggiungere la validazione su tutte le api 
-    O - Gestire correttamente i link all'interno dell'applicazione [non con window.location = xxx]
+    S - Mettere in sicurezza le API dei sender [solo l'amministratore può accedervi]
+    *O - Gestire correttamente i link all'interno dell'applicazione [non con window.location = xxx]
     O - Usare i context per ottimizzare al meglio [userContext, clientContext]
     O - Refactoring del cron
     F - Messa in funzione del CRON e scelta delle tempistiche 

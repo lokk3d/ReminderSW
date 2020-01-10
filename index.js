@@ -73,6 +73,10 @@ app.use("/api/sender/facebook", fbSenderRouter);
 const whatsappSenderRouter = require("./routes/sender/whatsapp");
 app.use("/api/sender/whatsapp", whatsappSenderRouter);
 
+const instagramSenderRouter = require("./routes/sender/instagram");
+app.use("/api/sender/instagram", instagramSenderRouter);
+
+
 
 
 

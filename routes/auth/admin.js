@@ -19,7 +19,6 @@ router.route("/generateUserToken").post([
         const email = req.body.email
         var token = jwt.sign({ user: email }, process.env.SECRET);
         res.status(200).json({authToken: token});
-          
 
         
     }else{
