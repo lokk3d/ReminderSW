@@ -12,7 +12,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useHistory } from 'react-router-dom';
-
+import Pricing from "./Pricing"
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
@@ -37,8 +37,13 @@ const useStyles = makeStyles({
     flexDirection:"column",
     alignItems:"center",
     justifyContent: "center",
-    padding:20
-  }
+  },
+  row:{
+    display:"flex", 
+    flexDirection:"row",
+    alignItems:"center",
+    justifyContent: "center",
+  },
 });
 
 
@@ -47,7 +52,7 @@ function Home() {
   let history = useHistory();
 
   return (
-    <div >
+    <div style={{marginBottom:40}}>
      
         <h1 className={classes.root}>Benvenuto! </h1>
         <br/>
@@ -97,8 +102,15 @@ function Home() {
             </Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
+
         
       </div>
+
+      <div style={{width:"100%", backgroundColor:"#eeeeee"}} className={classes.col}>
+          <h2 style={{marginBottom:0}}>PRICING TABLE</h2>
+          <Pricing />
+
+        </div>
     </div>
   );
 }
