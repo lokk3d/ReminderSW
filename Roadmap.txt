@@ -10,7 +10,6 @@ Software:
         [Es. 5xxx se è un errore, 
         51xx se è un errore riguardo il cliente,
         5101 se è un errore nella creazione del meeting con l'utente]
-    F - Collega i codici c'errore alle api e al log di sistema
 
     [https://hackernoon.com/restful-api-design-step-by-step-guide-2f2c9f9fcdbf]
 
@@ -41,7 +40,8 @@ Software:
     O - Utilizza i response code ed i giusti metodi per le chiamate https
     S - Aggiungere la validazione su tutte le api 
     S - Mettere in sicurezza le API dei sender [solo l'amministratore può accedervi]
-    O - Raggruppare tutti i file di test delle api (.http) in una cartella di test
+    *O - Raggruppare tutti i file di test delle api (.http) in una cartella di test
+    F - Collega i codici c'errore alle api e al log di sistema
 
 Marketing:
     Interview: realizzare interviste a potenziali utilizzatori
