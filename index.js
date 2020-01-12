@@ -77,6 +77,9 @@ const instagramSenderRouter = require("./routes/sender/instagram");
 app.use("/api/sender/instagram", instagramSenderRouter);
 
 
+//******************** CODICI *************************
+const codesRouter = require("./routes/codes");
+app.use("/api/codes", codesRouter);
 
 
 

@@ -1,0 +1,54 @@
+###
+//il codice di autorizzazione è quello amministrativo
+GET http://localhost:5000/api/codes/test
+content-type: application/json
+Authorization: Bearer passwordAmministratore
+
+###
+
+GET http://localhost:5000/api/codes/
+content-type: application/json
+Authorization: Bearer passwordAmministratore
+ 
+###
+
+POST http://localhost:5000/api/codes/add
+content-type: application/json
+Authorization: Bearer passwordAmministratore
+
+{
+    "name": "Impossibile modificare il contatto SMS, usa un numero valido",
+    "code": 5214
+}
+
+// Sessione Whatsapp correttamente aggiunta nel database e validata
+###
+
+DELETE http://localhost:5000/api/codes/delete
+content-type: application/json
+Authorization: Bearer passwordAmministratore
+
+{
+    "code": 5102
+}
+
+###
+
+PUT  http://localhost:5000/api/codes/update
+content-type: application/json
+Authorization: Bearer passwordAmministratore
+
+{
+    "id": "5e1b3a27fab1de2298013712",
+    "name": "Errore nella creazione del cliente ",
+    "code": 5102,
+    "message": "Non è possibile creare il cliente, contattare l'amministratore se il problema persiste"   
+}
+
+###
+
+GET  http://localhost:5000/api/codes/5102
+content-type: application/json
+Authorization: Bearer passwordAmministratore
+
+

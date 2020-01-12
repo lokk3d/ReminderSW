@@ -12,6 +12,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import ClientHome from './components/client/ClientHome';
 import UserHome from './components/user/UserHome';
+import Codes from './components/Codes';
 
 const theme = createMuiTheme({
   palette: {
@@ -45,6 +46,7 @@ function App() {
             <Route path="/singup" component={Register} />
             <Route path="/client/:id" component={ClientHome} />
             <Route path="/home" component={UserHome} />
+            <Route path="/codes" component={Codes} />
 
             <Route component={PageNotFound} />
           </Switch>

@@ -29,7 +29,7 @@ function PricingItem(props){
     const bestChoice = props.bestChoice || false
     
     return(
-        <Paper className={classes.col} style={{maxWidth:200, margin:5}}>
+        <Paper className={classes.col} style={{maxWidth:250, margin:5}}>
             {
                 (bestChoice) ? 
                 <div className={classes.col} 

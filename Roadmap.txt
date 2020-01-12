@@ -3,23 +3,45 @@ Roadmap di sviluppo...
 Leggenda => S:Sicurezza/ O:Ottimizzazione-Refactoring  / F:Funzionalità / L:Logica di business
 
 Software:
-    S - Aggiungere la validazione su tutte le api 
-    S - Mettere in sicurezza le API dei sender [solo l'amministratore può accedervi]
+    L - [HIGHT PRIORITY] Crea un set di response/errori di default da implementare con i log e con le api
+    *F - Crea modello response
+    *F - Crea CRUD response
+    *F - Scrivi classi di response 
+        [Es. 5xxx se è un errore, 
+        51xx se è un errore riguardo il cliente,
+        5101 se è un errore nella creazione del meeting con l'utente]
+    F - Collega i codici c'errore alle api e al log di sistema
+
+    [https://hackernoon.com/restful-api-design-step-by-step-guide-2f2c9f9fcdbf]
+
+    L - Implemta log utente (ogni azione riportata dall'utente viene )
+   
     *O - Gestire correttamente i link all'interno dell'applicazione [non con window.location = xxx]
     O - Usare i context per ottimizzare al meglio [userContext, clientContext]
+    
     O - Refactoring del cron
     F - Messa in funzione del CRON e scelta delle tempistiche 
+    
     F - Attivare le sessioni [Facebook, Whatsapp, Instagram]
     O - Formattazione e controllo sul numero di contatto per whatsapp
+
     L - Aggiungere template per i reminder 
     L - Creare una home accattivante
     L - Distinguere la navbar quando si è loggati e quando no
-    L - Se (da loggato) clicco sul titolo dell'app non mi deve riportare sulla home normale
+    F - Se (da loggato) clicco sul titolo dell'app non mi deve riportare sulla home normale
     L - Popolare la home da utente loggato... con cosa? 
     L - Aggiungere più funzionalità sul profilo
     L - Aggiungere dei template personalizzabili per il testo dei reminder
     L - Aggiungere segnaposto per i messaggi
     F - -> Es: ${nome} formatta direttamente la stringa usando il nome del cliente  
+    L - Migliorare l'interfaccia utente utilizzando logiche di UX 
+
+    F - Implementa Google Analytics con react-ga
+
+    O - Utilizza i response code ed i giusti metodi per le chiamate https
+    S - Aggiungere la validazione su tutte le api 
+    S - Mettere in sicurezza le API dei sender [solo l'amministratore può accedervi]
+    O - Raggruppare tutti i file di test delle api (.http) in una cartella di test
 
 Marketing:
     Interview: realizzare interviste a potenziali utilizzatori
