@@ -47,8 +47,15 @@ Authorization: Bearer passwordAmministratore
 
 ###
 
-GET  http://localhost:5000/api/codes/5102
+GET  http://localhost:5000/api/codes/2100
 content-type: application/json
 Authorization: Bearer passwordAmministratore
+
+###
+
+POST  http://localhost:5000/api/codes/addAllCodes
+content-type: application/json
+Authorization: Bearer passwordAmministratore
+
 
 

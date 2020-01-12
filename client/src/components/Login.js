@@ -70,7 +70,8 @@ export default function SignIn() {
     };
 
     const redirectToHome = ()=> {
-        history.push("/home");
+        window.location = "/home"
+        //history.push("/home");
     }
 
 

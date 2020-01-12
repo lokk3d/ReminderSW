@@ -53,7 +53,7 @@ function PersonalData(props) {
 
     const logout = () => {
         cookies.remove("dateReminder-AuthToken")
-        history.push("/");
+        window.location="/"
     }
 
     const save = () => {

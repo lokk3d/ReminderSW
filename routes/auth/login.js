@@ -3,6 +3,8 @@ let User = require("../../models/user.model");
 var bcrypt = require('bcryptjs');
 let jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
+const logger = require("../../fileManager");
+const getCode = require("../../resposeCode");
 
 require("dotenv").config(); 
 
@@ -25,7 +27,12 @@ router.route("/").post([
             if(bcrypt.compareSync(psw, user.password)){
                 var token = jwt.sign({ user: email }, process.env.SECRET);
                 console.log("Password corretta... restituisco il token:" + token)
-                res.status(200).json({authToken: token});
+
+                getCode(2110).then(data => {
+                    logger(email,data.name )
+                    res.status(200).json({authToken: token});
+                }).catch(err => { })
+
             }else{
                 res.status(400).json("Wrong password... Retry!");
             }

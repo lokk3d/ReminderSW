@@ -6,6 +6,8 @@ var fs = require('fs');
 const mongoose = require("mongoose")
 var path = require('path');
 
+const logger = require("../../fileManager");
+const getCode = require("../../resposeCode");
 
 router.route("/").post([
     check("email").isEmail().withMessage("Please use a valid email! "),
@@ -38,12 +40,15 @@ router.route("/").post([
 
     newUser.save()
         .then(()=> {
-            var jsonPath = path.join(__dirname,"..","..", 'files', 'logs', email+".log");
-            fs.appendFile(jsonPath, 'Log di sistema per ' + firstName + " " + lastName, function (err) {
-                if (err) throw err;
-                console.log('Saved!');
-              });
-            res.status(200).json("New user added added")
+            getCode(2100).then(data => {
+                console.log(data)
+                logger(email,data.name )
+                res.status(200).json("New user added added")
+            })
+            .catch(err => {
+                
+            })
+           
         })
         .catch(err=> {
             if(err.code == 11000){

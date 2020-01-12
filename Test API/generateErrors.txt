@@ -1,0 +1,47 @@
+2100 -> Utente creato
+2110 -> Utente loggato
+2101 -> Utente cancellato
+2102 -> Utente modificato
+2400 -> Sessione Whatsapp creata
+2401 -> Sessione Whatsapp cancellata
+2402 -> Sessione Instagram creata
+2403 -> Sessione Instagram cancellata
+2404 -> Sessione Email creata
+2405 -> Sessione Email cancellata
+2406 -> Sessione Facebook creata
+2407 -> Sessione Facebook cancellata
+2408 -> Sessione SMS creata
+2409 -> Sessione SMS cancellata
+2200 -> Cliente creato
+2201 -> Cliente cancellato
+2202 -> Cliente modificato
+2210 -> Contatto Whatsapp aggiunto/modificato
+2211 -> Contatto Instagram aggiunto/modificato
+2212 -> Contatto Email aggiunto/modificato
+2213 -> Contatto Facebook aggiunto/modificato
+2214 -> Contatto Sms aggiunto/modificato
+2300 -> Meeting creato
+2301 -> Meeting cancellato
+2302 -> Meeting modificato
+2500 -> Reminder inviato
+5100 -> Utente già registrato
+5110 -> Dati d'accesso errati
+5102 -> Impossibile salvare i dati utente
+5400 -> Impossibile creare sessione Whatsapp
+5410 -> Impossibile trovare sessione Whatsapp
+5402 -> Impossibile creare sessione Instagram
+5412 -> Impossibile trovare sessione Instagram
+5404 -> Impossibile creare sessione Email
+5414 -> Impossibile trovare sessione Email
+5406 -> Impossibile creare sessione Facebook
+5416 -> Impossibile trovare sessione Facebook
+5408 -> Impossibile creare sessione SMS
+5418 -> Impossibile trovare sessione SMS
+5200 -> Impossibile creare il cliente
+5201 -> Impossibile cancellare il cliente
+5202 -> Impossibile modificare il cliente
+5210 -> Impossibile modificare il contatto Whatsapp, usa un numero valido
+5211 -> Impossibile modificare il contatto Email, usa una mail valida
+5212 -> Impossibile modificare il contatto Instagram, usa una nickname valida
+5213 -> Impossibile modificare il contatto Facebook, usa un id valido
+5214 -> Impossibile modificare il contatto SMS, usa un numero valido
