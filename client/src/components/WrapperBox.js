@@ -37,8 +37,8 @@ function WrapperBox(props) {
 
     return (
         <div className={classes.col} style={{ margin: 20 }}>
-            <Paper >
-                <div className={classes.box} style={{minWidth:props.minWidth}}>
+            <Paper style={{width:"100%"}}>
+                <div className={classes.box}>
                     <h3 className={classes.text}>{props.header}</h3>
                 </div>
 

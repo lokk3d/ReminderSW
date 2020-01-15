@@ -72,7 +72,7 @@ function PersonalData(props) {
     }
 
     return (
-        <WrapperBox header="Dati personali" minWidth={props.minWidth}>
+        <WrapperBox header="Dati personali" >
             <div style={{ padding: 10 }}>
                 <div><b>Anagrafica</b></div>
 

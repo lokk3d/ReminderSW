@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from "react"; 
-import WrapperBox from "../WrapperBox";
 import FaceIcon from '@material-ui/icons/Face';
 import { ListItem, ListItemIcon, ListItemText, List,Button } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -128,7 +126,8 @@ function ClientList(props){
 
     return (
         <div style={{
-            boxShadow: "2px 2px 5px #d4d4d4"
+            boxShadow: "2px 2px 5px #d4d4d4",
+            width:"100%"
         }}>
             
             <h3 style={{paddingLeft:20, paddingTop: 10}}>I miei clienti</h3>

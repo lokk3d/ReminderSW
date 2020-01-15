@@ -26,7 +26,8 @@ const useStyles = makeStyles(theme => ({
         textDecoration: "none"
     },
     navbar:{
-        backgroundColor: "#061b3a"
+        backgroundColor: "#061b3a",
+        width:"100%"
     },
     row: {
       display: "flex",

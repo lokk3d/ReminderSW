@@ -1,58 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from '@material-ui/core';
-import { makeStyles,useTheme } from '@material-ui/core/styles';
-import axios from "axios";
+import React from 'react';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Cookies from 'universal-cookie';
 import Grid from '@material-ui/core/Grid';
 import { useHistory } from 'react-router-dom';
-
-import WrapperBox from '../WrapperBox';
 import SessionBox from './SessionBox';
-import SearchableClientList from './SeachableClientsList';
 import PersonalData from './PersonalData';
-import ReminderList from './ReminderList';
-import Template from '../template/Template';
 import WrappedTemplate from '../template/WrappedTemplate';
-
-require("dotenv").config();
 
 const useStyles = makeStyles(theme => ({
     row: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent :"center",
-      flexDirection: "row"
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "row"
     },
     col: {
         display: "flex",
         alignItems: "center",
-        justifyContent :"center",
+        justifyContent: "center",
         flexDirection: "column"
-      },
-    box: {minWidth:200, 
-        padding: 10, 
-        boxShadow: "0px 0px 5px #dbdbdb", 
-        maxWidth: 400, 
-        display: "block",
-        marginLeft: "auto", 
-        marginRight: "auto",
-        marginBottom:15
     },
-    spacing:{
+    box: {
+        minWidth: 200,
+        padding: 10,
+        boxShadow: "0px 0px 5px #dbdbdb",
+        maxWidth: 400,
+        display: "block",
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginBottom: 15
+    },
+    spacing: {
         padding: 10,
         margin: 10
     },
-    text:{
+    text: {
         marginLeft: 10,
         color: "#6e6e6e"
     },
-    sessionButton:{
+    sessionButton: {
         width: '80%',
-        marginLeft:"auto", 
-        marginRight:"auto", 
-        display:"block" 
+        marginLeft: "auto",
+        marginRight: "auto",
+        display: "block"
     }
-  }));
+}));
 
 
 function User(props) {
@@ -62,28 +54,27 @@ function User(props) {
 
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken')
-    
+
     if (token === undefined) {
         history.push("/");
 
     }
-    
+
     return (
-        <div style={{marginBottom:30}}>
-            <Grid container spacing={1}>
-                <Grid item sm={4}>
-                    <PersonalData  />
+        <div style={{ marginBottom: 30 }}>
+            <Grid container spacing={5}>
+                <Grid item lg={4} style={{ width: "100%" }}>
+                    <PersonalData />
                 </Grid>
 
-                <Grid item  sm={4} >
-                    <SessionBox   />
-                </Grid>
-
-                <Grid item  sm={4}>
+                <Grid item lg={4} style={{ width: "100%" }}>
                     <WrappedTemplate />
-                    <ReminderList   ></ReminderList>
                 </Grid>
-               
+
+                <Grid item lg={4} style={{ width: "100%" }}>
+                    <SessionBox />
+                </Grid>
+
             </Grid>
         </div>
     );

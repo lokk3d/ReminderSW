@@ -34,52 +34,50 @@ function ClientHome(props) {
     const [currentClient, setCurrentClient] = useState()
     const [render, setRender] = useState(0)
 
-    const updateClient = () =>{
-        setRender(prev => prev+1)
+    const updateClient = () => {
+        setRender(prev => prev + 1)
     }
-    
-    useEffect(()=>{
-        if(typeof id !== "undefined"){
-            axios.get("/api/client/"+id,
-            { headers: { authorization: "Bearer " + token } })
-            .then((response) => {
-                setCurrentClient({ client: response.data, updateClient: updateClient })
-            })
-            .catch((err) => {
-        
-            })
-        
-        }
-       
-    },[render])
 
-    useEffect(()=>{
+    useEffect(() => {
+        if (typeof id !== "undefined") {
+            axios.get("/api/client/" + id,
+                { headers: { authorization: "Bearer " + token } })
+                .then((response) => {
+                    setCurrentClient({ client: response.data, updateClient: updateClient })
+                })
+                .catch((err) => {
+
+                })
+
+        }
+
+    }, [render])
+
+    useEffect(() => {
         console.log(currentClient)
-    },[currentClient])
+    }, [currentClient])
 
     return (
-        <Grid container spacing={3}>
+        <Grid container spacing={10} >
 
             <ClientContext.Provider value={currentClient}>
 
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} sm={6} >
                     <ClientPersonalData />
                     <ClientContacts />
+
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} sm={6}>
                     <WrapperBox header="Meetings">
                         <MyMeetings />
                     </WrapperBox>
-                </Grid>
-                <Grid item xs={12} sm={4}>
                 </Grid>
 
             </ClientContext.Provider>
 
         </Grid>
-
     )
 }
 
 export default ClientHome
-export {  ClientContext }
+export { ClientContext }
