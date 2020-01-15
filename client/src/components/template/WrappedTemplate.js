@@ -7,7 +7,7 @@ function WrappedTemplate(props) {
 
     
     return (
-        <WrapperBox header="I miei template" minWidth={400}>
+        <WrapperBox header="I miei template"  >
             <Template />
         </WrapperBox >
     )

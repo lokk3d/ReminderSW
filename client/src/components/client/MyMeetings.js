@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, List, ListItem } from "@material-ui/core";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -10,8 +10,10 @@ import axios from "axios";
 import Cookies from 'universal-cookie';
 import ShowMeeting from "../meeting/ShowMeeting";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { ClientContext } from "./ClientHome"
 
 function MyMeetings(props) {
+    const currentClient = useContext(ClientContext)
 
     const [dialog, setDialog] = useState(false);
     const [clientData, setClientData] = useState();
@@ -24,36 +26,21 @@ function MyMeetings(props) {
     const token = cookies.get('dateReminder-AuthToken')
     const [render, setRender] = useState(0)
 
-    useEffect(() => {
-        if (typeof props.id !== "undefined") {
-            axios.post('/api/client/getbyid',
-            { id: props.id },
-            { headers: { authorization: "Bearer " + token } })
-            .then((res) => {
-                setClientData({ id: props.id, fiscalCode: res.data.fiscalCode })
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-
-
-            axios.post('/api/meeting/getMeetingsByClient',
-            {client: props.id},
-            { headers: { authorization: "Bearer " + token } })
-            .then((res) => {
-                //console.log("Meetings: ")
-                //console.log(res.data)
-                setMeetings(res.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+    useEffect(()=>{
+        if(typeof currentClient !== "undefined" ){
+            console.log(currentClient);
+            setClientData({ id: currentClient.client._id, fiscalCode: currentClient.client.fiscalCode })
+            
+            if(typeof currentClient.meetings !== "undefined"){
+                setMeetings(currentClient.client.meetings)
+            }
         }
+       },[currentClient])
 
 
-     
-    }, [render])
-
+       useEffect(()=>{
+           console.log(clientData);
+       },[clientData])
 
     useEffect(()=>{
         
@@ -63,7 +50,7 @@ function MyMeetings(props) {
                 console.log(item)
                 return (
                     <ListItem key={item._id}>
-                        <ShowMeeting item={item} clientId={props.id}></ShowMeeting>
+                        <ShowMeeting item={item} clientId={clientData.id}></ShowMeeting>
                     </ListItem>
                 )
             }))
@@ -78,7 +65,6 @@ function MyMeetings(props) {
             { headers: { authorization: "Bearer " + token } })
             .then((res) => {
                 alert(res.data)
-                //console.log(res)
                 setDialog(false)
                 setRender(prev => prev+1)
             })

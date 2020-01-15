@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import axios from "axios";
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
@@ -12,6 +12,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { ClientContext } from "./ClientHome"
 
 const useStyles = makeStyles(theme => ({
     row: {
@@ -35,9 +36,10 @@ const useStyles = makeStyles(theme => ({
 
 
 function ClientPersonalData(props){
+    const currentClient = useContext(ClientContext)
+
     const classes = useStyles();
     let history = useHistory();
-    const id = props.id
 
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken')
@@ -47,25 +49,18 @@ function ClientPersonalData(props){
 
 
     useEffect(()=>{
-        axios.post("/api/client/allinfo",
-        {id:id},
-        { headers: { authorization: "Bearer " + token } })
-        .then((response) => {
-            setInfo(response.data)
-        })
-        .catch((err) => {
-    
-        })
-    
-    }, [render])
+     if(typeof currentClient !== "undefined"){
+         setInfo(currentClient.client)
+     }
+    },[currentClient])
    
     const save = () =>{
         axios.post("/api/client/update",
-        {id:id,firstName: info.firstName, lastName: info.lastName, fiscalCode: info.fiscalCode},
+        {id:info._id,firstName: info.firstName, lastName: info.lastName, fiscalCode: info.fiscalCode},
         { headers: { authorization: "Bearer " + token } })
         .then((response) => {
             alert("Utente aggiornato");
-            setRender(prev => prev+1)
+            currentClient.updateClient()
         })
         .catch((err) => {
             alert("Utente non aggiornato");
@@ -83,7 +78,7 @@ function ClientPersonalData(props){
 
     const sureDelete = () =>{
         axios.post('/api/client/deleteClient',
-        {id:id},
+        {id:info._id},
         { headers: { authorization: "Bearer " + token } })
           .then((res) => {
             console.log(res)
@@ -98,7 +93,7 @@ function ClientPersonalData(props){
     
     return (
  
-    <WrapperBox header={info.firstName + " " + info.lastName} minWidth={400}>
+    <WrapperBox header={info.firstName + " " + info.lastName}  >
     <div style={{ padding: 10 }}>
             <div><b>Anagrafica</b></div>
 

@@ -1,0 +1,20 @@
+Ciao, grazie per aver aperto qusto repo.
+Questo programma è un piccolo gestionale.
+
+Ogni utente può aggiungere, creare, modificare e cercare i propri clienti.
+Ogni utente infatti può impostare le proprie sessioni per: 
+    -Whatsapp
+    -Email
+    -Instagram
+    -Facebook
+    -SMS
+
+
+Si possono gestire i contatti del cliente e creare dei meeting.
+Ogni meeting può contenere da 0 a n reminder.
+I reminder sono dei messaggi di testo che vengono inviati un giorno x a un'ora y sui contatti dell'utente.
+
+Lo scopo principale del programma è inviare questi messaggi per scopi pubblicitari o di marketing.
+
+Si può utilizzare per fornitori di servizi/prodotti con scadenza: 
+Ad esempio un'estetista, all'arrivo di una cliente, può impostare un reminder per x giorni dopo, in modo tale che la cliente riceva una CTA 

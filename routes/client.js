@@ -23,6 +23,15 @@ router.route("/getbyid").post([
       .catch(err => res.status(404).json("Error" + err));
 });
 
+router.route("/:id").get((req, res) => {
+   Client.findOne({ _id: req.params.id })
+      .then(client => {
+         res.status(200).json(client)
+      })
+      .catch(err => res.status(404).json("Error" + err));
+});
+
+
 router.route("/allinfo").post([
    check("id").not().isEmpty()
 ],

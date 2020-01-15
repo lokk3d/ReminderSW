@@ -121,7 +121,7 @@ function ClientMeetings(props) {
     }
 
     return (
-        <WrapperBox header="I miei Meetings" minWidth={400}>
+        <WrapperBox header="I miei Meetings">
             <List>
                 {meetingList}
             </List>

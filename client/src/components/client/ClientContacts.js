@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Cookies from 'universal-cookie';
 import WrapperBox from "../WrapperBox"
@@ -8,6 +8,7 @@ import { Button } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { ClientContext } from "./ClientHome"
 
 import SmsIcon from '@material-ui/icons/Sms';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
@@ -39,8 +40,8 @@ const useStyles = makeStyles(theme => ({
  */
 
 function ClientContacts(props) {
+    const currentClient = useContext(ClientContext)
     const classes = useStyles();
-    const id = props.id
 
     const [error, setError] = React.useState(false);
     const [errorMSG, setErrorMSG] = React.useState("");
@@ -49,34 +50,24 @@ function ClientContacts(props) {
     const token = cookies.get('dateReminder-AuthToken')
 
     const [contacts, setContacts] = useState({});
-        
-    const [render, setRender] = useState(0);
 
-
-    useEffect(() => {
-        axios.post('/api/client/contacts',
-            { id, id },
-            { headers: { authorization: "Bearer " + token } })
-            .then((res) => {
-                //console.log(res.data)
-                setContacts(res.data)     
-
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-
-    }, [render])
+    useEffect(()=>{
+        if(typeof currentClient !== "undefined" 
+            && typeof currentClient.client.contacts !== "undefined"){
+            setContacts(currentClient.client.contacts)
+        }
+       },[currentClient])
 
 
     const save = () => {
         axios.post('/api/client/saveContacts',
-        {id:id, contacts: contacts},
+        {id:currentClient.client._id, contacts: contacts},
         { headers: { authorization: "Bearer " + token } })
           .then((res) => {
             console.log(res)
             setErrorMSG("Salvataggio effettuato...")
             setError(true)
+            currentClient.updateClient()
           })
           .catch((err) => {
             console.log(err)
@@ -94,7 +85,7 @@ function ClientContacts(props) {
 
 
     return (
-        <WrapperBox header="Contatti" minWidth={400}>
+        <WrapperBox header="Contatti">
             <div style={{ padding: 10 }}>
                 <div style={{ padding: 5 }} className={classes.row}>
                     <FacebookIcon style={{ marginRight: 10 }} />

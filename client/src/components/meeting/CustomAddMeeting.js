@@ -111,7 +111,7 @@ function CustomAddMeeting(props) {
 
             let items = templates.map((item) => {
                 return (
-                    <MenuItem value={item} >
+                    <MenuItem value={item} key={item} >
                         {item}
                     </MenuItem>
                 )
@@ -160,7 +160,7 @@ function CustomAddMeeting(props) {
         console.log(newArr)
         setRemindersValue(newArr)
         console.log("AddMeeting reminder triggered #3")
-
+        
     }
 
     const removeReminder = (value) => {

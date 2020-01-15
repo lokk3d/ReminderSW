@@ -91,7 +91,7 @@ function ClientReminders(props) {
 
 
     return (
-        <WrapperBox header="I miei Reminders" minWidth={400}>
+        <WrapperBox header="I miei Reminders"  >
             <List>
                 {meetingList}
             </List>

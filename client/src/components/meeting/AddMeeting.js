@@ -47,6 +47,7 @@ function AddMeeting(props) {
     const [reminders, setReminders] = useState([0])
     const [remindersList, setRemindersList] = useState();
 
+    
 
     useEffect(() => {
 
@@ -76,8 +77,6 @@ function AddMeeting(props) {
             })
             setMenuItems(items)
         }
-
-
       
     }, [render])
 
@@ -127,8 +126,10 @@ function AddMeeting(props) {
         console.log(index)
         if (index > -1) {
             setReminders(reminders.filter(item => item !== value));
+           
         }
     }
+
 
     return (
         <div>

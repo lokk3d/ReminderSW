@@ -72,16 +72,16 @@ function User(props) {
         <div style={{marginBottom:30}}>
             <Grid container spacing={1}>
                 <Grid item sm={4}>
-                    <PersonalData minWidth={400}/>
+                    <PersonalData  />
                 </Grid>
 
                 <Grid item  sm={4} >
-                    <SessionBox minWidth={400} />
+                    <SessionBox   />
                 </Grid>
 
                 <Grid item  sm={4}>
                     <WrappedTemplate />
-                    <ReminderList  minWidth={400}></ReminderList>
+                    <ReminderList   ></ReminderList>
                 </Grid>
                
             </Grid>

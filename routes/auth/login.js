@@ -31,7 +31,9 @@ router.route("/").post([
                 getCode(2110).then(data => {
                     logger(email,data.name )
                     res.status(200).json({authToken: token});
-                }).catch(err => { })
+                }).catch(err => { 
+                    res.status(200).json({authToken: token});
+                })
 
             }else{
                 res.status(400).json("Wrong password... Retry!");

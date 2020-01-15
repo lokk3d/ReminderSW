@@ -89,7 +89,8 @@ function ShowMeeting(props) {
         {id: id, client: props.clientId},
         { headers: { authorization: "Bearer " + token } })
           .then((res) => {
-            history.push("/client/"+props.clientId);
+              window.location = window.location
+            //history.push("/client/"+props.clientId);
           })
           .catch((err) => {
             console.log(err)

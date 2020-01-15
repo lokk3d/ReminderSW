@@ -8,6 +8,9 @@ import Grid from '@material-ui/core/Grid';
 import ClientReminders from "./ClientReminders";
 import MyMeetings from "./MyMeetings";
 import WrapperBox from "../WrapperBox"
+import Cookies from 'universal-cookie';
+import axios from "axios";
+
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
@@ -19,28 +22,64 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+const ClientContext = React.createContext();
+
+
 function ClientHome(props) {
     const id = props.match.params.id
 
+    const cookies = new Cookies();
+    const token = cookies.get('dateReminder-AuthToken')
+
+    const [currentClient, setCurrentClient] = useState()
+    const [render, setRender] = useState(0)
+
+    const updateClient = () =>{
+        setRender(prev => prev+1)
+    }
+    
+    useEffect(()=>{
+        if(typeof id !== "undefined"){
+            axios.get("/api/client/"+id,
+            { headers: { authorization: "Bearer " + token } })
+            .then((response) => {
+                setCurrentClient({ client: response.data, updateClient: updateClient })
+            })
+            .catch((err) => {
+        
+            })
+        
+        }
+       
+    },[render])
+
+    useEffect(()=>{
+        console.log(currentClient)
+    },[currentClient])
+
     return (
         <Grid container spacing={3}>
-        
-            <Grid item xs={12} sm={4}>
-                <ClientPersonalData id={id} />
-                <ClientContacts id={id} />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-                <WrapperBox header="Meetings" minWidth={400}>
-                    <MyMeetings id={id}/>
-                </WrapperBox>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-            </Grid>
-          
-           
+
+            <ClientContext.Provider value={currentClient}>
+
+                <Grid item xs={12} sm={4}>
+                    <ClientPersonalData />
+                    <ClientContacts />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                    <WrapperBox header="Meetings">
+                        <MyMeetings />
+                    </WrapperBox>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                </Grid>
+
+            </ClientContext.Provider>
+
         </Grid>
-       
+
     )
 }
 
 export default ClientHome
+export {  ClientContext }

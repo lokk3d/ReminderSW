@@ -1,13 +1,11 @@
 
 const router = require("express").Router();
 let Code = require("../models/code.model");
-const mongoose = require("mongoose")
 const { check, validationResult } = require('express-validator');
 require("dotenv").config();
 const axios = require("axios")
 var fs = require('fs');
 var path = require('path');
-require("dotenv").config();
 
 
 /*
