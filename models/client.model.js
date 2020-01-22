@@ -30,7 +30,10 @@ const clientSchema = new Schema({
         email:{type: String, trim:true},
         sms:{type: String, trim:true}
     },
-
+    customFields:[{
+        key:{type: String, trim: true},
+        value:{type: String, trim: true},
+    }],
 
     //Add here more info in the schema
 }, {

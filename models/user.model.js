@@ -52,7 +52,14 @@ const userSchema = new Schema({
             }
         }
     },
-    templates: [{type: String, trim: true}]
+    defaultCustomFields:[{
+        key:{type: String, trim: true},
+        value:{type: String, trim: true},
+    }],
+    templates: [{
+        name:{type: String, trim: true, required:true},        
+        description:{type: String, trim: true, required: true},
+    }]
 
     
     //Add here more info in the schema

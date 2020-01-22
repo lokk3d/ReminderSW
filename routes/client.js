@@ -10,7 +10,7 @@ require("dotenv").config();
 
 router.route("/getbyid").post([
    check("id").not().isEmpty()
-],(req, res) => {
+], (req, res) => {
    const errors = validationResult(req);
    if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -41,12 +41,12 @@ router.route("/allinfo").post([
          return res.status(422).json({ errors: errors.array() });
       }
 
-   Client.findOne({ _id: req.body.id })
-      .then(client => {
-         res.status(200).json(client)
-      })
-      .catch(err => res.status(404).json("Error" + err));
-});
+      Client.findOne({ _id: req.body.id })
+         .then(client => {
+            res.status(200).json(client)
+         })
+         .catch(err => res.status(404).json("Error" + err));
+   });
 
 
 
@@ -78,7 +78,7 @@ router.route("/add").post([
                .then(user => {
                   user.clients.push(_id)
                   user.save()
-                  res.status(200).json("New client created")
+                  res.status(200).json("New env var created")
                })
                .catch(err => res.status(401).json("Error" + err));
          })
@@ -94,7 +94,7 @@ router.route("/add").post([
 router.route("/contacts").post([
    check("id").not().isEmpty()
 
-],(req, res) =>{
+], (req, res) => {
    const errors = validationResult(req);
    if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -112,7 +112,7 @@ router.route("/contacts").post([
 router.route("/deleteClient").post([
    check("id").not().isEmpty()
 
-],(req, res) => {
+], (req, res) => {
    const errors = validationResult(req);
    if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -148,7 +148,7 @@ router.route("/saveContacts").post([
    check("id").not().isEmpty(),
    check("contacts").not().isEmpty()
 
-],(req, res) => {
+], (req, res) => {
    const errors = validationResult(req);
    if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -172,12 +172,12 @@ router.route("/update").post([
    check("fiscalCode").isLength({ min: 2 }),
    check("id").not().isEmpty(),
 
-],(req, res) => {
+], (req, res) => {
    const errors = validationResult(req);
    if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
    }
-   
+
    Client.findOne({ _id: req.body.id })
       .then(client => {
          client.firstName = req.body.firstName
@@ -196,6 +196,158 @@ router.route("/update").post([
 
 
 
+//*************************** CRUD CUSTOM FIELDS ***************************************** */
+
+
+router.route("/customFields").post(
+   [
+      check("id").not().isEmpty()
+   ],  (req, res) => {
+         const errors = validationResult(req);
+         if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+         }
+
+         Client.findOne({ _id:req.body.id})
+            .then(client => {
+               res.status(200).json(client.customFields)
+            })
+            .catch(err => res.status(404).json("Error" + err));
+      });
+
+
+
+router.route("/customFields/add").post([
+   check("key").not().isEmpty(),
+   check("value").not().isEmpty(),
+   check("id").not().isEmpty()
+
+],
+   (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+         return res.status(422).json({ errors: errors.array() });
+      }
+
+      Client.findOne({ _id: req.body.id })
+      .then( client => {
+         let _id = new mongoose.mongo.ObjectId();
+
+         client.customFields = [...client.customFields, {_id:_id, key:req.body.key, value:req.body.value}]
+         console.log(client.customFields)
+         client.save()
+         .then(() => {
+            res.status(200).json("New custom fields added")
+         })
+         .catch(err => {
+            if (err.code == 11000) {
+               res.status(400).json("Error" + err)
+               console.log(err)
+            }
+            res.status(401).json("Error" + err);
+         });
+
+      }
+         
+      ).catch(err => res.status(400).json("Error"))
+       
+   });
+
+
+
+router.route("/customFields/delete").delete([
+   check("id").not().isEmpty(),
+   check("customFieldId").not().isEmpty(),
+
+], (req, res) => {
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+   }
+
+   Client.findOne({ _id: req.body.id })
+      .then(client => {
+         client.customFields = client.customFields.filter(value => value._id != req.body.customFieldId)
+         console.log(client.customFields)
+         client.save()
+         res.status(200).json("Custom field deleted")
+      })
+      .catch(err => {
+         res.status(401).json("Error" + err);
+      });
+})
+
+router.route("/update").put([
+   check("name").not().isEmpty(),
+   check("code").isNumeric(),
+   check("message").not().isEmpty(),
+   check("id").not().isEmpty()
+
+],
+   (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+         return res.status(422).json({ errors: errors.array() });
+      }
+
+      Code.findOne({ _id: req.body.id })
+         .then(code => {
+            code.name = req.body.name
+            code.code = req.body.code
+            code.message = req.body.message
+
+            code.save()
+               .then(() => {
+                  res.status(200).json("Code " + req.body.id + " updated...")
+               })
+               .catch(err => {
+                  res.status(401).json("Error" + err);
+               });
+         })
+         .catch(err => {
+            res.status(401).json("Error" + err);
+         });
+
+   });
+
+
+router.route("/test").get((req, res) => {
+   res.status(200).json("Api per i codici...")
+})
+
+
+router.route("/addAllCodes").post((req, res) => {
+
+   let jsonPath = path.join(__dirname, "..", 'Test API', "generateErrors.txt");
+
+
+   fs.readFile(jsonPath, { encoding: 'utf-8' }, function (err, data) {
+      if (!err) {
+         //console.log('received data: ' + data);
+         let lines = data.split("\n");
+         lines.forEach(line => {
+            const code = line.split("->")[0].trim()
+            const name = line.split("->")[1].trim()
+
+            axios.post('http://localhost:5000/api/codes/add',
+               { code: code, name: name },
+               { headers: { authorization: "Bearer " + process.env.ADMIN_AUTH } })
+               .then((res) => {
+                  console.log(res.data)
+               })
+               .catch((err) => {
+                  console.log("Errore")
+               })
+
+            console.log(code + " " + name)
+         });
+
+      } else {
+         console.log(err);
+      }
+   });
+
+})
 
 
 module.exports = router;

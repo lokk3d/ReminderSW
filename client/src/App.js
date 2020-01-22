@@ -13,18 +13,24 @@ import { ThemeProvider } from '@material-ui/styles';
 import ClientHome from './components/client/ClientHome';
 import UserHome from './components/user/UserHome';
 import Codes from './components/Codes';
+import Log from './components/user/Log';
+import Test from './components/Test';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#0d5496',
-      darker: "#07396c"
+      main: '#2979ff',
     },
     secondary: {
-      main: '#611320',
+      main: '#00a369',
+      darker: "#1d5bc2"
     },
     white:{
       main: '#ffffff'
+    },
+    darkGray:{
+      main: '#262626'
+
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
@@ -49,12 +55,15 @@ function App() {
             <Route path="/singup" component={Register} />
             <Route path="/client/:id" component={ClientHome} />
             <Route path="/home" component={UserHome} />
+            <Route path="/log" component={Log} />
+
+            <Route path="/test" component={Test} />
+
             <Route path="/codes" component={Codes} />
 
             <Route component={PageNotFound} />
           </Switch>
 
-          <Footer />
         </Router>
       </ThemeProvider>
     </div>

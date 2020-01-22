@@ -56,6 +56,11 @@ function PersonalData(props) {
         window.location="/"
     }
 
+
+    const log = ()=> {
+        history.push("/log")
+    }
+
     const save = () => {
         console.log("Update...")
         axios.post("/api/user/update",
@@ -106,6 +111,8 @@ function PersonalData(props) {
      
                 <p>Email: {personalData.email}</p>
                 <Button onClick={save}  variant="contained" color="primary">Salva</Button>
+                <Button onClick={log}  variant="outlined" color="secondary" style={{marginLeft:30}} >LOG di sistema</Button>
+
                 <Button onClick={logout} style={{marginLeft:30}}>Logout...</Button>
             </div>
         </WrapperBox>

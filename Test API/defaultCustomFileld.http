@@ -1,0 +1,35 @@
+
+GET http://localhost:5000/api/user/customFields
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4OTA3MjUzfQ.HBP1BWRQJm_B6epn6-eX18K2XiCAh16hGfmC5N1PfUo
+
+
+###
+POST http://localhost:5000/api/user/customFields/add
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4OTA3MjUzfQ.HBP1BWRQJm_B6epn6-eX18K2XiCAh16hGfmC5N1PfUo
+
+{
+    "key": "Template di default",
+    "value": "Test default"
+}
+
+###
+DELETE  http://localhost:5000/api/user/customFields/delete
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4OTA3MjUzfQ.HBP1BWRQJm_B6epn6-eX18K2XiCAh16hGfmC5N1PfUo
+
+{
+    "_id": "5e289baaa3dcc836cc595db8"
+}
+
+###
+POST http://localhost:5000/api/user/customFields/update
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4OTA3MjUzfQ.HBP1BWRQJm_B6epn6-eX18K2XiCAh16hGfmC5N1PfUo
+
+{
+    "_id": "5e289baaa3dcc836cc595db8",
+    "key": "Tua zia",
+    "value": "Gran troione <3"
+}

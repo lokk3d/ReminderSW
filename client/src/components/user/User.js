@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import SessionBox from './SessionBox';
 import PersonalData from './PersonalData';
 import WrappedTemplate from '../template/WrappedTemplate';
+import CustomField from './CustomField';
 
 const useStyles = makeStyles(theme => ({
     row: {
@@ -65,6 +66,7 @@ function User(props) {
             <Grid container spacing={5}>
                 <Grid item lg={4} style={{ width: "100%" }}>
                     <PersonalData />
+                    <CustomField />
                 </Grid>
 
                 <Grid item lg={4} style={{ width: "100%" }}>

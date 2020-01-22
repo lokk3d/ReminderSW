@@ -9,6 +9,7 @@ import axios from "axios"
 import Drawer from '@material-ui/core/Drawer';
 import UserCard from "./drawer/UserCard"
 import createHistory from 'history/createBrowserHistory';
+import Footer from "./Footer"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles(theme => ({
         textDecoration: "none"
     },
     navbar:{
-        backgroundColor: "#061b3a",
+        backgroundColor: theme.palette.primary.dark,
         width:"100%"
     },
     row: {
@@ -94,7 +95,7 @@ function Navbar() {
         </IconButton>
         <Typography variant="h6" className={classes.title}>
           <Link to="/" className={classes.link}>
-            Date Reminder
+            Redeo (beta)
           </Link>
         </Typography>
 
@@ -116,8 +117,10 @@ function Navbar() {
           onClose={() => setDrawer(false)}
           keepMounted={true}
           >
-          <div style={{margin:20}}>
+          <div style={{margin:20, minWidth:270}}>
             <UserCard />
+            <Footer />
+
           </div>
         </Drawer>
     </AppBar>

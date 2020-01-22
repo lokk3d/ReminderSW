@@ -1,0 +1,27 @@
+
+GET http://localhost:5000/api/envTag
+content-type: application/json
+Authorization: Bearer passwordAmministratore
+
+{
+    "id": "5e1c36a0bbb53752dc6b0965"
+}
+
+###
+POST http://localhost:5000/api/envTag/add
+content-type: application/json
+Authorization: Bearer passwordAmministratore
+
+{
+    "name": "Giorno invio messaggio",
+    "variable": "${messageDate}"
+}
+
+###
+DELETE  http://localhost:5000/api/envTag/delete
+content-type: application/json
+Authorization: Bearer passwordAmministratore
+
+{
+    "id": "5e287017c1117c5960b50cbf"
+}

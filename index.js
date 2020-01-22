@@ -81,6 +81,10 @@ app.use("/api/sender/instagram", instagramSenderRouter);
 const codesRouter = require("./routes/codes");
 app.use("/api/codes", codesRouter);
 
+const envRouter = require("./routes/env");
+app.use("/api/envTag", envRouter);
+
+
 
 app.listen(port, ()=>{
     console.log('Server running... on port: ' + port);

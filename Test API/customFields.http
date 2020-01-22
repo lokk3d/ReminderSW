@@ -1,0 +1,29 @@
+
+POST http://localhost:5000/api/client/customFields
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4OTA3MjUzfQ.HBP1BWRQJm_B6epn6-eX18K2XiCAh16hGfmC5N1PfUo
+
+{
+    "id": "5e1c36a0bbb53752dc6b0965"
+}
+
+###
+POST http://localhost:5000/api/client/customFields/add
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4OTA3MjUzfQ.HBP1BWRQJm_B6epn6-eX18K2XiCAh16hGfmC5N1PfUo
+
+{
+    "id": "5e1c36a0bbb53752dc6b0965",
+    "key": "Provaasd",
+    "value": "Proasdva2"
+}
+
+###
+DELETE  http://localhost:5000/api/client/customFields/delete
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNTc4OTA3MjUzfQ.HBP1BWRQJm_B6epn6-eX18K2XiCAh16hGfmC5N1PfUo
+
+{
+    "id": "5e1c36a0bbb53752dc6b0965",
+    "customFieldId": "5e27188f98737a518887d586"
+}
