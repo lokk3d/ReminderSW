@@ -40,7 +40,9 @@ function Template(props) {
     const [templates, setTemplates] = useState();
 
     const [open, setOpen] = React.useState(false);
-    const [newTemplate, setNewTemplate] = useState({ name: "", description: "" });
+    const[newTemplateName, setNewTemplateName] = useState();
+    const[newTemplateDescription, setNewTemplateDescription] = useState();
+
 
     const [render, setRender] = useState(0);
 
@@ -93,14 +95,14 @@ function Template(props) {
     }
 
     const saveTemplate = () => {
-        console.log("Template da aggiungere: ");
-        console.log(newTemplate);
+      
         axios.post('/api/user/templates/add',
-            { name: newTemplate.name, description:newTemplate.description },
+            { name: newTemplateName, description:newTemplateDescription },
             { headers: { authorization: "Bearer " + token } })
             .then((res) => {
                 setOpen(false)
-                setNewTemplate({ name: "", description: "" })
+                setNewTemplateName("")
+                setNewTemplateDescription("")
                 setRender(prev => prev + 1)
             })
             .catch((err) => {
@@ -108,16 +110,9 @@ function Template(props) {
             })
     }
 
-    useEffect(() => {
-        console.log(newTemplate)
-    }, [newTemplate])
 
     function addVarToTemplate(e){
-        console.log("New Tmp");
-        console.log(newTemplate) //qui mi da newTemplate al valore di default, il che non ha alcun senso
-        const newText = newTemplate.description + e.variable + " "
-        console.log(newText);
-        setNewTemplate({ ...newTemplate, description: newText })
+        setNewTemplateDescription(prev => (prev || "") + e.variable + " ")
 
     }
 
@@ -149,8 +144,8 @@ function Template(props) {
                 <DialogContent>
 
                     <TextField label="Titolo"
-                        value={newTemplate.name}
-                        onChange={(e) => setNewTemplate({ ...newTemplate, name: e.target.value })}
+                        value={newTemplateName}
+                        onChange={(e) => setNewTemplateName(e.target.value)}
                         style={{ width: "100%" }} />
 
                     <TextField
@@ -159,8 +154,8 @@ function Template(props) {
                         multiline
                         rowsMax="5"
                         rows="3"
-                        value={newTemplate.description}
-                        onChange={(e) => setNewTemplate({ ...newTemplate, description: e.target.value })}
+                        value={newTemplateDescription}
+                        onChange={(e) => setNewTemplateDescription( e.target.value)}
                         style={{ width: "100%", marginTop: 10 }}
                     />
 

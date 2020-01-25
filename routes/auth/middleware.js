@@ -4,7 +4,7 @@ require("dotenv").config();
 let checkToken = (req, res, next) => {
   let token = req.headers['authorization']; // Express headers are auto converted to lowercase
   //console.log("Token:" + token)
-  if(token === "undefined"){
+  if(typeof token === "undefined"){
     return res.status(403).json({
       success: false,
       message: 'Token is not defined'

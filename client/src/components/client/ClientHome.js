@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ClientPersonalData from "./ClientPersonalData"
 import ClientContacts from "./ClientContacts"
-import ClientMeetings from "./ClientMeetings"
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import ClientReminders from "./ClientReminders";
 import MyMeetings from "./MyMeetings";
 import WrapperBox from "../WrapperBox"
 import Cookies from 'universal-cookie';
@@ -63,12 +60,12 @@ function ClientHome(props) {
             <ClientContext.Provider value={currentClient}>
 
                 <Grid item xs={12} sm={6} >
-                    <ClientPersonalData />
+                    <ClientPersonalData id={id}/>
                     <ClientContacts />
 
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <WrapperBox header="Meetings">
+                    <WrapperBox header="Appuntamenti">
                         <MyMeetings />
                     </WrapperBox>
                 </Grid>

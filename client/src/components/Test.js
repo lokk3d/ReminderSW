@@ -3,12 +3,17 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
     Button, List, ListItem,
     ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails,
-    Typography
+    Typography,
+    Paper
 } from '@material-ui/core';
 import axios from "axios";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import EditableTextField from "./EditableTextField"
 import EnvVariables from "./EnvVariables";
+import Message from "./meeting/Message";
+import Cookies from 'universal-cookie';
+import Meeting from "./meeting/Meeting";
+import WrapperBox from "./WrapperBox";
 
 const useStyles = makeStyles(theme => ({
     row: {
@@ -27,8 +32,23 @@ const useStyles = makeStyles(theme => ({
 function Test(props) {
     const classes = useStyles();
 
-    const [text, setText] = useState("")
-   
+
+    const cookies = new Cookies();
+    const token = cookies.get('dateReminder-AuthToken')
+
+    const [templateList, setTemplateList] = useState([]);
+
+    useEffect(() => {
+        axios.get('/api/user/templates',
+            { headers: { authorization: "Bearer " + token } })
+            .then((res) => {
+                setTemplateList(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
+
     return (
         <div style={{
             display: "flex",
@@ -37,17 +57,22 @@ function Test(props) {
             alignItems: "center",
             marginBottom: 100,
             maxWidth: "40%",
-            padding:20
+            padding: 20
         }}>
-          
 
-          <textarea style={{margin:20}}
-          value={text}
-          onChange={(e)=>{setText(e.target.value)}}
-          />
-          <EnvVariables onClick={(e) =>{
-              console.log(e)
-              setText(prev => prev + e.variable + " " )}}/>
+            <WrapperBox header="Aggiungi appuntamento">
+                <div style={{margin:10}}>
+                <Meeting
+                    client={{ firstName: "Alf", lastName: "Gra", id: 122352516 }}
+                />
+                </div>
+                <div style={{display:"flex", justifyContent:"flex-end"}}>
+                <Button style={{margin:10}}>Annulla</Button>
+                <Button color="primary" variant="contained" style={{margin:10}}>Salva</Button>
+
+                </div>
+            </WrapperBox>
+
 
         </div>
     )

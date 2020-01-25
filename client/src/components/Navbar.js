@@ -103,7 +103,7 @@ function Navbar() {
         {loggedIn?
         <Link to="/home" className={classes.link}>
           <div className={classes.row}>
-            <PersonIcon color="white" />
+            <PersonIcon htmlColor="#fff" />
             <div style={{marginLeft: 5}}>{username}</div>
           </div>
         </Link>

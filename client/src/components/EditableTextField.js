@@ -29,15 +29,34 @@ const useStyles = makeStyles(theme => ({
 
 
 function EditableTextField(props) {
+  const [render, setRender] = useState(0)
 
-  const [value, setValue] = useState(props.value || "")
+  const [value, setValue] = useState(props.value)
   const [editMode, setEditMode] = useState(false)
 
   useEffect(() => {
+    console.log("Valore");
+    console.log(value);
     if (typeof props.onChange !== "undefined") {
       props.onChange(value)
     }
   }, [value])
+
+  useEffect(()=>{
+    console.log("Mammt");
+    console.log(props);
+  },[props])
+
+  useEffect(()=>{
+    if(editMode === false && render > 0){
+      if(typeof props.onUpdate !== "undefined"){
+        props.onUpdate(value)
+      }
+    }
+    if(editMode === true){
+      setRender(prev => prev+1)
+    }
+  },[editMode])
 
   const handleClick = () => {
     setEditMode(true)

@@ -11,9 +11,11 @@ import Cookies from 'universal-cookie';
 import ShowMeeting from "../meeting/ShowMeeting";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { ClientContext } from "./ClientHome"
+import { useHistory } from 'react-router-dom';
 
 function MyMeetings(props) {
     const currentClient = useContext(ClientContext)
+    let history = useHistory();
 
     const [dialog, setDialog] = useState(false);
     const [clientData, setClientData] = useState();
@@ -41,6 +43,13 @@ function MyMeetings(props) {
        useEffect(()=>{
            console.log(clientData);
        },[clientData])
+
+
+    const addNewMeeting = ()=>{
+        const id = currentClient.client._id || ""
+        history.push("/addMeeting/"+ id);
+    }
+
 
     useEffect(()=>{
         
@@ -83,7 +92,7 @@ function MyMeetings(props) {
                 (meetings.length === 0) ?
                 <div style={{display: "flex", flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
                     <AddCircleOutlineIcon style={{margin:10}}/>
-                    <p>Aggiungi il tuo primo meeting</p>
+                    <p>Aggiungi il tuo primo appuntamento</p>
                 </div>
                 :
                 <List>
@@ -95,7 +104,7 @@ function MyMeetings(props) {
                 variant="contained"
                 color="primary"
                 style={{ width: "100%" }}
-                onClick={() => setDialog(true)}>Aggiungi nuovo meeting</Button>
+                onClick={() => {addNewMeeting()}}>Aggiungi nuovo appuntamento</Button>
 
             <Dialog
                 open={dialog}

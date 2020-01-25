@@ -1,0 +1,35 @@
+Roadmap di sviluppo...
+
+Leggenda => S:Sicurezza/ O:Ottimizzazione-Refactoring  / F:Funzionalità / L:Logica di business
+
+Software:
+    L: Scegliere quali api utilizzare per whatsapp
+    F: Scrivere testo GMAIL
+    L: Trovare un modo per mandare gli SMS dalle sessioni
+    F: Modificare l'interfaccia cliente non implementando i meetings da dialog, ma con altro metodo
+    F: Aggiungere i template nei messaggi e nei meetings
+    F: Aggiungere i chips nei testi dei messaggi personalizzati e dei meetings personalizzati
+    F: Implementare il calendario
+    F: Scrivere una guida per il calendario
+    F: Scrivere una sezione /docs o /blog per tutta la documentazione 
+    F: Aggiungere Gravatar per gli avatar 
+    F: Implementare i custom fields nei clienti 
+    F: Terminare l'implementazione dei defaul custom fields
+    F: Modificare gli edit dell'anagrafica, rimuovendo il "salva"
+    F: Rimuovere il log di sistema 
+    F: Scrivere la sezione con l'elenco di tutti i messaggi divisi per "inviati", "da inviare", "errore"
+    F: Scrivere la sezione che elenca tutti i meetings ordinati per data
+    F: Scrivere la funzionalità che permette di rischedulare un messaggio che ha riscontrato un errore
+    F: Scrivere landing Page
+    F: Modifica Anagrafica e Contatti clienti
+
+Marketing:
+    Interview: realizzare interviste a potenziali utilizzatori
+    Lean Canvas: creare una lean canvas e una startup canvas
+    Etc....
+    Hostare una versione beta su aws con solo email e whatsapp funzionanti
+    Trovare 20 beta testers [che riceveranno il prodotto ultimato gratuitamente]
+    Trovare 10 early users 
+
+
+Software attuale: V0.0.1 MVP (beta)

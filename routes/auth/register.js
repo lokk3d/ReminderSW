@@ -2,12 +2,6 @@ const router = require("express").Router();
 let User = require("../../models/user.model");
 var bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
-var fs = require('fs');
-const mongoose = require("mongoose")
-var path = require('path');
-
-const logger = require("../../fileManager");
-const getCode = require("../../resposeCode");
 
 router.route("/").post([
     check("email").isEmail().withMessage("Please use a valid email! "),
@@ -35,20 +29,11 @@ router.route("/").post([
         whatsapp:{}
     }
 
-   
     const newUser = new User({email, password, firstName, lastName, sessions});
 
     newUser.save()
         .then(()=> {
-            getCode(2100).then(data => {
-                console.log(data)
-                logger(email,data.name )
-                res.status(200).json("New user added added")
-            })
-            .catch(err => {
-                
-            })
-           
+            res.status(200).json("New user added added")
         })
         .catch(err=> {
             if(err.code == 11000){

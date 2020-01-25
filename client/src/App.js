@@ -15,6 +15,7 @@ import UserHome from './components/user/UserHome';
 import Codes from './components/Codes';
 import Log from './components/user/Log';
 import Test from './components/Test';
+import AddMeeting from "./components/meeting/AddMeeting"
 
 const theme = createMuiTheme({
   palette: {
@@ -56,6 +57,9 @@ function App() {
             <Route path="/client/:id" component={ClientHome} />
             <Route path="/home" component={UserHome} />
             <Route path="/log" component={Log} />
+
+            <Route path="/addMeeting/:id" component={AddMeeting} />
+            <Route path="/addMeeting" component={AddMeeting} />
 
             <Route path="/test" component={Test} />
 

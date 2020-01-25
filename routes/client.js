@@ -18,7 +18,7 @@ router.route("/getbyid").post([
 
    Client.findOne({ _id: req.body.id })
       .then(client => {
-         res.status(200).json({ firstName: client.firstName, lastName: client.lastName, fiscalCode: client.fiscalCode })
+         res.status(200).json({_id:req.body.id, firstName: client.firstName, lastName: client.lastName, fiscalCode: client.fiscalCode })
       })
       .catch(err => res.status(404).json("Error" + err));
 });
