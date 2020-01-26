@@ -1,0 +1,35 @@
+
+GET http://localhost:5000/api/test
+content-type: application/json
+Authorization: Bearer passwordAmministratore
+
+
+###
+POST http://localhost:5000/api/test/add
+content-type: application/json
+Authorization: Bearer passwordAmministratore
+
+{
+    "foo": "Giorno invio messaggio",
+    "bar": "${messageDate}"
+}
+
+###
+DELETE  http://localhost:5000/api/test/delete
+content-type: application/json
+Authorization: Bearer passwordAmministratore
+
+{
+    "_id": "5e2d57652d35e3275c510b33"
+}
+
+###
+POST http://localhost:5000/api/test/update
+content-type: application/json
+Authorization: Bearer passwordAmministratore
+
+{
+    "_id": "5e2d57ce2d35e3275c510b34",
+    "foo": "Mese invio messaggio",
+    "bar": "${messageDate}"
+}

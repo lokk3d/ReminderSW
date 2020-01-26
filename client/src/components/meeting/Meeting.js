@@ -45,12 +45,11 @@ function Meeting(props) {
 
     const [messages, setMessages] = useState([])
 
-    const [clientsID, setClientsID] = useState()
     const [clients, setClients] = useState([])
     const [clientsList, setClientsList] = useState()
 
     useEffect(() => {
-        axios.get('/api/user/templates',
+        axios.get('/api/template',
             { headers: { authorization: "Bearer " + token } })
             .then((res) => {
                 setTemplateList(res.data)
@@ -60,11 +59,10 @@ function Meeting(props) {
             })
 
 
-        axios.get("/api/user/getClients",
+        axios.get("/api/client",
             { headers: { authorization: "Bearer " + token } })
             .then((response) => {
-
-                setClientsID(response.data)
+                setClients(response.data)
             })
             .catch((err) => {
 
@@ -72,25 +70,7 @@ function Meeting(props) {
 
     }, [])
 
-    useEffect(() => {
-        setClients([])
-        if (clientsID !== undefined) {
-            clientsID.forEach(item => {
-                axios.post(process.env.REACT_APP_HOST + "/api/client/getbyid",
-                    { id: item },
-                    { headers: { authorization: "Bearer " + token } })
-                    .then((response) => {
-                        response.data.id = item
-                        setClients(arr => [...arr, response.data])
 
-                    })
-                    .catch((err) => {
-
-                    })
-
-            })
-        }
-    }, [clientsID])
 
 
     useEffect(() => {
@@ -110,22 +90,26 @@ function Meeting(props) {
     }, [clients])
 
     useEffect(() => {
+        let clientName = ""
+        for(let i = 0; i < clients.length; i++){
+            if(client._id == clients[i]._id){
+                clientName = clients[i].firstName + " "+ clients[i].lastName
+            }
+        }
+
+
         if (typeof props.onChange !== "undefined") {
-            props.onChange({ messages: messages, date: date, description: description, clientId: client._id })
+            props.onChange({ messages: messages, date: date, 
+                description: description, client: client._id, 
+                clientName: clientName
+            })
         }
 
     }, [messages, date, description, client])
 
 
-    useEffect(()=>{
-        console.log( client );
-    },[client])
-
     useEffect(() => {
-        console.log("Props letti:");
-        console.log(props);
-        console.log(client);
-        
+  
         if(typeof props.client !== "undefined" && typeof client.firstName === "undefined"){    
             console.log("Imposto sti cazzo di props");
             setClient(props.client)
@@ -137,7 +121,7 @@ function Meeting(props) {
         const newMessages = []
         for (let i = 0; i < messages.length; i++) {
             if (messages[i].id === id) {
-                newMessages.push({ id: id, mesage: e })
+                newMessages.push({ id: id, message: e })
             }
             else {
                 newMessages.push(messages[i])

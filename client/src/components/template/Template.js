@@ -4,7 +4,7 @@ import axios from "axios";
 import Cookies from 'universal-cookie';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Button, Paper, FormControlLabel,ListItemText } from '@material-ui/core';
+import { Button, Paper, FormControlLabel, ListItemText } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -40,14 +40,14 @@ function Template(props) {
     const [templates, setTemplates] = useState();
 
     const [open, setOpen] = React.useState(false);
-    const[newTemplateName, setNewTemplateName] = useState();
-    const[newTemplateDescription, setNewTemplateDescription] = useState();
+    const [newTemplateName, setNewTemplateName] = useState();
+    const [newTemplateDescription, setNewTemplateDescription] = useState();
 
 
     const [render, setRender] = useState(0);
 
     useEffect(() => {
-        axios.get('/api/user/templates',
+        axios.get('/api/template',
             { headers: { authorization: "Bearer " + token } })
             .then((res) => {
                 console.log("Cose");
@@ -73,7 +73,7 @@ function Template(props) {
                             <IconButton onClick={() => deleteTemplate(template._id)}>
                                 <CloseIcon />
                             </IconButton>
-                           
+
                         </div>
                     </ListItem>
                 )
@@ -83,9 +83,11 @@ function Template(props) {
     }, [templateList])
 
     const deleteTemplate = (_id) => {
-        axios.post('/api/user/templates/delete',
-            { _id: _id },
-            { headers: { authorization: "Bearer " + token } })
+        //deleteMethod
+        axios.delete('/api/template/delete', {
+            data: { _id: _id },
+            headers: { authorization: "Bearer " + token }
+        })
             .then((res) => {
                 setRender(prev => prev + 1)
             })
@@ -95,9 +97,9 @@ function Template(props) {
     }
 
     const saveTemplate = () => {
-      
-        axios.post('/api/user/templates/add',
-            { name: newTemplateName, description:newTemplateDescription },
+
+        axios.post('/api/template/add',
+            { name: newTemplateName, description: newTemplateDescription },
             { headers: { authorization: "Bearer " + token } })
             .then((res) => {
                 setOpen(false)
@@ -111,7 +113,7 @@ function Template(props) {
     }
 
 
-    function addVarToTemplate(e){
+    function addVarToTemplate(e) {
         setNewTemplateDescription(prev => (prev || "") + e.variable + " ")
 
     }
@@ -155,7 +157,7 @@ function Template(props) {
                         rowsMax="5"
                         rows="3"
                         value={newTemplateDescription}
-                        onChange={(e) => setNewTemplateDescription( e.target.value)}
+                        onChange={(e) => setNewTemplateDescription(e.target.value)}
                         style={{ width: "100%", marginTop: 10 }}
                     />
 

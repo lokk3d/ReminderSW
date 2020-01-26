@@ -12,6 +12,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Cookies from 'universal-cookie';
 import WrapperBox from "../WrapperBox";
 import Grid from '@material-ui/core/Grid';
+import Calendar from "../user/Calendar";
 
 function AddMeeting(props) {
 
@@ -24,8 +25,7 @@ function AddMeeting(props) {
     const [meeting, setMeeting] = useState()
     //  onChange={e => {setMeeting(e)}}
     useEffect(()=>{
-        axios.post("/api/client/getbyid",
-        { id: id },
+        axios.get("/api/client/"+id,
         { headers: { authorization: "Bearer " + token } })
         .then((response) => {
             setClient(response.data)
@@ -40,9 +40,23 @@ function AddMeeting(props) {
 
 
     const saveMeeting = ()=> {
-        if(typeof meeting.clientId !== "undefined"){
+        if(typeof meeting.client !== "undefined"){
             console.log("Meeting aggiunto. Dati meeting:");
             console.log(meeting);
+            axios.post("/api/meeting/add",
+            {   client: meeting.client,
+                clientName: meeting.clientName, 
+                date: meeting.date, 
+                description: meeting.description, 
+                messages: meeting.messages},
+            
+            { headers: { authorization: "Bearer " + token } })
+            .then((response) => {
+                alert("Appuntamento salvato!")
+            })
+            .catch((err) => {
+                alert("Impossibile salvare l'appuntamento")
+            }) 
         }else{
             alert("Attenzione, aggiungi il cliente con il quale prendere appuntamento")
         }
@@ -69,8 +83,8 @@ function AddMeeting(props) {
 
         <Grid item sm={7} style={{ width: "100%" }}>
 
-            <WrapperBox header="Calendario...">
-                <div>Aggiungere calendario qui</div>
+            <WrapperBox header="Calendario">
+                <Calendar />
             </WrapperBox>
 
         </Grid>

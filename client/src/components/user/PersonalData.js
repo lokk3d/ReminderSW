@@ -67,21 +67,6 @@ function PersonalData(props) {
         history.push("/log")
     }
 
-    const save = () => {
-        console.log("Update...")
-        axios.post("/api/user/update",
-            { firstName: personalData.firstName, lastName: personalData.lastName, fiscalCode: personalData.fiscalCode },
-            { headers: { authorization: "Bearer " + token } })
-            .then((response) => {
-                alert("Dati personali salvati...")
-                setRender(prev => prev + 1)
-            })
-            .catch((err) => {
-                alert("Errore nel salvataggio dei dati")
-
-            })
-    }
-
     const saveData = (e) => {
         console.log("Update...")
         axios.post("/api/user/update",

@@ -61,7 +61,7 @@ function ClientHome(props) {
 
                 <Grid item xs={12} sm={6} >
                     <ClientPersonalData id={id}/>
-                    <ClientContacts />
+                    <ClientContacts  id={id}/>
 
                 </Grid>
                 <Grid item xs={12} sm={6}>

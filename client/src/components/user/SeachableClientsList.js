@@ -21,7 +21,6 @@ require("dotenv").config()
 function ClientList(props){
     let history = useHistory();
 
-    const [clientsID, setClientsID] = useState()
     const [clientList, setClientList] = useState([])
     const [filteredClientList, setFilteredClientList] = useState([])
     const [render, setRender] = useState(0)
@@ -44,11 +43,10 @@ function ClientList(props){
 
     useEffect(()=>{
         console.log("Renderizzo...")
-        axios.get("/api/user/getClients",
+        axios.get("/api/client/",
         { headers: { authorization: "Bearer " + token } })
         .then((response) => {
-          
-            setClientsID(response.data)
+            setClientList(response.data)
         })
         .catch((err) => {
 
@@ -56,26 +54,6 @@ function ClientList(props){
 
     }, [render])
 
-    useEffect(()=>{
-        setClientList([])
-        if(clientsID !== undefined){
-            clientsID.forEach(item =>{
-                axios.post(process.env.REACT_APP_HOST + "/api/client/getbyid",
-                {id:item},
-                { headers: { authorization: "Bearer " + token } })
-                .then((response) => {
-                    console.log(response.data)
-                    response.data.id = item
-                    setClientList(arr =>[...arr,response.data])
-                 
-                })
-                .catch((err) => {
-        
-                })
-               
-            })
-        }
-    }, [clientsID])
     
     useEffect(()=>{
         console.log(startText)
@@ -151,7 +129,7 @@ function ClientList(props){
                 (clientList.length !== 0)?
                 filteredClientList.map(item =>{
                     return(
-                        <ListItem button key={item.id} onClick={() => details(item.id)}>
+                        <ListItem button key={item._id} onClick={() => details(item._id)}>
                             <ListItemIcon>
                             <FaceIcon />
                             </ListItemIcon>
@@ -178,10 +156,13 @@ function ClientList(props){
                 <DialogTitle >{"Aggiungi nuovo cliente"}</DialogTitle>
                 <DialogContent>
 
-                    <TextField id="standard-basic" label="Nome" value={firstName} style={{width:'100%'}} 
-                    onChange={(e)=>setFirstName(e.target.value)}/>
-                     <TextField id="standard-basic" label="Cognome" value={lastName}   style={{width:'100%'}} 
-                    onChange={(e)=>setLastName(e.target.value)}/>
+                    <div style={{display:"flex", flexDirection:"row"}}>
+                        <TextField id="standard-basic" label="Nome" value={firstName} style={{width:'100%', margin:10}} 
+                        onChange={(e)=>setFirstName(e.target.value)}/>
+                        <TextField id="standard-basic" label="Cognome" value={lastName}   style={{width:'100%', margin:10}} 
+                        onChange={(e)=>setLastName(e.target.value)}/>
+                    </div>
+                   
                      <TextField id="standard-basic" label="Codice Fiscale" value={fiscalCode}  style={{width:'100%'}} 
                     onChange={(e)=>setFiscalCode(e.target.value)}/>
 

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const messageSchema = new Schema({
 
-    professional:{type: mongoose.Schema.Types.ObjectId, ref: 'Meeting', required:true},
+    professional:{type:String, required:true},
     client:{type: mongoose.Schema.Types.ObjectId, ref: 'Client', required:true},
     meeting:{type: mongoose.Schema.Types.ObjectId, ref: 'Meeting', required:true},
 
@@ -17,9 +17,21 @@ const messageSchema = new Schema({
         required:true
     },
     contacts:{
-            whatsapp: Boolean,
-            email: Boolean,
-            sms: Boolean
+            whatsapp: {
+                active: Boolean,
+                sent: Boolean,
+                statusCode: Number
+            },
+            email: {
+                active: Boolean,
+                sent: Boolean,
+                statusCode: Number
+            },
+            sms: {
+                active: Boolean,
+                sent: Boolean,
+                statusCode: Number
+            }
     },
     
 }, {

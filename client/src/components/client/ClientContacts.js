@@ -33,24 +33,29 @@ const useStyles = makeStyles(theme => ({
 
 
 function ClientContacts(props) {
-    const currentClient = useContext(ClientContext)
     const classes = useStyles();
 
     const [error, setError] = React.useState(false);
     const [errorMSG, setErrorMSG] = React.useState("");
+    const clientId = props.id
 
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken')
 
     const [contacts, setContacts] = useState({});
 
-    useEffect(() => {
-        if (typeof currentClient !== "undefined"
-            && typeof currentClient.client.contacts !== "undefined") {
-            setContacts(currentClient.client.contacts)
-        }
-    }, [currentClient])
-
+    useEffect(()=>{
+    axios.post('/api/client/contacts',
+    {_id:clientId},
+    { headers: { authorization: "Bearer " + token } })
+      .then((res) => {
+        console.log(res)
+        setContacts(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },[])
 
     const updateContacts = (target, value) => {
         let newContacts = contacts
@@ -68,14 +73,13 @@ function ClientContacts(props) {
         setContacts(newContacts)
         console.log(newContacts);
         
-        axios.post('/api/client/saveContacts',
-        {id:currentClient.client._id, contacts: newContacts},
+        axios.post('/api/client/contacts/update',
+        {_id:clientId, contacts: newContacts},
         { headers: { authorization: "Bearer " + token } })
           .then((res) => {
             console.log(res)
             setErrorMSG("Salvataggio effettuato...")
             setError(true)
-            currentClient.updateClient()
           })
           .catch((err) => {
             console.log(err)
@@ -104,48 +108,49 @@ function ClientContacts(props) {
 
                 <div style={{ padding: 5 }} className={classes.row}>
                     <EmailIcon style={{ marginRight: 10 }} />
-                    <EditableTextField
+                    
+                    <CustomEditText
                         type="text"
                         value={contacts.email }
-                        onUpdate={e => updateContacts('email', e)}
+                        onSave={e => updateContacts('email', e)}
                     />
                 </div>
 
 
                 <div style={{ padding: 5 }} className={classes.row}>
                     <WhatsAppIcon style={{ marginRight: 10 }} />
-                    <EditableTextField
+                    <CustomEditText
                         type="text"
                         value={contacts.whatsapp }
-                        onUpdate={e => updateContacts('whatsapp', e)}
+                        onSave={e => updateContacts('whatsapp', e)}
                     />
                 </div>
 
 
                 <div style={{ padding: 5 }} className={classes.row}>
                     <SmsIcon style={{ marginRight: 10 }} />
-                    <EditableTextField
+                    <CustomEditText
                         type="text"
                         value={contacts.sms }
-                        onUpdate={e => updateContacts('sms', e)}
+                        onSave={e => updateContacts('sms', e)}
                     />
                 </div>
 
 
                 <div style={{ padding: 5 }} className={classes.row}>
                     <FacebookIcon style={{ marginRight: 10 }} />
-                    <EditableTextField
+                    <CustomEditText
                         value={contacts.facebook}
-                        onUpdate={e => updateContacts('facebook', e)}
+                        onSave={e => updateContacts('facebook', e)}
                     />
                 </div>
 
                 <div style={{ padding: 5 }} className={classes.row}>
                     <InstagramIcon style={{ marginRight: 10 }} />
-                    <EditableTextField
+                    <CustomEditText
                         type="text"
                         value={contacts.instagram }
-                        onUpdate={e => updateContacts('instagram', e)}
+                        onSave={e => updateContacts('instagram', e)}
                     />
                 </div>
 

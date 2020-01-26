@@ -35,23 +35,30 @@ connection.once("open", ()=>{
 cronSender.cron();
 
 //******************** ROUTERS *************************
-const registerRouter = require("./routes/auth/register");
+const registerRouter = require("./routes/auth/register"); //ok
 app.use("/api/singup", registerRouter);
 
-const loginRouter = require("./routes/auth/login");
+const loginRouter = require("./routes/auth/login"); // ok
 app.use("/api/login", loginRouter);
 
-const adminRouter = require("./routes/auth/admin");
+const adminRouter = require("./routes/auth/admin"); //ok
 app.use("/api/admin",middleware.checkToken, adminRouter);
 
-const userRouter = require("./routes/user");
+const userRouter = require("./routes/v2/user"); //ok
 app.use("/api/user", middleware.checkToken, userRouter);
 
-const clientRouter = require("./routes/client");
+const templateRouter = require("./routes/v2/template"); // ok
+app.use("/api/template", middleware.checkToken, templateRouter);
+
+const clientRouter = require("./routes/v2/client");
 app.use("/api/client", middleware.checkToken, clientRouter);
 
-const meetingRouter = require("./routes/meeting");
+const meetingRouter = require("./routes/v2/meeting");
 app.use("/api/meeting", middleware.checkToken, meetingRouter);
+
+const messageRouter = require("./routes/v2/message");
+app.use("/api/message", middleware.checkToken, messageRouter);
+
 
 const cronRouter = require("./cron/mycron");
 app.use("/api/cron", cronRouter);
@@ -77,12 +84,17 @@ const instagramSenderRouter = require("./routes/sender/instagram");
 app.use("/api/sender/instagram", instagramSenderRouter);
 
 
+
 //******************** CODICI *************************
 const codesRouter = require("./routes/codes");
 app.use("/api/codes", codesRouter);
 
 const envRouter = require("./routes/env");
 app.use("/api/envTag", envRouter);
+
+const testRouter = require("./routes/test");
+app.use("/api/test", testRouter);
+
 
 if(process.env.NODE_ENV === "production"){
     app.use(express.static("client/build"))

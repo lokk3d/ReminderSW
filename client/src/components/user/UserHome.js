@@ -2,10 +2,9 @@ import React from "react";
 import SearchableClientList from "./SeachableClientsList"
 import Grid from '@material-ui/core/Grid';
 import ReminderList from './ReminderList';
-import Iframe from 'react-iframe'
+import Calendar from "./Calendar"
+import WrapperBox from "../WrapperBox"
 
-import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
 //import '../..//main.scss' // webpack must be configured to do this
 
 
@@ -25,10 +24,9 @@ function UserHome(props) {
             </Grid>
 
             <Grid item sm={8} style={{ width: "100%" }}>
-            <FullCalendar defaultView="dayGridMonth" plugins={[ dayGridPlugin ]} />
-
-                <ReminderList />
-
+                <WrapperBox header="Calendario">
+                    <Calendar />
+                </WrapperBox>
             </Grid>
         </Grid>
     )

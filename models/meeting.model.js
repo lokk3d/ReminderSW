@@ -16,28 +16,19 @@ const meetingSchema = new Schema({
         required:true,
         trim: true,
     },
+    clientName:{
+        type:String,
+        required:true,
+        trim: true,
+    },
+
 
     description:{
         type:String
     },
-    meetingDate:{
+    date:{
         type: Date
-    },
-    reminder:[
-        {
-            date: Date,
-            executed: Boolean,
-            text: String,
-            contacts:{
-                whatsapp: Boolean,
-                email: Boolean,
-                facebook: Boolean,
-                instagram: Boolean,
-                sms: Boolean
-            }
-        }
-    ]
-    
+    }
     //Add here more info in the schema
 }, {
     timestamps: true,

@@ -39,7 +39,6 @@ const useStyles = makeStyles(theme => ({
 
 
 function ClientPersonalData(props) {
-    const currentClient = useContext(ClientContext)
 
     const classes = useStyles();
     let history = useHistory();
@@ -59,8 +58,7 @@ function ClientPersonalData(props) {
    */
 
     useEffect(() => {
-        axios.post("/api/client/getbyid",
-            { id: props.id },
+        axios.get("/api/client/"+props.id,
             { headers: { authorization: "Bearer " + token } })
             .then((response) => {
                 setInfo(response.data)
@@ -80,9 +78,10 @@ function ClientPersonalData(props) {
 
 
     const sureDelete = () => {
-        axios.post('/api/client/deleteClient',
-            { id: info._id },
-            { headers: { authorization: "Bearer " + token } })
+        axios.delete('/api/client/delete', {
+            data: { _id: info._id },
+            headers: { authorization: "Bearer " + token }
+        })
             .then((res) => {
                 console.log(res)
                 history.push("/home");
@@ -98,7 +97,7 @@ function ClientPersonalData(props) {
         console.log(e)
 
         axios.post("/api/client/update",
-            { id: e._id, firstName: e.firstName, lastName: e.lastName, fiscalCode: e.fiscalCode },
+            { _id: e._id, firstName: e.firstName, lastName: e.lastName, fiscalCode: e.fiscalCode },
             { headers: { authorization: "Bearer " + token } })
             .then((response) => {
                 alert("Utente aggiornato");

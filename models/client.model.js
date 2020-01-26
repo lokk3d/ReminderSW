@@ -22,7 +22,7 @@ const clientSchema = new Schema({
         type: String,
         trim:true
     },
-    meetings:[{type: mongoose.Schema.Types.ObjectId, ref: 'Meeting'}],
+    professional:{type: String, required: true, trim: true},
     contacts:{
         whatsapp:{type: String, trim:true},
         instagram:{type: String, trim:true},

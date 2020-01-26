@@ -27,7 +27,7 @@ function UserCard(props){
     const [render, setRender] = useState(0);
 
     useEffect(()=> {
-        axios.get("/api/user/getName",
+        axios.get("/api/user/",
         { headers: { authorization: "Bearer " + token } })
         .then((response) => {
             setUsername(response.data.firstName + " " + response.data.lastName)

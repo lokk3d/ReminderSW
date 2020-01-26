@@ -33,7 +33,10 @@ const userSchema = new Schema({
         type: String,   
         trim:true
     },
-    clients:[{type: mongoose.Schema.Types.ObjectId, ref: 'Clients'}],
+    avatar:{
+        type: String,   
+        trim:true
+    },
     sessions:{
         email:{
             username: {
@@ -55,10 +58,6 @@ const userSchema = new Schema({
     defaultCustomFields:[{
         key:{type: String, trim: true},
         value:{type: String, trim: true},
-    }],
-    templates: [{
-        name:{type: String, trim: true, required:true},        
-        description:{type: String, trim: true, required: true},
     }]
 
     
