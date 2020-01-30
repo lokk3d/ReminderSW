@@ -36,7 +36,9 @@ function PersonalData(props) {
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken')
 
-    const [personalData, setPersonalData] = useState({ firstName: "", lastName: "", email: "", fiscalCode: "" })
+    const [personalData, setPersonalData] = useState({ firstName: "", 
+    lastName: "", email: "", fiscalCode: "", avatar:"" })
+
     const [render, setRender] = useState(0)
 
     useEffect(() => {
@@ -115,6 +117,7 @@ function PersonalData(props) {
                         onSave={e => saveData({ ...personalData, fiscalCode: e })}
                     />
                 </div>
+
                 
                 <div className={classes.row} style={{marginTop:20, marginBottom:20}}>
                     <div  className={[classes.marginText, classes.fixedWidth].join(" ")}>Email:</div>

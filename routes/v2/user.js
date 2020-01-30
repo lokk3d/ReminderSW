@@ -41,6 +41,7 @@ router.route("/update").post((req, res) => {
             user.firstName = req.body.firstName || user.firstName
             user.lastName = req.body.lastName || user.lastName
             user.fiscalCode = req.body.fiscalCode || user.fiscalCode
+            user.avatar = req.body.avatar || user.avatar
 
             user.save()
             res.status(200).json("user with id " + req.body._id + " correctly updated")

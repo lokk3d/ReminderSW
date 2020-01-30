@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   footer: {
-    backgroundColor: "#eceff1",
+    backgroundColor: "#eee",
     position: 'absolute',
     left: 0,
     bottom: 0,
@@ -19,7 +19,7 @@ function Footer() {
 
   return (
     <footer className={classes.footer}>
-      <div style={{ margin: 5 }}>Date Reminder v0.0.2 -  Copyright 2019 <a href="https://alfonsograziano.it" target="_blank" rel="noopener noreferrer" >AG</a></div>
+      <div style={{ margin: 5 }}>Redeo v0.0.3 -  Copyright 2019 <a href="https://alfonsograziano.it" target="_blank" rel="noopener noreferrer" >AG</a></div>
     </footer>
   );
 }

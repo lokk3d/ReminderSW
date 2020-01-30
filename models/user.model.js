@@ -58,7 +58,7 @@ const userSchema = new Schema({
     defaultCustomFields:[{
         key:{type: String, trim: true},
         value:{type: String, trim: true},
-    }]
+    }],
 
     
     //Add here more info in the schema

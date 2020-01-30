@@ -76,6 +76,7 @@ function Calendar(props) {
         setOpen(false);
     };
 
+    //TODO: Aggiungi il populate al meeting, così non devo fare un'altra chiamata inutile
     return (
         <div style={{ padding: 10 }}>
 

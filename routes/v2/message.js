@@ -7,13 +7,17 @@ require("dotenv").config();
 
 
 router.route("/").get((req, res) => {
+   const username = req.decoded.user;
 
-   Message.find()
+   Message.find({professional: username}).populate("client")
       .then(message => {
          res.status(200).json(message)
       })
       .catch(err => res.status(404).json("Error" + err));
 });
+
+
+
 
 
 router.route("/add").post([

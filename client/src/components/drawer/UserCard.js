@@ -1,56 +1,67 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 import { useHistory } from 'react-router-dom';
+import { deepOrange, deepPurple } from '@material-ui/core/colors';
 
 import Cookies from 'universal-cookie';
 import axios from "axios"
 
 const useStyles = makeStyles(theme => ({
-    row:{
-        display:'flex',
+    row: {
+        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column'
-    }
+    },
+    large: {
+        width: theme.spacing(7),
+        height: theme.spacing(7),
+    },
+    orange: {
+        color: theme.palette.getContrastText(deepOrange[500]),
+        backgroundColor: deepOrange[500],
+      },
 
-  }));
+}));
 
-function UserCard(props){
+function UserCard(props) {
     const classes = useStyles();
     let history = useHistory();
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken');
 
     const [username, setUsername] = useState("");
+    const [min, setMin] = useState("");
+
     const [render, setRender] = useState(0);
 
-    useEffect(()=> {
+    useEffect(() => {
         axios.get("/api/user/",
-        { headers: { authorization: "Bearer " + token } })
-        .then((response) => {
-            setUsername(response.data.firstName + " " + response.data.lastName)
-        })
-        .catch((err) => {
+            { headers: { authorization: "Bearer " + token } })
+            .then((response) => {
+                setUsername(response.data.firstName + " " + response.data.lastName)
+                setMin(response.data.firstName[0]+response.data.lastName[0])
+            })
+            .catch((err) => {
 
-        })
+            })
     }, [render])
 
 
-    return(
+    return (
         <div className={classes.row}
-        style={{padding:10}}>
-            <AccountCircleIcon fontSize={"large"}/>
+            style={{ padding: 10 }}>
+            <Avatar alt={username}
+                className={[classes.large, classes.orange].join(" ")} >
+                {min}
+            </Avatar>
+
             <h3>
                 {username}
             </h3>
-                <Button color={"primary"}
-                onClick={()=>{
-                    history.push("/user");
 
-                }}
-                >Edit profile</Button>
         </div>
     )
 }

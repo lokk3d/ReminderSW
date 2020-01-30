@@ -15,8 +15,10 @@ import UserHome from './components/user/UserHome';
 import Codes from './components/Codes';
 import Log from './components/user/Log';
 import Test from './components/Test';
-import AddMeeting from "./components/meeting/AddMeeting"
+import FullCalendar from './components/FullCalendar';
+import MessagesHome from './components/messages/MessagesHome';
 
+import AddMeeting from "./components/meeting/AddMeeting"
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -60,7 +62,10 @@ function App() {
 
             <Route path="/addMeeting/:id" component={AddMeeting} />
             <Route path="/addMeeting" component={AddMeeting} />
+            <Route path="/calendar" component={FullCalendar} />
+            <Route path="/messages" component={MessagesHome} />
 
+            
             <Route path="/test" component={Test} />
 
             <Route path="/codes" component={Codes} />
