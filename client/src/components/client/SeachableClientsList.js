@@ -35,11 +35,21 @@ function ClientList(props){
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [fiscalCode, setFiscalCode] = useState("")    
-
+    const [focus, setFocus] = useState(false)
     const [open, setOpen] = React.useState(false);
 
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken')
+
+
+    useEffect(()=>{
+        setFocus(props.focus || false)
+    },[props])
+
+    useEffect(()=>{
+        console.log(focus);
+    },[focus])
+
 
     useEffect(()=>{
         console.log("Renderizzo...")
@@ -102,16 +112,15 @@ function ClientList(props){
         }
     }
 
+
+
     return (
-        <div style={{
-            boxShadow: "2px 2px 5px #d4d4d4",
-            width:"100%"
-        }}>
+        <div>
             
-            <h3 style={{paddingLeft:20, paddingTop: 10}}>I miei clienti</h3>
-            <div style={{marginTop:20, width:"90%", display:"block", marginLeft:"auto", marginRight:"auto"}}>
+            <div style={{ width:"100%", display:"block", marginLeft:"auto", marginRight:"auto"}}>
                 <TextField
                     fullWidth={true}
+                    focused={focus}
                     label="Cerca cliente"
                     value={startText}
                     onChange={e => setStartText(e.target.value)}
@@ -145,9 +154,13 @@ function ClientList(props){
                 </div>
                 }
             </List>
-
-            <Button variant="contained" color="primary" style={{width:'100%', marginTop:20}}
-            onClick={()=>setOpen(true)}>Aggiungi cliente</Button>
+            {props.addClient ?
+                <Button variant="contained" color="primary" style={{width:'100%', marginTop:20}}
+                onClick={()=>setOpen(true)}>Aggiungi cliente</Button>
+                :
+                null
+            }
+            
 
             <Dialog
                 open={open}

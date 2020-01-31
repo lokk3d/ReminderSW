@@ -16,6 +16,7 @@ function Calendar(props) {
 
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken')
+    const minimal = props.minimal || false
     
     const [client, setClient] = useState({})
     const [detailedMeeting, setDetailedMeeting] = useState({})
@@ -78,18 +79,26 @@ function Calendar(props) {
 
     //TODO: Aggiungi il populate al meeting, così non devo fare un'altra chiamata inutile
     return (
-        <div style={{ padding: 10 }}>
+        <div style={{ padding: 10, width:"100%" }}>
 
             <FullCalendar
-                defaultView="dayGridMonth"
+                defaultView={minimal?"listDay":"dayGridMonth"}
                 plugins={[dayGridPlugin, listPlugin]}
                 events={formattedEvents}
 
-                header={{
+                header={(minimal)?{
+                    left: 'prev,next',
+                    center: 'title',
+                    right:""
+                }:
+                {
                     left: 'prev,next',
                     center: 'title',
                     right: 'dayGridDay,dayGridWeek,dayGridMonth,listWeek'
                 }}
+                height={
+                    (minimal)?"auto":"parent"
+                }
 
                 eventClick={eventClickHandler}
             />

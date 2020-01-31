@@ -19,8 +19,27 @@ import FullCalendar from './components/FullCalendar';
 import MessagesHome from './components/messages/MessagesHome';
 
 import AddMeeting from "./components/meeting/AddMeeting"
+import CustomersPage from './components/pages/CustomersPage';
 const theme = createMuiTheme({
   palette: {
+    primary: {
+      main: '#0e2f5c',
+      darker: "#011b3d"
+    },
+    secondary: {
+      main: '#9c0b0c',
+      darker: "#9c0b0c"
+    },
+    white: {
+      main: '#ffffff'
+    },
+    darkGray: {
+      main: '#262626'
+    },
+    contrastThreshold: 3,
+    tonalOffset: 0.2,
+  },
+  oldPalette: {
     primary: {
       main: '#2979ff',
     },
@@ -28,10 +47,10 @@ const theme = createMuiTheme({
       main: '#00a369',
       darker: "#1d5bc2"
     },
-    white:{
+    white: {
       main: '#ffffff'
     },
-    darkGray:{
+    darkGray: {
       main: '#262626'
 
     },
@@ -44,34 +63,38 @@ function App() {
 
   //TODO: Cambiare url con i link in maniera corretta
   //TODO: Eseguire i ridirect di /user in /home (ove necessario obv)
-  
+
   return (
-    <div >
+    <div style={{height:"100%"}}>
       <ThemeProvider theme={theme}>
         <Router>
-          <Navbar />
-          <Switch>
+          <Navbar >
+            <Switch>
 
-            <Route path="/" exact component={Home} />
-            <Route path="/user" component={User} />
-            <Route path="/login" component={Login} />
-            <Route path="/singup" component={Register} />
-            <Route path="/client/:id" component={ClientHome} />
-            <Route path="/home" component={UserHome} />
-            <Route path="/log" component={Log} />
+              <Route path="/" exact component={Home} />
+              <Route path="/user" component={User} />
+              <Route path="/login" component={Login} />
+              <Route path="/singup" component={Register} />
 
-            <Route path="/addMeeting/:id" component={AddMeeting} />
-            <Route path="/addMeeting" component={AddMeeting} />
-            <Route path="/calendar" component={FullCalendar} />
-            <Route path="/messages" component={MessagesHome} />
+              <Route path="/clients" component={CustomersPage} />
+              <Route path="/client/:id" component={ClientHome} />
+              <Route path="/home" component={UserHome} />
+              <Route path="/log" component={Log} />
 
-            
-            <Route path="/test" component={Test} />
+              <Route path="/addMeeting/:id" component={AddMeeting} />
+              <Route path="/addMeeting" component={AddMeeting} />
+              <Route path="/calendar" component={FullCalendar} />
+              <Route path="/messages" component={MessagesHome} />
 
-            <Route path="/codes" component={Codes} />
 
-            <Route component={PageNotFound} />
-          </Switch>
+              <Route path="/test" component={Test} />
+
+              <Route path="/codes" component={Codes} />
+
+              <Route component={PageNotFound} />
+            </Switch>
+          </Navbar>
+
 
         </Router>
       </ThemeProvider>

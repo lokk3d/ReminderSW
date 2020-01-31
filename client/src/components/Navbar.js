@@ -1,22 +1,27 @@
-import React, {useState, useEffect} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, Typography, List, ListItem} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import React, { useState, useEffect } from 'react';
+import clsx from 'clsx';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { AppBar, Toolbar } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import Cookies from 'universal-cookie';
 import PersonIcon from '@material-ui/icons/Person';
 import axios from "axios"
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-
+import List from '@material-ui/core/List';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ListItem from '@material-ui/core/ListItem';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
 import UserCard from "./drawer/UserCard"
 import createHistory from 'history/createBrowserHistory';
-import Footer from "./Footer"
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Fab from '@material-ui/core/Fab';
-import NavigationIcon from '@material-ui/icons/Navigation';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 import { useHistory } from 'react-router-dom';
 
@@ -29,183 +34,284 @@ import EventIcon from '@material-ui/icons/Event';
 import AddIcon from '@material-ui/icons/Add';
 import SettingsIcon from '@material-ui/icons/Settings';
 
+import backgroundImage from './3.jpg';
+
+
+const drawerWidth = 240;
+
+
 const useStyles = makeStyles(theme => ({
   margin: {
-    margin: theme.spacing(1),
+    marginRight: 30,
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
   },
-    root: {
-      flexGrow: 1,
+  root: {
+    display: 'flex',
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: 36,
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+  },
+  drawerOpen: {
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerClose: {
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: theme.spacing(7) + 1,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(9) + 1,
     },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-      textAlign: "left"
-    },
-    link:{
-        color: "white",
-        textDecoration: "none"
-    },
-    navbar:{
-        backgroundColor: theme.palette.primary.dark,
-        width:"100%"
-    },
-    row: {
-      display: "flex",
-      alignItems:"center",
-      justifyContent:"center"
-    },
-    col: {
-      display: "flex",
-      alignItems:"center",
-      justifyContent:"center",
-      flexDirection:"col"
-    },
-    list: {
-      width: 250,
-    },
-    fullList: {
-      width: 'auto',
-    },
+  },
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1),
+    height:"100%"
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+    textAlign: "left"
+  },
+  link: {
+    color: "white",
+    textDecoration: "none"
+  },
+  navbar: {
+    backgroundColor: theme.palette.primary.dark,
+    width: "100%"
+  },
+  row: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  col: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "col"
+  },
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  }
+}));
 
-  }));
 
 
-  
-function Navbar() {
-    const classes = useStyles();
-    let history = useHistory();
+function Navbar(props) {
+  const classes = useStyles();
+  const theme = useTheme();
+  let history = useHistory();
 
-    const [drawer, setDrawer] = useState();
+  const [drawer, setDrawer] = useState();
+  const [open, setOpen] = React.useState(false);
 
-    const [loggedIn, setLogIn] = useState(false);
-    const [username, setUsername] = useState("Profilo")
+  const [loggedIn, setLogIn] = useState(false);
+  const [username, setUsername] = useState("Profilo")
 
-    const cookies = new Cookies();
-    const token = cookies.get('dateReminder-AuthToken')
-    console.log(token)
-    useEffect(()=>{
-      if(token !== undefined){
-        setLogIn(true)
+  const cookies = new Cookies();
+  const token = cookies.get('dateReminder-AuthToken')
+  console.log(token)
+  useEffect(() => {
+    if (token !== undefined) {
+      setLogIn(true)
 
-        axios.get("/api/user/",
+      axios.get("/api/user/",
         { headers: { authorization: "Bearer " + token } })
         .then((response) => {
-            setUsername(response.data.firstName + " " + response.data.lastName)
+          setUsername(response.data.firstName + " " + response.data.lastName)
         })
         .catch((err) => {
 
         })
 
-      }
-    });
+    }
+  });
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <AppBar position="static" className={classes.navbar}>
+    <div className={classes.root} style={{height:"100%"}}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
         <Toolbar>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu"
-          onClick={()=> setDrawer(true)}>
-            <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" className={classes.title}>
-          <Link to="/" className={classes.link}>
-            Redeo (beta)
-          </Link>
-        </Typography>
-
-
-        {loggedIn?
-        null
-        :<Link to="/login" className={classes.link}>Accedi</Link>}
-
-
-        </Toolbar>
-
-        <Drawer 
-          open={drawer} 
-          onClose={() => setDrawer(false)}
-          keepMounted={true}
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={clsx(classes.menuButton, {
+              [classes.hide]: open,
+            })}
           >
-          <div style={{margin:20, minWidth:270}}>
-            <UserCard />
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap>
+            Redeo (beta)
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        variant="permanent"
+        className={clsx(classes.drawer, {
+          [classes.drawerOpen]: open,
+          [classes.drawerClose]: !open,
+        })}
+        classes={{
+          paper: clsx({
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
+          }),
+        }}
+      >
+        <div className={classes.toolbar}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+        </div>
+        <Divider />
+        <UserCard />
+        <List>
 
-              <List>
-              <ListItem button onClick={()=>{setDrawer(false); history.push("/home");}}>
+          <List>
+            <ListItem button onClick={() => { setDrawer(false); history.push("/home"); }}>
+              <ListItemIcon>
+                <HomeIcon  />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItem>
+
+
+            <ListItem button onClick={() => { setDrawer(false); history.push("/calendar"); }}>
+              <ListItemIcon>
+                <EventIcon  />
+              </ListItemIcon>
+              <ListItemText primary="Calendar" />
+            </ListItem>
+
+            <ListItem button onClick={() => { setDrawer(false); history.push("/clients"); }}>
+              <ListItemIcon>
+                <PersonIcon />
+              </ListItemIcon>
+              <ListItemText primary="Customers" />
+            </ListItem>
+
+            <ListItem button onClick={() => { setDrawer(false); history.push("/messages"); }}>
+              <ListItemIcon>
+                <ChatBubbleOutlineIcon  />
+              </ListItemIcon>
+              <ListItemText primary="Messages" />
+            </ListItem>
+
+
+            <ListItem button onClick={() => { setDrawer(false); history.push("/user"); }}>
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Settings" />
+            </ListItem>
+          </List>
+
+        </List>
+        <Divider />
+        <List>
+          {['Add'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon><AddIcon /></ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+
+        <div
+          style={{
+            position: "absolute",
+            bottom: 50,
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between"
+          }}>
+
+            <List style={{width:"100%"}}>
+
+              <ListItem button onClick={() => { setDrawer(false); history.push("/user"); }}>
                 <ListItemIcon>
-                  <HomeIcon htmlColor="#7764E4" />
+                  <HelpOutlineIcon htmlColor="#666" />
                 </ListItemIcon>
-                <ListItemText primary="Home" />
+                <ListItemText primary="Guida e Faq" />
               </ListItem>
+            </List>
 
-              <ListItem button onClick={()=>{setDrawer(false); history.push("/home");}}>
-                <ListItemIcon>
-                  <MailIcon htmlColor="#F53C56" />
-                </ListItemIcon>
-                <ListItemText primary="Inbox" />
-              </ListItem>
 
-              <ListItem button onClick={()=>{setDrawer(false); history.push("/home");}}>
-                <ListItemIcon>
-                  <DescriptionIcon htmlColor="#11CDEF" />
-                </ListItemIcon>
-                <ListItemText primary="Invoices" />
-              </ListItem>
+        </div>
+      </Drawer>
 
-              <ListItem button onClick={()=>{setDrawer(false); history.push("/messages");}}>
-                <ListItemIcon>
-                  <ChatBubbleOutlineIcon htmlColor="#FEB969" />
-                </ListItemIcon>
-                <ListItemText primary="Messages" />
-              </ListItem>
 
-              <ListItem button onClick={()=>{setDrawer(false); history.push("/calendar");}}>
-                <ListItemIcon>
-                  <EventIcon htmlColor="#FB6340" />
-                </ListItemIcon>
-                <ListItemText primary="Calendar" />
-              </ListItem>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+          {props.children}
+          <div style={{marginBottom:100}}></div>
+      </main>
 
-              <ListItem button onClick={()=>{setDrawer(false); history.push("/home");}}>
-                <ListItemIcon>
-                  <PersonIcon htmlColor="#7764E4" />
-                </ListItemIcon>
-                <ListItemText primary="Customers" />
-              </ListItem>
 
-              <ListItem button onClick={()=>{setDrawer(false); history.push("/user");}}>
-                <ListItemIcon>
-                  <SettingsIcon htmlColor="#F53C56" />
-                </ListItemIcon>
-                <ListItemText primary="Settings" />
-              </ListItem>
-              </List>
+    </div>
 
-              <div 
-              style={{
-                position:"absolute",
-                bottom:50,
-                width:"80%",
-                display:"flex", 
-                justifyContent:"space-between"}}>
-                <div className={classes.row}>
-                <Button  className={classes.margin}>
-                  <HelpOutlineIcon className={classes.extendedIcon} />
-                  Guida e FAQ
-                </Button>
-                 
-                </div>
-                <Fab color="primary" aria-label="add">
-                  <AddIcon />
-                </Fab>
-              </div>
-            <Footer />
-          </div>
-        </Drawer>
-    </AppBar>
+
   );
 }
 

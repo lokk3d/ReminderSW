@@ -59,6 +59,11 @@ const userSchema = new Schema({
         key:{type: String, trim: true},
         value:{type: String, trim: true},
     }],
+    homeBg:{
+        type: {type: String, trim: true},
+        url: {type: String, trim:true},
+        hexColor: {type: String, trim: true}
+    }
 
     
     //Add here more info in the schema

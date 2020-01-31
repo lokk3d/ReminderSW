@@ -1,10 +1,18 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Calendar from "./user/Calendar"
 
-function FullCalendar(props){
+function FullCalendar(props) {
     return (
-        <div style={{padding:20}}>
-        < Calendar />
+        <div style={{
+            padding: 20,
+            height: "auto",
+            display: "flex",
+            width: "auto",
+            justifyContent: "center"
+        }}>
+
+            < Calendar />
+
         </div>
     )
 }

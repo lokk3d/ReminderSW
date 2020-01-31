@@ -12,17 +12,20 @@ const useStyles = makeStyles(theme => ({
     row: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column'
+        flexDirection: 'row',
     },
     large: {
-        width: theme.spacing(7),
-        height: theme.spacing(7),
+        width: theme.spacing(6),
+        height: theme.spacing(6),
     },
     orange: {
         color: theme.palette.getContrastText(deepOrange[500]),
         backgroundColor: deepOrange[500],
       },
+      
+  text:{
+    textShadow: "2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff",
+  }
 
 }));
 
@@ -34,6 +37,7 @@ function UserCard(props) {
 
     const [username, setUsername] = useState("");
     const [min, setMin] = useState("");
+    const [email, setEmail] = useState("");
 
     const [render, setRender] = useState(0);
 
@@ -41,7 +45,9 @@ function UserCard(props) {
         axios.get("/api/user/",
             { headers: { authorization: "Bearer " + token } })
             .then((response) => {
-                setUsername(response.data.firstName + " " + response.data.lastName)
+                setUsername(response.data.firstName )
+                setEmail(response.data.email)
+
                 setMin(response.data.firstName[0]+response.data.lastName[0])
             })
             .catch((err) => {
@@ -58,10 +64,13 @@ function UserCard(props) {
                 {min}
             </Avatar>
 
-            <h3>
-                {username}
-            </h3>
-
+            <div style={{marginLeft:20}}>
+                <h3 style={{margin:0}}  >
+                    {username}
+                </h3>
+                <div  >{email}</div>
+            </div>
+           
         </div>
     )
 }
