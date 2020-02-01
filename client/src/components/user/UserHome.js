@@ -1,10 +1,10 @@
 import React from "react";
-import SearchableClientList from "../client/SeachableClientsList"
+import SearchableClientList from "../features/client/SeachableClientsList"
 import Grid from '@material-ui/core/Grid';
 import ReminderList from './ReminderList';
 import Calendar from "./Calendar"
-import WrapperBox from "../WrapperBox"
-import UserCard from "../drawer/UserCard"
+import WrapperBox from "../shared/WrapperBox"
+import UserCard from "../core/drawer/UserCard"
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Cookies from 'universal-cookie';
 import axios from "axios"

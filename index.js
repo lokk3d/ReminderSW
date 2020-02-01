@@ -47,6 +47,9 @@ app.use("/api/admin",middleware.checkToken, adminRouter);
 const userRouter = require("./routes/v2/user"); //ok
 app.use("/api/user", middleware.checkToken, userRouter);
 
+const backgroundRouter = require("./routes/background");
+app.use("/api/background",  middleware.checkToken,backgroundRouter);
+
 const templateRouter = require("./routes/v2/template"); // ok
 app.use("/api/template", middleware.checkToken, templateRouter);
 
@@ -103,6 +106,8 @@ if(process.env.NODE_ENV === "production"){
         res.sendFile(path.resolve(_dirname, "client", "build", "index.html"))
     })
 }
+
+app.use("/public", express.static(path.join(__dirname, 'public')));
 
 app.listen(port, ()=>{
     console.log('Server running... on port: ' + port);

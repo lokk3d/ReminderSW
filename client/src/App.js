@@ -1,25 +1,28 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navbar from "./components/Navbar"
-
-import Home from "./components/home/Home"
-import User from "./components/user/User"
-import Login from "./components/Login"
-import Footer from "./components/Footer"
-import Register from "./components/Register"
-import PageNotFound from "./components/PageNotFound"
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import ClientHome from './components/client/ClientHome';
-import UserHome from './components/user/UserHome';
-import Codes from './components/Codes';
-import Log from './components/user/Log';
-import Test from './components/Test';
-import FullCalendar from './components/FullCalendar';
-import MessagesHome from './components/messages/MessagesHome';
 
-import AddMeeting from "./components/meeting/AddMeeting"
-import CustomersPage from './components/pages/CustomersPage';
+import Navbar from "./components/core/Navbar"
+import Login from "./components/core/Login"
+import Register from "./components/core/Register"
+import PageNotFound from "./components/core/PageNotFound"
+
+import Home from "./components/features/home/Home"
+import UserPage from "./components/features/pages/UserPage"
+import UserSettingsPage from "./components/features/pages/UserSettingsPage"
+
+import ClientPage from './components/features/pages/ClientPage';
+import CustomersPage from './components/features/pages/CustomersPage';
+import CalendarPage from './components/features/pages/CalendarPage';
+import MessagesPage from "./components/features/pages/MessagesPage"
+import AddMeetingPage from "./components/features/pages/AddMeetingPage"
+
+import Codes from './components/core/Codes';
+import Test from './components/core/Test';
+
+
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -72,19 +75,18 @@ function App() {
             <Switch>
 
               <Route path="/" exact component={Home} />
-              <Route path="/user" component={User} />
               <Route path="/login" component={Login} />
               <Route path="/singup" component={Register} />
 
+              <Route path="/home" component={UserPage} />
               <Route path="/clients" component={CustomersPage} />
-              <Route path="/client/:id" component={ClientHome} />
-              <Route path="/home" component={UserHome} />
-              <Route path="/log" component={Log} />
+              <Route path="/client/:id" component={ClientPage} />
+              <Route path="/settings" component={UserSettingsPage} />
 
-              <Route path="/addMeeting/:id" component={AddMeeting} />
-              <Route path="/addMeeting" component={AddMeeting} />
-              <Route path="/calendar" component={FullCalendar} />
-              <Route path="/messages" component={MessagesHome} />
+              <Route path="/addMeeting/:id" component={AddMeetingPage} />
+              <Route path="/addMeeting" component={AddMeetingPage} />
+              <Route path="/calendar" component={CalendarPage} />
+              <Route path="/messages" component={MessagesPage} />
 
 
               <Route path="/test" component={Test} />
