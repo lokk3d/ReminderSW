@@ -4,6 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Paper from '@material-ui/core/Paper';
 import PanoramaIcon from '@material-ui/icons/Panorama';
 import IconButton from '@material-ui/core/IconButton';
 import axios from "axios"
@@ -55,34 +56,35 @@ function BackgroundPicker(props) {
 
     const saveBg = (url) => {
         axios.post('/api/background/update',
-        {type:"image", url:url.replace('.min',"")},
-        { headers: { authorization: "Bearer " + token } })
-          .then((res) => {
-            window.location = window.location.href
-          })
-          .catch((err) => {
-            console.log(err)
-          })
+            { type: "image", url: url.replace('.min', "") },
+            { headers: { authorization: "Bearer " + token } })
+            .then((res) => {
+                window.location = window.location.href
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     const saveColorBg = (color) => {
         axios.post('/api/background/update',
-        {type:"color", hexColor:color},
-        { headers: { authorization: "Bearer " + token } })
-          .then((res) => {
-            window.location = window.location.href
-          })
-          .catch((err) => {
-            console.log(err)
-          })
+            { type: "color", hexColor: color },
+            { headers: { authorization: "Bearer " + token } })
+            .then((res) => {
+                window.location = window.location.href
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     return (
         <div>
-            <IconButton onClick={handleClickOpen}>
-                <PanoramaIcon />
-            </IconButton>
-
+            <Paper >
+                <IconButton onClick={handleClickOpen}>
+                    <PanoramaIcon />
+                </IconButton>
+            </Paper>
 
 
             <Dialog

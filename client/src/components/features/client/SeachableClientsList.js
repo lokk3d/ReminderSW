@@ -40,8 +40,6 @@ function ClientList(props){
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken')
 
-    //TODO: Debugga il prop maxRows
-
 
     useEffect(()=>{
         axios.get("/api/client/",
@@ -123,7 +121,7 @@ function ClientList(props){
                     fullWidth={true}
                     label="Cerca cliente"
                     value={startText}
-                    onChange={e => setStartText(e.target.value)}
+                    onChange={e => setStartText(e.target.value.toLowerCase())}
                     InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">

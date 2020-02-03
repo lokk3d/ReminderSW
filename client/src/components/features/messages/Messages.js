@@ -100,8 +100,7 @@ function Messages(props) {
 
     return (
         <div className={classes.col}>
-            <div style={{ maxWidth: 800, width: "100%" }}>
-                <h2 style={{textAlign:"center"}}>I miei messaggi</h2>
+            <div style={{ maxWidth: 800, width: "100%", marginTop: 20 }}>
                 <AppBar position="static" color="default">
                     <Tabs
                         value={value}
@@ -120,45 +119,21 @@ function Messages(props) {
                 </AppBar>
                 <div style={{backgroundColor:"#fafafa"}}>
                     <TabPanel value={value} index={0} dir={theme.direction}>
-                        {
-                            (messages.length === 0)?
-                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                                <AddCircleOutlineIcon style={{ margin: 10 }} />
-                                <p>Non hai messaggi</p>
-                            </div>:
-                            <MessageList messages={messages}/>
-                        }
+                            <MessageList messages={messages} variant="all"/>
                     </TabPanel>
+
                     <TabPanel value={value} index={1} dir={theme.direction}>
-                    {
-                            (messages.length === 0)?
-                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                                <AddCircleOutlineIcon style={{ margin: 10 }} />
-                                <p>Non hai messaggi inviati</p>
-                            </div>:
-                            <MessageList messages={messages}/>
-                        }
+                        <MessageList messages={messages} variant="sent"/>
                     </TabPanel>
+
                     <TabPanel value={value} index={2} dir={theme.direction}>
-                    {
-                            (messages.length === 0)?
-                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                                <AddCircleOutlineIcon style={{ margin: 10 }} />
-                                <p>Non hai messaggi non inviati</p>
-                            </div>:
-                            <MessageList messages={messages}/>
-                        }
+                        <MessageList messages={messages} variant="error"/>
                     </TabPanel>
+
                     <TabPanel value={value} index={3} dir={theme.direction}>
-                    {
-                            (messages.length === 0)?
-                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                                <AddCircleOutlineIcon style={{ margin: 10 }} />
-                                <p>Non hai messaggi in attesa</p>
-                            </div>:
-                            <MessageList messages={messages}/>
-                        }
+                        <MessageList messages={messages} variant="pending"/>
                     </TabPanel>
+
                 </div>
             </div>
         </div>

@@ -52,7 +52,7 @@ function Home() {
   let history = useHistory();
 
   return (
-    <div style={{marginBottom:40}}>
+    <div style={{marginBottom:40, backgroundColor:"#fff"}}>
      
         <h1 className={classes.root}>Benvenuto! </h1>
         <br/>

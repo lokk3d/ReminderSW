@@ -9,8 +9,20 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+
+
+function dateToYYYYMMDDhhmm(date) {
+    function pad(num) {
+        num = num + '';
+        return num.length < 2 ? '0' + num : num;
+    }
+    return date.getFullYear() + '/' +
+        pad(date.getMonth() + 1) + '/' +
+        pad(date.getDate()) + ' ' +
+        pad(date.getHours()) + ':' +
+        pad(date.getMinutes())
+}
 
 function Calendar(props) {
 
@@ -22,6 +34,8 @@ function Calendar(props) {
     const [detailedMeeting, setDetailedMeeting] = useState({})
     const [events, setEvents] = useState([])
     const [formattedEvents, setFormattedEvents] = useState([])
+
+    const [formattedDate, setFormattedDate] = useState("")
 
     useEffect(() => {
         axios.get("/api/meeting/",
@@ -53,8 +67,10 @@ function Calendar(props) {
         axios.get('/api/meeting/'+ e.event._def.publicId,
         { headers: { authorization: "Bearer " + token } })
           .then((res) => {
-            console.log(res)
             setDetailedMeeting(res.data)
+
+            let date = new Date(res.data.date)
+            setFormattedDate(dateToYYYYMMDDhhmm(date))
           })
           .catch((err) => {
             console.log(err)
@@ -62,10 +78,7 @@ function Calendar(props) {
         handleClickOpen()
     }
 
-    useEffect(()=>{
-        console.log(client);
-    },[client])
-
+ 
 
     const [open, setOpen] = React.useState(false);
 
@@ -79,13 +92,12 @@ function Calendar(props) {
 
     //TODO: Aggiungi il populate al meeting, così non devo fare un'altra chiamata inutile
     return (
-        <div style={{ padding: 10, width:"100%" }}>
+        <div style={{  height:"auto"}}>
 
             <FullCalendar
                 defaultView={minimal?"listDay":"dayGridMonth"}
                 plugins={[dayGridPlugin, listPlugin]}
                 events={formattedEvents}
-
                 header={(minimal)?{
                     left: 'prev,next',
                     center: 'title',
@@ -112,9 +124,7 @@ function Calendar(props) {
                 <DialogTitle id="alert-dialog-title">{
                 "Appuntamento con " + client.name }</DialogTitle>
                 <DialogContent>
-                <p>Data: {
-                    detailedMeeting.date
-                }</p>
+                <p>Data: { formattedDate }</p>
                 <p>{"Dettagli: " + detailedMeeting.description || ""}</p>
 
                 </DialogContent>

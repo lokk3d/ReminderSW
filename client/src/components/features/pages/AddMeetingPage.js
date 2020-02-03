@@ -79,7 +79,10 @@ function AddMeetingPage(props) {
         <Grid item sm={7} style={{ width: "100%" }}>
 
             <WrapperBox header="Calendario">
+                <div style={{margin:10}}>
                 <Calendar />
+
+                </div>
             </WrapperBox>
 
         </Grid>

@@ -33,14 +33,14 @@ function UserPage(props) {
     return (
         <div className={classes.col}>
 
-            <div className={classes.box} style={{ backgroundColor: "#fff" }}>
+            <div className={classes.box} style={{ backgroundColor: "#fff", maxHeight:400, overflowX:"auto"}}>
                 <SearchableClientList
                     onSelectedClient={(id) => { history.push("/client/" + id) }}
 
                 />
             </div>
 
-            <div className={classes.box} style={{ backgroundColor: "#fff" }}>
+            <div className={classes.box} style={{ backgroundColor: "#fff", paddingBottom:30 }}>
                 <Calendar minimal={true} />
             </div>
 

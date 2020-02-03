@@ -65,7 +65,7 @@ function ClientPersonalData(props) {
             .catch((err) => {
                 history.push("/home");
             })
-    }, [render])
+    }, [props])
 
     const deleteClient = () => {
         setOpen(true)

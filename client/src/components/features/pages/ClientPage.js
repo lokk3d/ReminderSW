@@ -3,10 +3,10 @@ import ClientPersonalData from "../client/ClientPersonalData"
 import ClientContacts from "../client/ClientContacts"
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import MyMeetings from "../client/MyMeetings";
 import WrapperBox from "../../shared/WrapperBox"
 import Cookies from 'universal-cookie';
 import axios from "axios";
+import ClientMeetings from "../client/ClientMeetings";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -66,7 +66,7 @@ function ClientPage(props) {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <WrapperBox header="Appuntamenti">
-                        <MyMeetings />
+                        <ClientMeetings  id={id}/>
                     </WrapperBox>
                 </Grid>
 

@@ -22,7 +22,7 @@ import Cookies from 'universal-cookie';
 
 function formatDate(date) {
     var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
+        month = '' + d.getMonth(),
         day = '' + d.getDate(),
         year = d.getFullYear();
 
@@ -30,10 +30,10 @@ function formatDate(date) {
         day = '0' + day;
 
     var monthNames = [
-        "January", "February", "March",
-        "April", "May", "June", "July",
-        "August", "September", "October",
-        "November", "December"
+        "Gennaio", "Febbraio", "Marzo",
+        "Aprile", "Maggio", "Giugno", "Luglio",
+        "Agosto", "Settembre", "Ottobre",
+        "Novembre", "Dicembre"
         ];
 
     return [day, monthNames[month], year].join(' ');
@@ -77,56 +77,25 @@ function ShowMeeting(props) {
 
     const id = props.item._id;
     const item = props.item;
-    const date = formatDate(props.item.meetingDate.toString())
-    const reminders = props.item.reminder;
+    const date = formatDate(props.item.date.toString())
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken')
-    const [reminderList, setReminderList] = useState();
 
 
     const deleteMeeting = (id) => {
-        axios.post('/api/meeting/delete',
-        {id: id, client: props.clientId},
-        { headers: { authorization: "Bearer " + token } })
+        axios.delete('/api/meeting/delete', {
+            data: {id: id},
+            headers: { authorization: "Bearer " + token }
+        })
           .then((res) => {
-              window.location = window.location
-            //history.push("/client/"+props.clientId);
+              if(typeof props.onDeleteItem !== "undefined")
+                props.onDeleteItem(item)
           })
           .catch((err) => {
             console.log(err)
           })
     }
 
-    useEffect(()=>{
-        setReminderList(reminders.map(item=>{
-            const contacts = item.contacts
-
-            let myitem = "false"
-            if(typeof item.executed !== "undefined"){
-                myitem = item.executed.toString() 
-            }
-            return(
-                <div>
-                    <ListItem style={{margin:0, padding:0}}>
-                        <div className={classes.col}>
-                            <div >{"Invia il: " + formatDate(item.date) + " alle " + formatTime(item.date)}</div>
-                            <div style={{padding:10}}>{item.text}</div>
-                            <div>{"Inviato:"}<b>{myitem}</b></div>
-                            <div style={{paddingTop:10}}>
-                                { contacts.whatsapp? <WhatsAppIcon /> : <div/> }
-                                { contacts.email? <EmailIcon /> : <div/> }
-                                { contacts.sms? <SmsIcon /> : <div/> }
-                                { contacts.Instagram? <InstagramIcon /> : <div/> }
-                                { contacts.facebook? <FacebookIcon /> : <div/> }
-
-                            </div>
-                        </div>          
-                    </ListItem>
-                    <Divider />
-                </div>     
-            )
-        }))
-    },[])
     //console.log(state)
     return (
         <ExpansionPanel style={{width:'100%'}}>
@@ -149,7 +118,7 @@ function ShowMeeting(props) {
             <ExpansionPanelDetails style={{paddingBottom:10}}>
                 <List style={{padding:0}}
                 >
-                    {reminderList}
+                    {/* {messageList} */}
                 </List>
             </ExpansionPanelDetails>
         </ExpansionPanel>

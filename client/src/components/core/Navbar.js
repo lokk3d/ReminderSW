@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
+import { withStyles } from '@material-ui/core/styles';
+
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { AppBar, Toolbar } from '@material-ui/core';
 import Cookies from 'universal-cookie';
@@ -24,12 +26,46 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import EventIcon from '@material-ui/icons/Event';
 import AddIcon from '@material-ui/icons/Add';
 import SettingsIcon from '@material-ui/icons/Settings';
-
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import SendIcon from '@material-ui/icons/Send';
 import { useHistory } from 'react-router-dom';
-
-
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import CreateIcon from '@material-ui/icons/Create';
 const drawerWidth = 240;
 
+const StyledMenu = withStyles({
+  paper: {
+    border: '1px solid #d3d4d5',
+  },
+})(props => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'center',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'center',
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles(theme => ({
+  root: {
+    '&:focus': {
+      backgroundColor: theme.palette.primary.main,
+      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+        color: theme.palette.common.white,
+      },
+    },
+  },
+}))(MenuItem);
 
 const useStyles = makeStyles(theme => ({
   margin: {
@@ -145,6 +181,16 @@ function Navbar(props) {
   const [username, setUsername] = useState("Profilo")
 
   const [background, setBackground] = useState({})
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const drawerData = [
     {
@@ -296,12 +342,17 @@ function Navbar(props) {
         </List>
         <Divider />
         <List>
-          {['Add'].map((text, index) => (
-            <ListItem button key={text}>
+          
+            <ListItem button
+            aria-controls="customized-menu"
+            aria-haspopup="true"
+            variant="contained"
+            color="primary"
+            onClick={handleClick}>
               <ListItemIcon><AddIcon /></ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={"Add"} />
             </ListItem>
-          ))}
+
         </List>
 
         <div
@@ -326,6 +377,30 @@ function Navbar(props) {
 
         </div>
       </Drawer>
+
+      <StyledMenu
+        id="customized-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <StyledMenuItem 
+          onClick={()=>{alert("Porca troia aspe che sta roba non è ancora pronta"); handleClose();}}>
+          <ListItemIcon >
+            <CreateIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Nuova prenotazione" />
+        </StyledMenuItem>
+        
+        <StyledMenuItem
+          onClick={()=>{alert("Porca troia aspe che sta roba non è ancora pronta"); handleClose();}}>
+          <ListItemIcon>
+            <PersonAddIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Nuovo contatto" />
+        </StyledMenuItem>
+      </StyledMenu>
 
 
       <main className={classes.content} style={background}>

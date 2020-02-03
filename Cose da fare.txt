@@ -1,0 +1,9 @@
+Fixa il componente di creazione del meeting
+Aggiungi modifica meeting
+Aggiungi rischedulazione (modifica) messaggio
+- Aggiungi visualizazione cliente nella schermata cliente
+Aggiungi modifica meeting quando clicco sul calendario
+- Modifica api meeting aggiungendo collegamento al cliente
+- Formatta decendetemente la data
+- fai il pulsante add
+- Fai il visualizza appuntamenti (solo per il cliente x)

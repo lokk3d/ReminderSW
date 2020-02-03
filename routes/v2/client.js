@@ -7,7 +7,7 @@ require("dotenv").config();
 router.route("/").get((req, res) => {
     const username = req.decoded.user;
 
-    Client.find({professional: username})
+    Client.find({professional: username}).sort([['updatedAt', 'descending']])
       .then(client => {
          res.status(200).json(client)
       })

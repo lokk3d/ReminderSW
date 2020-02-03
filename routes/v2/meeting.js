@@ -35,6 +35,15 @@ router.route("/:id").get((req, res) => {
       .catch(err => res.status(404).json("Error" + err));
 });
 
+router.route("/delete").delete((req, res) => {
+   const username = req.decoded.user;
+   Meeting.findOneAndDelete({ _id: req.body.id })
+      .then(meeting => {
+         res.status(200).json(meeting)
+      })
+      .catch(err => res.status(404).json("Error" + err));
+});
+
 /*
 Retrive all the meetings of one client matched with the professional
 */
@@ -48,7 +57,7 @@ router.route("/getMeetingsByClient").post([
    }
    const username = req.decoded.user;
 
-   Meeting.find({ professional: username, client: req.body.client })
+   Meeting.find({ professional: username, client: req.body.client }).sort([['updatedAt', 'descending']])
       .then(meeting => {
          res.status(200).json(meeting)
       })

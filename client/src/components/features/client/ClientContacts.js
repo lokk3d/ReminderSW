@@ -53,7 +53,7 @@ function ClientContacts(props) {
       .catch((err) => {
         console.log(err)
       })
-    },[])
+    },[props])
 
     const updateContacts = (target, value) => {
         let newContacts = contacts

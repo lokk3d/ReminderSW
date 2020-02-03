@@ -4,40 +4,65 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
+import ClientPersonalData from "../client/ClientPersonalData"
+import ClientContacts from "../client/ClientContacts"
+import WrapperBox from "../../shared/WrapperBox"
+import ClientMeetings from "../client/ClientMeetings"
+
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
 }));
 
 
 function CustomersPage(props) {
     const classes = useStyles();
 
+    const [id, setId] = useState()
+
 
     return (
-        <div style={{padding:20}}>
+        <div style={{ padding: 20 }}>
             <Grid container spacing={3}>
                 <Grid item md={4} >
 
                     <Paper className={classes.paper}>
-                        <SearchableClientList addClient={true}/>
+                        <SearchableClientList addClient={true}
+                            onSelectedClient={(e) => setId(e)} />
                     </Paper>
 
                 </Grid>
 
-                <Grid item md={8} >
+                {
+                    (id) ?
+                        <Grid item md={8} >
 
-                    <Paper className={classes.paper}>
-                        xs=6 sm=3
-                    </Paper>
+                            <Grid container spacing={10} >
 
-                </Grid>
+                                <Grid item xs={12} sm={6} >
+                                    <ClientPersonalData id={id} />
+                                    <ClientContacts id={id} />
+
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <WrapperBox header="Appuntamenti">
+                                        <ClientMeetings  id={id}/>
+                                    </WrapperBox>
+                                </Grid>
+
+
+                            </Grid>
+
+                        </Grid>
+                        : null
+                }
+
             </Grid>
         </div>
     )

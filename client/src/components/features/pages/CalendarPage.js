@@ -5,9 +5,8 @@ function CalendarPage(props) {
     return (
         <div style={{
             padding: 5,
-            height: "auto",
             display: "flex",
-            width: "auto",
+            height:"80%",
             justifyContent: "center",
             backgroundColor:"#fff",
             borderRadius:"5px",

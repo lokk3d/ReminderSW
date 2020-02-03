@@ -124,9 +124,8 @@ function PersonalData(props) {
                     <div>{personalData.email}</div>
                 </div>
 
-                <Button onClick={log} variant="outlined" color="secondary" style={{ marginLeft: 30 }} >LOG di sistema</Button>
 
-                <Button onClick={logout} style={{ marginLeft: 30 }}>Logout...</Button>
+                <Button size="small" onClick={logout}>Logout...</Button>
             </div>
         </WrapperBox>
     )
