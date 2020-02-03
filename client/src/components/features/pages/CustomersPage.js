@@ -43,7 +43,7 @@ function CustomersPage(props) {
                     (id) ?
                         <Grid item md={8} >
 
-                            <Grid container spacing={10} >
+                            <Grid container spacing={1} >
 
                                 <Grid item xs={12} sm={6} >
                                     <ClientPersonalData id={id} />
