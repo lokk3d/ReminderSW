@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import WrapperBox from "../../shared/WrapperBox";
 import { Button } from '@material-ui/core';
 import Cookies from 'universal-cookie';
@@ -6,7 +6,7 @@ import axios from "axios"
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import CustomEditText from "../../shared/CustomEditText"
 import { useHistory } from 'react-router-dom';
-
+import { AuthContext } from "../../../App"
 
 const useStyles = makeStyles(theme => ({
     row: {
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 function PersonalData(props) {
     const classes = useStyles();
     let history = useHistory();
-
+    const context = useContext(AuthContext)
     const cookies = new Cookies();
     const token = cookies.get('dateReminder-AuthToken')
 
@@ -40,6 +40,7 @@ function PersonalData(props) {
     lastName: "", email: "", fiscalCode: "", avatar:"" })
 
     const [render, setRender] = useState(0)
+
 
     useEffect(() => {
         axios.get("/api/user/",
@@ -59,9 +60,10 @@ function PersonalData(props) {
     }, [personalData])
 
 
-    const logout = () => {
+    const flogout = () => {
         cookies.remove("dateReminder-AuthToken")
-        window.location = "/"
+        context.setAuth(false)
+        history.push("/")
     }
 
 
@@ -125,7 +127,7 @@ function PersonalData(props) {
                 </div>
 
 
-                <Button size="small" onClick={logout}>Logout...</Button>
+                <Button size="small" onClick={flogout}>Logout...</Button>
             </div>
         </WrapperBox>
     )

@@ -252,6 +252,7 @@ function Navbar(props) {
           }
           if(data.type === "image"){
             setBackground({
+              height:"100%",
               backgroundImage      : "url("+data.url+")",
               backgroundAttachment : "fixed",
               backgroundPosition   : "center center",    

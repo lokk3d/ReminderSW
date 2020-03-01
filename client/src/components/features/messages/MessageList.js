@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import MessageBox from "./MessageBox"
 
 function MessageList(props) {
     let messages = props.messages || []
@@ -55,14 +56,23 @@ function MessageList(props) {
 
     return (
         <div>
-            <div>{"Debug:  " + variant}</div>
-            <div>{JSON.stringify(messages)}</div>
+            {/* <div>{"Debug:  " + variant}</div>
+            <div>{JSON.stringify(messages)}</div> */}
             {
                 (filteredMessages.length === 0) ?
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
                         <AddCircleOutlineIcon style={{ margin: 10 }} />
                         <p>{emptyMessageList[props.variant]}</p>
-                    </div> : null
+                    </div> : 
+                    <div>
+                        {
+                        filteredMessages.map((item)=>{
+                            return(
+                            <MessageBox key={item._id} message={item}/>
+                            )
+                        })
+                    }
+                    </div>
                
             }
         </div>
