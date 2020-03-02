@@ -1,9 +1,9 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Cookies from 'universal-cookie';
-import {connect} from "react-redux"
+import {connect, useDispatch } from "react-redux"
 
 
 import {setToken} from "./redux/user/user"
@@ -80,6 +80,8 @@ function App(props) {
   const cookies = new Cookies();
   const token = cookies.get('dateReminder-AuthToken')
 
+  const dispatch = useDispatch()
+
   const [auth, setAuth] = useState(!!token)
 
   const initialValue = {
@@ -87,7 +89,10 @@ function App(props) {
     setAuth: (e) => { setAuth(e) }
   }
   console.log("Props:"+ JSON.stringify(props))
-  setToken("ciao")
+
+  useEffect(()=>{
+    dispatch(setToken("ciao")) //usando questa hook funziona correttamente
+  },[])
 
   return (
     <div style={{ height: "100%" }}>
@@ -151,7 +156,7 @@ const mapDispatchToProps2 = dispatch => {
 }
 
 //così non esegue l'azione
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps1 = dispatch => {
   return {
     // dispatching plain actions
     setToken: (token) => dispatch(setToken(token))
@@ -164,5 +169,5 @@ function mapStoreToProps (store){
   }
 }
 
-export default connect(mapStoreToProps, mapDispatchToProps)(App);
+export default connect(mapStoreToProps)(App);
 export { AuthContext }

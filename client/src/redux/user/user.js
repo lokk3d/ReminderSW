@@ -1,5 +1,5 @@
-const GET_TOKEN = "GET_TOKEN"
 const SET_TOKEN = "SET_TOKEN"
+const LOG_OUT = "LOG_OUT"
 
 
 export const setToken = (token) =>{
@@ -11,17 +11,21 @@ export const setToken = (token) =>{
     }
 }
 
-export function getToken(token){
+export const logOut = () =>{
     return {
-        type:GET_TOKEN
+        type:LOG_OUT
     }
 }
+
+
 
 
 export const userReducer = function(state = {token:"", appTitle:"Redeo"}, action){
     switch(action.type){
         case SET_TOKEN:
             return {...state, token: action.payload.token}
+        case LOG_OUT:
+            return {...state, token: ""}
     }
     return state
 }
